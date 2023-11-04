@@ -1,0 +1,108 @@
+/* LeftSidebar.css */
+.left-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height of the viewport */
+    background-color: #fff;
+    color: #333;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    width: 300px;
+}
+  
+.left-sidebar.reduced {
+    width: 60px;
+}
+  
+.logo {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 15px;
+}
+
+.logoReducerWrapper{
+    margin-top: 15px;
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+    background-color: #5DB075;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.menuReducer{
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+    background-color: #5DB075;
+}
+  
+.menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+  
+.menu-button {
+    background-color: #fff;
+    border: 1px solid #5DB075;
+    color: #5DB075;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+  
+.menu-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+.menu-items li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+  
+.menu-items li:hover {
+    background-color: #ECFFF1;
+    opacity: 0.7;
+    color: #5DB075;
+}
+  
+.sidebar-controls {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto; /* Push to the bottom */
+    padding-bottom: 20px; /* Add padding to separate from the bottom */
+}
+  
+.control-button {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #00FF00;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+  
+.disconnect-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.style-icon{
+    font-size: 20px;
+}
+  

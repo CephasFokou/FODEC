@@ -1,0 +1,15 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+  
+.content-container {
+    flex: 1;
+}
+
+.geo-map-wrapper{
+    background-color: #F5F5F5;
+    height: calc(100vh - 100px);
+}
