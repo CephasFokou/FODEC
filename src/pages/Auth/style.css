@@ -1,39 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-/* Set up the container */
-.container {
-    height: 100vh;
-    background-color: #F5F5F5;
-}
-.row{
-    display: flex;
-}
-.logo-wrapper{
-    font-weight: 400;
-    font-size: 45px;
-    margin: 10px;
-}
-.logo-first-side{
-    color: #2D672A,;
-}
+@font-face {
+    font-family: 'Product Sans';
+    src: url('../../assets/fonts/product-sans/Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Product Sans';
+    src: url('../../assets/fonts/product-sans/Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
 
-.logo-second-side{
-    color: #7EB956;
-}
+  *{
+    font-family: 'Product Sans', sans-serif;
+  }
+
+
 .form-wrapper {
     flex: 6;
-    border-radius: 8px;
-    padding: 20px;
-    max-width: 400px;
     margin: auto;
     overflow-y: auto; 
     margin: 50px;
-}
-
-/* Style for the form wrapper */
-.form-wrapper {
     border-radius: 8px;
     padding: 20px;
     width: 100%;
@@ -82,12 +71,9 @@ input[type="password"] {
   
   /* Style for the submit button (customize as needed) */
 button[type="submit"] {
-    background-color: #5DB075; /* Button background color */
-    color: #fff; /* Button text color */
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
     align-self: flex-end;
@@ -99,11 +85,7 @@ button[type="submit"]:hover {
   
 /* Style for the board-wrapper on the right */
 .board-wrapper {
-    flex: 6;
     background-image: url("https://cdn.pixabay.com/photo/2020/06/23/06/54/dji-5331597_640.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
 }
 /* Style for the logo image (customize as needed) */
 .logo img {
