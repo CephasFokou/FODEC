@@ -6,27 +6,29 @@
     background-color: #fff;
     color: #333;
     transition: width 0.3s ease;
+    padding-inline:  16px;
     overflow: hidden;
     width: 300px;
 }
   
 .left-sidebar.reduced {
     width: 60px;
+    padding-inline: 0px;
+    align-items: center;
 }
   
 .logo {
     text-align: center;
     padding: 20px 0;
-    margin-bottom: 15px;
 }
 
 .logoReducerWrapper{
-    margin-top: 15px;
-    height: 60px;
-    width: 60px;
-    border-radius: 10px;
+    margin-top: 10px;
+    height: 48px;
+    width: 48px;
+    border-radius: 8px;
     background-color: #5DB075;
-    margin-bottom: 15px;
+    margin-bottom: 86px;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
@@ -36,11 +38,12 @@
     border-radius: 10px;
     background-color: #5DB075;
 }
-  
 .menu {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 100%;
+    padding-left: 16px;
 }
   
 .menu-button {
@@ -52,8 +55,9 @@
     cursor: pointer;
     font-weight: bold;
     text-align: center;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    margin-top: 76px;
+    margin-bottom: 12px;
+    width: 100%;
 }
   
 .menu-items {
@@ -63,17 +67,18 @@
 }
   
 .menu-items li {
+    color: #7A817A;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding-inline: 12px;
+    height: 48px;
     cursor: pointer;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
   
 .menu-items li:hover {
     background-color: #ECFFF1;
-    opacity: 0.7;
     color: #5DB075;
 }
   
@@ -96,13 +101,16 @@
     text-align: center;
 }
   
-.disconnect-link {
-    padding: 10px 20px;
-    cursor: pointer;
-    font-weight: bold;
+
+
+.menu-icon{
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+.reduced-menu-icon{
+    width: 20px;
+    height: 20px;
 }
 
-.style-icon{
-    font-size: 20px;
-}
   

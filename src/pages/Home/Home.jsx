@@ -6,7 +6,7 @@ import MapContainer from '../../components/MapContainer/MapContainer '
 
 const Home = () => {
     return (
-        <div className="home-container">
+        <div className="flex justify-start items-start">
             <LeftSidebar />
             <div className="content-container">
                 <Header />

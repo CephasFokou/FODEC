@@ -1,8 +1,4 @@
-/* Default styles for the container */
-.header-container {
-    background-color: #fff;
-    padding: 5px;
-}
+
 
 /* Default styles for the header row */
 .header-row {
@@ -12,16 +8,14 @@
 }
 
 /* Default styles for the search input and icon */
-.search-input-wrapper {
+.input-wrapper {
     display: flex;
     align-items: center;
-    padding: 10px;
+    justify-content: space-between;
+    border-radius: 4px;
+    height: 40px;
 }
 
-.search-input {
-    display: flex;
-    align-items: center;
-}
 
 .style-icon {
     width: 20px;
@@ -37,15 +31,7 @@
     outline: none;
 }
 
-/* Default styles for the filter button */
-.filter-button {
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    cursor: pointer;
-    align-items: center;
-    display: flex;
-}
+
 
 /* Default styles for the user info */
 .user-info-wrapper {
@@ -53,12 +39,7 @@
     align-items: center;
 }
 
-.user-profile-picture-wrapper img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
+
 
 .user-profile-name p {
     font-weight: bold;
@@ -66,10 +47,7 @@
 
 /* Media query for smaller screens */
 @media (max-width: 768px) {
-    .header-row {
-        flex-direction: column;
-        align-items: center;
-    }
+    
 
     .search-input-wrapper {
         margin-bottom: 10px;
@@ -99,7 +77,5 @@
         align-items: center;
     }
 
-    .user-profile-picture-wrapper img {
-        margin-bottom: 10px;
-    }
+    
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import './style.css'
 
 const Login = () => {
@@ -19,12 +20,14 @@ const Login = () => {
                     </select>
                     </div>
                     <div className="form-group">
-                        <input type="tel" name="email" placeholder="Email" />
+                        <input className='form-input' type="tel" name="email" placeholder="Email" />
                     </div>
                     <div className="form-group">
-                        <input type="text" name="username" placeholder="Password" />
+                        <input type="text" className='form-input' name="username" placeholder="Password" />
                     </div>
-                    <button type="submit" className='mt-5 mb-10 bg-green-main text-white mr-2.5'>Se connecter</button>
+                    <button type="submit" className='mt-5 mb-10 bg-green-main text-white mr-2.5'>
+                        <Link to="/"> Se connecter</Link>
+                    </button>
                     <div className='flex self-center justify-center' >
                         <span className='text-gray-dark'>Mot de passe oublie ? </span> 
                         <a href=""  className='text-secondary-main'> cliquez ici</a>
