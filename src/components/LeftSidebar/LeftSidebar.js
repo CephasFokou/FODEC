@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LeftSidebar.css';
 import HandleSite from './HandleSite/HandleSite';
-import { ArrowRightOnRectangleIcon,ChevronRightIcon, ArrowTrendingUpIcon, ChevronLeftIcon, GlobeEuropeAfricaIcon, MapIcon, MapPinIcon, PlusIcon, SunIcon } from '@heroicons/react/24/outline';
+import { ArrowRightOnRectangleIcon,ChevronRightIcon,ChevronDownIcon, ArrowTrendingUpIcon, ChevronLeftIcon, GlobeEuropeAfricaIcon, MapIcon, MapPinIcon, PlusIcon, SunIcon } from '@heroicons/react/24/outline';
 
 const LeftSidebar = () => {
     const [isReduced, setIsReduced] = useState(false);
@@ -22,16 +22,16 @@ const LeftSidebar = () => {
 				<div className='logoReducerWrapper'> {/*logo here */}</div>
 				:
 				<div className="logo">
-					<h2 className='font-bold text-[25px] text-center mb-6'>
+					<div className='font-bold text-[25px] text-center'>
                         <span className='text-dark-main'>SEED</span>
                         <span className='text-green-main'>TRACK</span>
-                    </h2>
+                    </div>
 				</div>
 			}
 			<div>
 
 				{isReduced ?
-					<button className='rounded bg-green-main h-10 w-12 text-white flex items-center justify-center'>
+					<button className='rounded bg-green-main mb-8 h-10 w-12 text-white flex items-center justify-center'>
 						<PlusIcon className="reduced-menu-icon" /> 
 					</button>
 				: 
@@ -104,7 +104,7 @@ const LeftSidebar = () => {
 						{isReduced ? (
 							<ArrowRightOnRectangleIcon className='reduced-menu-icon' />
 						) : (
-							<> <span className='text-gray-dark text-xs'>Se déconnecter</span> <ArrowRightOnRectangleIcon className='menu-icon' /></>
+							<> <span className='text-gray-dark text-sm'>Se déconnecter</span> <ArrowRightOnRectangleIcon className='menu-icon' /></>
 						)}
 					</li>
 				</ul>
@@ -114,5 +114,4 @@ const LeftSidebar = () => {
 		</div>
     );
 };
-
 export default LeftSidebar;

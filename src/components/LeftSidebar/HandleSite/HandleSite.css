@@ -2,3 +2,10 @@
  .manrope-font{
     font-family: 'Manrope', sans-serif;
  }
+ .c-container{
+   margin-left: 4px;
+   margin-right: -32px;
+ }
+ .c-container div{
+   padding-inline: 2px !important;
+ }

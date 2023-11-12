@@ -1,5 +1,6 @@
 /* LeftSidebar.css */
 .left-sidebar {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     height: 100vh; /* Full height of the viewport */
@@ -7,8 +8,20 @@
     color: #333;
     transition: width 0.3s ease;
     padding-inline:  16px;
-    overflow: hidden;
-    width: 300px;
+    overflow-x: hidden;
+    width: clamp(20vw,300px,25vw);
+    &::-webkit-scrollbar {
+        height: 5px !important;
+        width: 5px !important;
+        background: white;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: lightgray;
+        -webkit-border-radius: 8px;
+    }
+    &::-webkit-scrollbar-corner {
+        background: white;
+    }
 }
   
 .left-sidebar.reduced {
@@ -28,7 +41,7 @@
     width: 48px;
     border-radius: 8px;
     background-color: #5DB075;
-    margin-bottom: 86px;
+    margin-bottom: 56px;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
@@ -55,8 +68,8 @@
     cursor: pointer;
     font-weight: bold;
     text-align: center;
-    margin-top: 76px;
-    margin-bottom: 12px;
+    margin-top: 36px;
+    margin-bottom: 32px;
     width: 100%;
 }
   
