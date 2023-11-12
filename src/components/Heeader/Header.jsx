@@ -1,8 +1,12 @@
 import React from 'react'
 import './Header.css'
 import { AdjustmentsHorizontalIcon,QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+    const profile = useSelector((state) => state.auth);
+    const {username, email} = profile.user;
+    console.log("Profile home", username, email);
     return (
         <div className="flex items-center justify-between font-bold text-sm text-black h-[64px]">
             <div className="ml-4 input-wrapper w-[300px] h-10 pl-2.5  relative">
@@ -12,9 +16,7 @@ const Header = () => {
                 </svg>
             </div>
             <div className='flex items-center mr-1'>
-                
                 <QuestionMarkCircleIcon  className=' text-gray-dark h-6 w-6'/>
-
                 <div className="input-wrapper">
                     <select name="" id="" className='px-2 bg-gray-ligth mr-1 w-[159px] h-10 outline-0'>
                         <option value="">Speculation</option>
@@ -40,14 +42,12 @@ const Header = () => {
                     <div className="h-6 w-6  mr-2">
                         <img src="./agriculture.jpg" className='rounded-[50%] h-full w-full object-cover' alt="user-profile-picture" />
                     </div>
-                    <span className='text-[#1C1C1C]'>Username</span>
+                    <span className='text-[#1C1C1C]'>{username}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M3.64645 5.65967C3.84171 5.44678 4.15829 5.44678 4.35355 5.65967L7.64645 9.25C7.84171 9.4629 8.15829 9.4629 8.35355 9.25L11.6464 5.65968C11.8417 5.44678 12.1583 5.44678 12.3536 5.65968C12.5488 5.87257 12.5488 6.21775 12.3536 6.43065L9.06066 10.021C8.47487 10.6597 7.52513 10.6597 6.93934 10.021L3.64645 6.43065C3.45118 6.21775 3.45118 5.87257 3.64645 5.65967Z" fill="black" fill-opacity="0.2"/>
                     </svg>
                 </div>  
             </div>
-
-            
         </div>
     )
 }

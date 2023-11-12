@@ -14,8 +14,6 @@ const LeftSidebar = () => {
 	function changeSelectedMenuItem(menuItem){
 		setSelectedMenuItem(menuItem);
 	}
-
-
     return (
         <div className={`left-sidebar ${isReduced ? 'reduced' : ''}`}>
 			{isReduced?
@@ -110,7 +108,6 @@ const LeftSidebar = () => {
 				</ul>
 			</div>
 		}
-			
 		</div>
     );
 };

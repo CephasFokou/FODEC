@@ -7,12 +7,18 @@ import NotFound from './pages/NotFound';
 import Signup from './pages/Auth/Signup';
 
 function App() {
+    const isAuthenticated = localStorage.getItem('isAuthenticated');
     return (
         <BrowserRouter>
             <Routes>
-                <Route  index element={<Home />}/>
-                <Route path='/login' element={<Login/>}/>
-                <Route path='/signup' element={<Signup />}/>
+                {isAuthenticated ? (
+                    <Route index element={<Home />} />
+                ) : (
+                    <>
+                        <Route path='/login' element={<Login />} />
+                        <Route path='/signup' element={<Signup />} />
+                    </>
+                )}
                 {/* Catch-all route for 404 Not Found */}
                 <Route path="/*" element={<NotFound />} />
             </Routes>
