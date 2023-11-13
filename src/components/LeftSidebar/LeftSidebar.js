@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LeftSidebar.css';
 import HandleSite from './HandleSite/HandleSite';
+import HandleLine from './HandleLine/HandleLine';
 import { ArrowRightOnRectangleIcon,ChevronRightIcon, ArrowTrendingUpIcon, ChevronLeftIcon, MapIcon, MapPinIcon, PlusIcon, SunIcon } from '@heroicons/react/24/outline';
 
 const LeftSidebar = () => {
@@ -35,12 +36,14 @@ const LeftSidebar = () => {
 						<PlusIcon className="reduced-menu-icon" /> 
 					</button>
 				: 
-					<button className='menu-button flex justify-center items-center capitalize'>
+					<div className=' menu-button flex justify-center items-center capitalize relative'>
 						{selectedMenuItem!=='Menu' && 
-							<ChevronLeftIcon onClick={()=>changeSelectedMenuItem('Menu')} className='h-4 w-5 text-gray-dark mr-1'/>
+							<svg className='cursor-pointer absolute left-4 top-[13px]' onClick={()=>changeSelectedMenuItem('Menu')}  xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
+								<path d="M0.223806 6.45942L6.41329 0.270253C6.7117 -0.0281541 7.19577 -0.0281541 7.49418 0.270253L8.21615 0.992227C8.51424 1.29032 8.51456 1.77312 8.21743 2.07184L3.31202 6.99987L8.21711 11.9282C8.51456 12.2269 8.51392 12.7097 8.21584 13.0078L7.49386 13.7298C7.19545 14.0282 6.71138 14.0282 6.41297 13.7298L0.223806 7.54031C-0.0746018 7.2419 -0.0746018 6.75783 0.223806 6.45942Z" fill="#7EB956" fill-opacity="0.19"/>
+							</svg>
 						}
 						{selectedMenuItem}
-					</button>
+					</div>
 				}
 
 				{selectedMenuItem==='Menu'&&
@@ -97,7 +100,10 @@ const LeftSidebar = () => {
 					</ul>
 				}
 				{
-					selectedMenuItem==='Gestion site'&& <HandleSite/>
+					selectedMenuItem==='Gestion site' && <HandleSite/>
+				}
+				{
+					selectedMenuItem==='Ligne' && <HandleLine/>
 				}
 				
 			</div>

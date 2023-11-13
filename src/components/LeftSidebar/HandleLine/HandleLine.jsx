@@ -1,47 +1,51 @@
 import React from 'react';
-import './HandleSite.css';
-import CustomDropDown from '../../CustomDropDown/CustomDropDown'
-import Site from '../Items/Site';
-import Searchbar from '../Searchbar'
-const siteList=[ {
-    name: 'abom mbanga',
-    amount: '07'
-},{
-    name:'abom mbangant',
-    amount: '15'
-}]
-const sortList=['propio','option 2', 'option 3'];
+import CustomDropDown from '../../CustomDropDown/CustomDropDown';
+import Searchbar from '../Searchbar';
+import Tree from '../Items/Tree';
 
-const renderedListItem = siteList.map(site =>
+const treeList=[ {
+    name: 'Artemesia',
+    specification: 'CodeGPS  |  Mort | Mâle | Manquant'
+},
+{
+    name:'Sapin',
+    specification: 'CodeGPS  |  Saint | Mâle'
+},
+{
+    name:'Eucalyptus',
+    specification: 'CodeGPS  |  Saint | Mâle'
+},
+
+]
+const sortList=['Etat sanitaire','option 2', 'option 3'];
+
+const renderedListItem = treeList.map(tree =>
     <div className='flex flex-col mb-2.5'>
-        <Site site={site} />
+        <Tree tree={tree} />
     </div>
 );
 
-const HandleSite= () => {
+const HandleLine=() => {
     return (
         <div className="manrope-font">
-
             <Searchbar />
 
             <div>
                 <div className='mt-4 mb-3 px-3 w-full text-xs flex justify-between items-center'>
                     <div className='text-gray-true-800' > Search results 02</div>
-                    <div className='flex items-center'>
+                    <div className=' flex items-center'>
                         <span>Sort:</span>
                         <div className='c-container'>
                             <CustomDropDown dropdownItem={sortList} height={'h-[30px]'} />
                         </div>
                     </div>
                 </div>
-
-                <div className='hidden' >
-                    <Site site={siteList[0]} />
-                </div>
             </div>
 
             {renderedListItem}
+           
+
         </div>
     )
-}
-export default HandleSite
+};
+export default HandleLine;
