@@ -19,15 +19,15 @@ const Site= ({site}) => {
                         </svg>
                     </div>
                     {showDetail ?
-                        <ChevronDownIcon onClick={()=>hideOrShowDEtail(!showDetail)} className='h-5 w-4 ml-2 cursor-pointer'/>
-                    :
                         <ChevronUpIcon onClick={()=>hideOrShowDEtail(!showDetail)} className='h-5 w-4 ml-2 cursor-pointer'/>
+                    :
+                        <ChevronDownIcon onClick={()=>hideOrShowDEtail(!showDetail)} className='h-5 w-4 ml-2 cursor-pointer'/>
                     }
                 </div>
             </div>
 
-            {!showDetail &&
-                <div className='manrope-font rounded border border-solid border-black/10 bg-[#F5F5F5]  text-[10px] gray-true-600 flex justify-between mb-4 p-2 pb-2.5'>
+            {showDetail &&
+                <div className='manrope-font rounded border border-solid border-black/10 bg-[#F5F5F5]  text-[10px] gray-true-600 flex justify-between p-2 pb-2.5'>
                     <div className='text-left'>
                         <span className='block'> <span className='font-extrabold'>15%</span> champs</span>
                         <span className='block'> <span className='font-extrabold'>05%</span> arbre mâle NC</span>

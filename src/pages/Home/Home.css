@@ -34,7 +34,7 @@
     left: 0px;
     position: absolute;
     background-color: white;
-    
+    overflow: hidden;
 }
 
 .custom-dropdown-item{

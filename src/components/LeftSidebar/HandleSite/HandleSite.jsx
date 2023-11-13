@@ -1,7 +1,7 @@
-import React from 'react'
-import './HandleSite.css'
+import React from 'react';
+import './HandleSite.css';
 import CustomDropDown from '../../CustomDropDown/CustomDropDown'
-import Site from './Site/Site'
+import Site from './Site/Site';
 const siteList=[ {
     name: 'abom mbanga',
     amount: '07'

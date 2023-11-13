@@ -91,7 +91,7 @@
 }
   
 .menu-items li:hover {
-    background-color: #ECFFF1;
+    background-color: #ecfff1;
     color: #5DB075;
 }
   
@@ -124,6 +124,14 @@
 .reduced-menu-icon{
     width: 20px;
     height: 20px;
+}
+.tree-icon {
+    fill: #7A817A;
+    stroke: #7A817A;
+    &:hover{
+        fill: #5DB075;
+        stroke: #5DB075;
+    }
 }
 
   
