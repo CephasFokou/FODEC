@@ -11,15 +11,9 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                {isAuthenticated ? (
-                    <Route index element={<Home />} />
-                ) : (
-                    <>
-                        <Route path='/login' element={<Login />} />
-                        <Route path='/signup' element={<Signup />} />
-                    </>
-                )}
-                {/* Catch-all route for 404 Not Found */}
+                <Route index element={<Home />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
