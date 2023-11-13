@@ -40,7 +40,7 @@ const Header = () => {
 
                 <div className='flex items-center'>
                     <div className="h-6 w-6  mr-2">
-                        <img src="./agriculture.jpg" className='rounded-[50%] h-full w-full object-cover' alt="user-profile-picture" />
+                        <img src="./agriculture.jpg" className='rounded-[50%] h-full w-full object-cover' alt="user-profile" />
                     </div>
                     <span className='text-[#1C1C1C]'>{username}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

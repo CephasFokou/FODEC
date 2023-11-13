@@ -7,7 +7,7 @@ import NotFound from './pages/NotFound';
 import Signup from './pages/Auth/Signup';
 
 function App() {
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
+    // const isAuthenticated = localStorage.getItem('isAuthenticated');
     return (
         <BrowserRouter>
             <Routes>
