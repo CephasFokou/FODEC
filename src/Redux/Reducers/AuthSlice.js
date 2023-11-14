@@ -5,7 +5,7 @@ import axios from 'axios';
 export const registerUser = createAsyncThunk('auth/signUpUser', async ({ username, email, password }, { rejectWithValue }) => {
     try {
         console.log("username, email, password ", username, email, password )
-        const response = await axios.post('http://18.205.17.8:8080/api/auth/signup', {
+        const response = await axios.post('http://18.212.203.188:8080/api/auth/signup', {
             username,
             email,
             role: ['ROLE_USER'],
@@ -19,7 +19,7 @@ export const registerUser = createAsyncThunk('auth/signUpUser', async ({ usernam
   
 export const loginUser = createAsyncThunk('auth/loginUser', async ({ username, password }, { rejectWithValue }) => {
     try {
-        const response = await axios.post('http://18.205.17.8:8080/api/auth/signin', { username, password });
+        const response = await axios.post('http://18.212.203.188:8080/api/auth/signin', { username, password });
         console.log("response login", response)
         return response.data;
     } catch (error) {
@@ -62,6 +62,8 @@ const authSlice = createSlice({
             state.user = payload;
             state.token = payload.token;
             state.isAuthenticated = true;
+            localStorage.setItem('user',  JSON.stringify(state.user));
+            localStorage.setItem('isAuthenticated', state.isAuthenticated);
         })
         .addCase(loginUser.rejected, (state, { payload }) => {
             state.loading = false;
