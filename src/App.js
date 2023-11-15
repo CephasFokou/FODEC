@@ -20,6 +20,8 @@ function App() {
                     </>
                 )}
                 <Route path="*" element={<Home />} />
+                <Route path='/login' element={<Login />} exact/>
+                <Route path='/signup' element={<Signup />} exact/>
             </Routes>   
         </BrowserRouter>
     );
