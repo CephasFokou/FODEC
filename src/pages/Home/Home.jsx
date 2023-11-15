@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../../components/Heeader/Header'
+import Header from '../../components/Header/Header'
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar'
 import './Home.css'
 import MapContainer from '../../components/MapContainer/MapContainer '
