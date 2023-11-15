@@ -6,22 +6,14 @@ import Home from './pages/Home/Home';
 import Signup from './pages/Auth/Signup';
 
 function App() {
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    console.log('isAuthenticated', isAuthenticated);
-    // const isAuthenticated = localStorage.getItem('isAuthenticated');
+    const isAuthenticated = localStorage.getItem('auth') === 'true';
     return (
         <BrowserRouter>
-             <Routes>
-                {isAuthenticated ? (
-                    <Route index element={<Home />} />
-                ) : (
-                    <>
-                        <Route path='/login' element={<Login />} exact/>
-                        <Route path='/signup' element={<Signup />} exact/>
-                    </>
-                )}
-                <Route path="*" element={<Home />} />
-            </Routes>   
+            <Routes>
+                <Route path='/home' element={(isAuthenticated ? <Login /> : <Home />)} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path="/*" element={<NotFound />} />
+            </Routes>
         </BrowserRouter>
     );
 }
