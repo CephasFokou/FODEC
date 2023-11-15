@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import ip from '../../ipAdresse';
 
 // Async Thunks for API Requests
 export const registerUser = createAsyncThunk('auth/signUpUser', async ({ username, email, password }, { rejectWithValue }) => {
     try {
         console.log("username, email, password ", username, email, password )
-        const response = await axios.post('http://18.205.17.8:8080/api/auth/signup', {
+        const response = await axios.post(`${ip}/api/auth/signup`, {
             username,
             email,
             role: ['ROLE_USER'],
@@ -19,7 +20,7 @@ export const registerUser = createAsyncThunk('auth/signUpUser', async ({ usernam
   
 export const loginUser = createAsyncThunk('auth/loginUser', async ({ username, password }, { rejectWithValue }) => {
     try {
-        const response = await axios.post('http://18.205.17.8:8080/api/auth/signin', { username, password });
+        const response = await axios.post(`${ip}/api/auth/signin`, { username, password });
         console.log("response login", response)
         return response.data;
     } catch (error) {
