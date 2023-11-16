@@ -6,7 +6,7 @@ const Site= ({site}) => {
 
     return (
         <>
-            <div  onClick={()=>hideOrShowDEtail(!showDetail)}  className='border-[0.5px] border-solid border-black/10 w-full h-10 rounded px-2 flex items-center justify-between'>
+            <div  onClick={()=>hideOrShowDEtail(!showDetail)}  className='border-[0.5px] border-solid border-black/10 w-full min-h-[40px] rounded py-1 px-2 flex items-center justify-between'>
                 <div>
                     <div className="font-['Open_Sans'] text-xs text-black/50 font-bold uppercase">{site.name}</div>
                     <div className="font-medium text-[10px] text-black manrope-font">{site.amount} champs</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './HandleSite.css';
 import CustomDropDown from '../../CustomDropDown/CustomDropDown'
-import Site from '../Items/Site';
+import Site from './Items/Site';
 import Searchbar from '../Searchbar'
 const siteList=[ {
     name: 'abom mbanga',

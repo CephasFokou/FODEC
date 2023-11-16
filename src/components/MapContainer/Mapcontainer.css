@@ -21,11 +21,11 @@
     border-bottom: 1px solid transparent;
     cursor: pointer;
     box-sizing: border-box;
-    &:hover{
-        background-color: #F5F5F566;
-        border-bottom: 1px solid #e5e5e5;
-    }
-    &.selected-range{
-        color: #5DB075;
-    }
+}
+.map-dropdown-item:hover{
+    background-color: #F5F5F566;
+    border-bottom: 1px solid #e5e5e5;
+}
+.map-dropdown-item.selected-range{
+    color: #5DB075;
 }

@@ -5,7 +5,7 @@ const Tree= ({tree})=>{
     const [showDetail,hideOrShowDEtail]= useState(false);
     return (
         <>
-            <div onClick={()=>hideOrShowDEtail(!showDetail)}  className='border-[0.5px] border-solid border-black/10 w-full h-10 rounded px-2 flex items-center justify-between'>
+            <div onClick={()=>hideOrShowDEtail(!showDetail)}  className='border-[0.5px] border-solid border-black/10 w-full min-h-[40px] rounded py-1 px-2 flex items-center justify-between'>
                 <div>
                     <div className="font-['Open_Sans'] text-xs text-black/50 font-bold uppercase">{tree.name}</div>
                     <div className="font-medium text-[10px] text-black manrope-font">{tree.specification}</div>
@@ -20,8 +20,8 @@ const Tree= ({tree})=>{
             </div>
 
             {showDetail &&
-                <div className='manrope-font rounded border border-solid border-black/10  text-[10px] gray-true-600 flex justify-between items-center pl-2.5 pt-1 pr-1 pb-2.5'>
-                    <div className='mr-5'>
+                <div className='flex-wrap manrope-font rounded border border-solid border-black/10  text-[10px] gray-true-600 flex justify-between items-center pl-2.5 pt-1 pr-1 pb-2.5 max-[1000px]:justify-center max-[1000px]:px-2'>
+                    <div className='mr-5 tree-chart'>
                         <svg width="93" height="71" viewBox="0 0 93 71" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="Image">
                             <rect id="Base" x="0.433594" y="3.578" width="92.5" height="63.706" fill="#F2F2F2"/>

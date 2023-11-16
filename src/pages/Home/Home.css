@@ -46,11 +46,14 @@
     border-bottom: 1px solid transparent;
     cursor: pointer;
     box-sizing: border-box;
-    &:hover{
-        background-color: #F5F5F566;
-        border-bottom: 1px solid #e5e5e5;
-    }
-    &.selected-range{
-        color: #5DB075;
-    }
+   
+    
+}
+
+.custom-dropdown-item:hover{
+    background-color: #F5F5F566;
+    border-bottom: 1px solid #e5e5e5;
+}
+.custom-dropdown-item.selected-range{
+    color: #5DB075;
 }

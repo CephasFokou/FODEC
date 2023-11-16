@@ -13,8 +13,10 @@ const LeftSidebar = () => {
     };
 
 	function changeSelectedMenuItem(menuItem){
+		setIsReduced(false);
 		setSelectedMenuItem(menuItem);
 	}
+	
 
 
     return (

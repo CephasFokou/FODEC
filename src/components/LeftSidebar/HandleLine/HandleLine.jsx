@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomDropDown from '../../CustomDropDown/CustomDropDown';
 import Searchbar from '../Searchbar';
-import Tree from '../Items/Tree';
+import Tree from '../HandleSite/Items/Tree';
 
 const treeList=[ {
     name: 'Artemesia',

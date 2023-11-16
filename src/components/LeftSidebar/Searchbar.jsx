@@ -1,7 +1,8 @@
 import React from 'react';
 
 
-const Searchbar= () => {
+const Searchbar= (title) => {
+    
     return (
         <div className='relative w-full'>
             <label htmlFor="searchSite" className="text-xs text-gray-true-500">
