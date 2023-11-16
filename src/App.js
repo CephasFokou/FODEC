@@ -10,18 +10,10 @@ function App() {
     console.log('isAuthenticated', isAuthenticated);
     return (
         <BrowserRouter>
-             <Routes>
-                {isAuthenticated ? (
-                    <Route index element={<Home />} />
-                ) : (
-                    <>
-                        <Route path='/login' element={<Login />} exact/>
-                        <Route path='/signup' element={<Signup />} exact/>
-                    </>
-                )}
-                <Route path="*" element={<Home />} />
-                <Route path='/login' element={<Login />} exact/>
-                <Route path='/signup' element={<Signup />} exact/>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path='/login' element={(isAuthenticated?<Home/>:<Login/>)}/>
+                <Route path='/signup' element={<Signup />}/>
             </Routes>   
         </BrowserRouter>
     );

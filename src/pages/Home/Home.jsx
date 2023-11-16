@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Header from '../../components/Heeader/Header'
 import LeftSidebar from '../../components/LeftSidebar/LeftSidebar'
 import './Home.css'
@@ -12,7 +12,7 @@ const Home = () => {
                 <Header />
                 {/* Add the main content of your Home component here */}
                 <div className='geo-map-wrapper'>
-                    <MapContainer/>
+                    <MapContainer />
                 </div>
             </div>
         </div>
