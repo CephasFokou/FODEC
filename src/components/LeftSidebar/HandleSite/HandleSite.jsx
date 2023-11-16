@@ -21,6 +21,7 @@ const HandleSite= () => {
     );
 
     const handleSiteClick = (site) => { 
+        console.log(selectedSite)
         console.log('Site clicked:', site);
         setSelectedSite(site);
     };
