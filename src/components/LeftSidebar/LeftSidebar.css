@@ -1,5 +1,7 @@
+
 /* LeftSidebar.css */
 .left-sidebar {
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     height: 100vh; /* Full height of the viewport */
@@ -7,14 +9,31 @@
     color: #333;
     transition: width 0.3s ease;
     padding-inline:  16px;
-    overflow: hidden;
-    width: 300px;
+    overflow-x: hidden;
+    min-width: 200px;
+    width: clamp(20vw,350px,25vw);
+}
+
+.left-sidebar::-webkit-scrollbar {
+    height: 5px !important;
+    width: 5px !important;
+    background: white;
+}
+
+.left-sidebar::-webkit-scrollbar-thumb {
+    background: lightgray;
+    -webkit-border-radius: 8px;
+}
+
+.left-sidebar::-webkit-scrollbar-corner {
+    background: white;
 }
   
 .left-sidebar.reduced {
     width: 60px;
     padding-inline: 0px;
     align-items: center;
+    min-width: 60px !important;
 }
   
 .logo {
@@ -28,7 +47,7 @@
     width: 48px;
     border-radius: 8px;
     background-color: #5DB075;
-    margin-bottom: 86px;
+    margin-bottom: 56px;
     transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
@@ -38,6 +57,7 @@
     border-radius: 10px;
     background-color: #5DB075;
 }
+
 .menu {
     display: flex;
     flex-direction: column;
@@ -52,11 +72,10 @@
     color: #5DB075;
     padding: 10px;
     border-radius: 4px;
-    cursor: pointer;
     font-weight: bold;
     text-align: center;
-    margin-top: 76px;
-    margin-bottom: 12px;
+    margin-top: 36px;
+    margin-bottom: 32px;
     width: 100%;
 }
   
@@ -78,7 +97,7 @@
 }
   
 .menu-items li:hover {
-    background-color: #ECFFF1;
+    background-color: #ecfff1;
     color: #5DB075;
 }
   
@@ -100,17 +119,31 @@
     font-weight: bold;
     text-align: center;
 }
-  
-
 
 .menu-icon{
     width: 20px;
     height: 20px;
     margin-left: 10px;
 }
+
 .reduced-menu-icon{
     width: 20px;
     height: 20px;
 }
 
-  
+.tree-icon {
+    fill: #7A817A;
+    stroke: #7A817A;
+}
+
+.tree-icon:hover{
+    fill: #5DB075;
+    stroke: #5DB075;
+}
+
+.c-container svg{
+    margin-left: 1px;
+}
+.c-container .custom-dropdown{
+    width: max-content;
+}

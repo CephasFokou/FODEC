@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import './HandleSite.css'
-import Site from './Site/Site'
+import Site from './Items/Site'
+import './HandleSite.css';
+import CustomDropDown from '../../CustomDropDown/CustomDropDown'
+import Searchbar from '../Searchbar'
 const siteList=[ {
+    id:1,
     name: 'abom mbanga',
     amount: '07',
     lat: 10, // initial latitude
     lng: 15, // initial longitude
 },{
+    id:2,
     name:'abom mbangant',
     amount: '15',
     lat: 0, // initial latitude
     lng: 0, // initial longitude
 }]
+const sortList=['propio','option 2', 'option 3'];
 
 const HandleSite= () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -27,14 +33,11 @@ const HandleSite= () => {
     };
     
     const renderedListItem = filteredSiteList.map((site) => (
-        <div
-          className='flex flex-col gap-2.5 cursor-pointer'
-          key={site.name}
-          onClick={() => handleSiteClick(site)}
-        >
+        <div className='flex flex-col gap-2.5 cursor-pointer' key={site.name} onClick={() => handleSiteClick(site)}>
             <Site site={site} />
         </div>
     ));
+    
     return (
         <div className="manrope-font">
 
@@ -62,6 +65,16 @@ const HandleSite= () => {
                             <option value="">option 2</option>
                             <option value="">option 3</option>
                         </select>
+            <Searchbar />
+
+            <div>
+                <div className='mt-4 mb-3 px-3 w-full text-xs flex justify-between items-center'>
+                    <div className='text-gray-true-800' > Search results 02</div>
+                    <div className='flex items-center'>
+                        <span>Sort:</span>
+                        <div className='c-container'>
+                            <CustomDropDown dropdownItem={sortList} height={'h-[30px]'} />
+                        </div>
                     </div>
                 </div> */}
 
@@ -85,7 +98,7 @@ const HandleSite= () => {
                     </div>
                 </div> */}
             </div>
-           {renderedListItem}
+                {renderedListItem}
         </div>
     )
 }

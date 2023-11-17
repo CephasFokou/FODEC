@@ -16,12 +16,18 @@
     height: 40px;
 }
 
+.center-bloc{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
 
 .style-icon {
     width: 20px;
     height: 20px;
     margin-left: 10px;
 }
+
 
 /* Default styles for select inputs */
 .select-input-wrapper select {
@@ -43,6 +49,14 @@
 
 .user-profile-name p {
     font-weight: bold;
+}
+
+.dropdown-icon{
+    margin-left: 16px;
+    height: 20px;
+    width: 16px;
+    cursor: pointer;
+    min-width: 16px;
 }
 
 /* Media query for smaller screens */
