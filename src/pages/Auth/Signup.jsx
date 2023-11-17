@@ -59,7 +59,7 @@ const Signup = () => {
 
   return (
         <div className='border border-solid border-black bg-gray-ligth w-screen h-screen flex'>
-            <div className="h-full w-1/2  flex justify-center items-center">
+            <div className="h-full grow flex justify-center items-center">
                 <form className='flex form-wrapper flex-col items-center' onSubmit={handleFormSubmit}>
                     <h2 className='font-bold text-5xl text-center mb-6'>
                         <span className='text-dark-main'>SEED</span>
@@ -98,17 +98,17 @@ const Signup = () => {
                         />
                         <div className="error-message">{inputErrors.password}</div>
                     </div>
-                    <button type="submit" className='mt-5 mb-10 bg-green-main text-white mr-2.5'>
+                    <button type="submit" className='mt-5 mb-10 bg-green-main text-white mr-2.5 self-center sm:self-end'>
                         {loading ? 'Signing Up...' : 'Sign Up'}
                     </button>
                     <div>{error && <div className="text-red-500">{error}</div>}</div>
                     <div className='flex self-center justify-center'>
-                        <span className='text-gray-dark'>Already have an account? </span>
-                        <Link to="/login" className='text-secondary-main'>Login here</Link>
+                        <span className='text-gray-dark mr-1'>Already have an account?</span>
+                        <Link to="/login" >Login here</Link>
                     </div>
                 </form>
             </div>
-            <div className="h-full w-1/2 bg-[url('https://cdn.pixabay.com/photo/2020/06/23/06/54/dji-5331597_640.jpg')] bg-cover bg-center">
+            <div className="h-full sm:min-w-[50%] bg-[url('https://cdn.pixabay.com/photo/2020/06/23/06/54/dji-5331597_640.jpg')] bg-cover bg-center">
                 {/*Background image coming from the CSS*/}
             </div>
         </div>
