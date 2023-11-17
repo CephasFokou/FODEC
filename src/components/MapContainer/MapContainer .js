@@ -73,7 +73,7 @@ const MapContainer = ({selectedSite}) => {
             </GoogleMap>
         </LoadScript>
 
-            <div  onMouseLeave={()=>setDropdownState('')}  onClick={()=>setDropdownItem('farm')} className="text-gray-dark absolute bottom-[101px] ml-4 z-10 text-sm font-bold px-4 py-2 text-gray-dark flex rounded-[100px] items-center bg-white/40 ">
+            <div  onMouseLeave={()=>setDropdownState('')}  onClick={()=>setDropdownItem('farm')} className="text-gray-dark absolute bottom-[101px] ml-4 z-10 text-sm font-bold px-4 py-2 flex rounded-[100px] items-center bg-white/40 ">
                 <div>{selectedFarm}</div> 
                 {showDropdown==='farm'? 
                     <>
@@ -90,7 +90,7 @@ const MapContainer = ({selectedSite}) => {
                 }
             </div>
             
-            <div  onMouseLeave={()=>setDropdownState('')}  onClick={()=>setDropdownItem('parcel')} className=" text-gray-dark absolute bottom-[53px] ml-4 z-10 text-sm font-bold px-4 py-2 text-gray-dark flex rounded-[100px] items-center bg-white/40 ">
+            <div  onMouseLeave={()=>setDropdownState('')}  onClick={()=>setDropdownItem('parcel')} className=" absolute bottom-[53px] ml-4 z-10 text-sm font-bold px-4 py-2 text-gray-dark flex rounded-[100px] items-center bg-white/40 ">
                 <div >{selectedParcel}</div> 
                 {showDropdown==='parcel'? 
                     <>

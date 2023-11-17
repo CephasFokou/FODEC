@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import './HandleSite.css'
 import Site from './Items/Site'
 import './HandleSite.css';
-import CustomDropDown from '../../CustomDropDown/CustomDropDown'
-import Searchbar from '../Searchbar'
+//import CustomDropDown from '../../CustomDropDown/CustomDropDown'
+//import Searchbar from '../Searchbar'
 const siteList=[ {
     id:1,
     name: 'abom mbanga',
@@ -17,7 +17,7 @@ const siteList=[ {
     lat: 0, // initial latitude
     lng: 0, // initial longitude
 }]
-const sortList=['propio','option 2', 'option 3'];
+//const sortList=['propio','option 2', 'option 3'];
 
 const HandleSite= () => {
     const [searchTerm, setSearchTerm] = useState('');

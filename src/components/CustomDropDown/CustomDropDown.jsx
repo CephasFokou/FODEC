@@ -15,7 +15,7 @@ const CustomDropDown= ({dropdownItem,height,minWidth}) => {
       );
 
     return (
-        <div  onMouseLeave={()=>setDropdownState(false)}  onClick={()=>setDropdownState(!showDropdown)} className={`custom-dropdown ${minWidth} ${height}`}>
+        <div  onMouseLeave={()=>setDropdownState(false)}  onClick={()=>setDropdownState(!showDropdown)} className={`custom-dropdown h-8 ${minWidth} sm:${height}`}>
                     <div className="min-w-fit">{selectedDropdownItem}</div> 
                     {showDropdown? 
                         <>
