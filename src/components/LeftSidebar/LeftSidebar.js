@@ -4,9 +4,18 @@ import HandleSite from './HandleSite/HandleSite';
 import HandleLine from './HandleLine/HandleLine';
 import { ArrowRightOnRectangleIcon,ChevronRightIcon, ArrowTrendingUpIcon, ChevronLeftIcon, MapIcon, MapPinIcon, PlusIcon, SunIcon } from '@heroicons/react/24/outline';
 
-const LeftSidebar = () => {
+const LeftSidebar = (props) => {
+
     const [isReduced, setIsReduced] = useState(false);
-	const [selectedMenuItem, setSelectedMenuItem]=useState('Menu');
+	const [step,setStep]=useState(1);
+	
+	const selectedMenuItem=props.title;
+	const setSelectedMenuItem=(value)=>{
+		props.setTitle(value);
+		setStep(2);
+	};
+
+	const setCaption=props.setCaption;
 
     const toggleSidebar = () => {
         setIsReduced(!isReduced);
@@ -102,7 +111,7 @@ const LeftSidebar = () => {
 					</ul>
 				}
 				{
-					selectedMenuItem==='Gestion site' && <HandleSite/>
+					selectedMenuItem==='Gestion site' && <HandleSite setTitle={props.setTitle} setCaption={props.setCaption} />
 				}
 				{
 					selectedMenuItem==='Ligne' && <HandleLine/>

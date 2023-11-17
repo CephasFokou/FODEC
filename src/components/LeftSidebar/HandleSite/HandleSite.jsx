@@ -4,9 +4,11 @@ import CustomDropDown from '../../CustomDropDown/CustomDropDown'
 import Site from './Items/Site';
 import Searchbar from '../Searchbar'
 const siteList=[ {
+    id:1,
     name: 'abom mbanga',
     amount: '07'
 },{
+    id:2,
     name:'abom mbangant',
     amount: '15'
 }]
