@@ -7,11 +7,11 @@
     height: 100vh; /* Full height of the viewport */
     background-color: #fff;
     color: #333;
-    transition: width 0.3s ease;
+    transition: width 0.5s ease;
     padding-inline:  16px;
     overflow-x: hidden;
     min-width: 200px;
-    width: clamp(20vw,350px,25vw);
+    width: clamp(20vw,350px,30vw);
 }
 
 .left-sidebar::-webkit-scrollbar {
@@ -28,13 +28,7 @@
 .left-sidebar::-webkit-scrollbar-corner {
     background: white;
 }
-  
-.left-sidebar.reduced {
-    width: 60px;
-    padding-inline: 0px;
-    align-items: center;
-    min-width: 60px !important;
-}
+
   
 .logo {
     text-align: center;
@@ -144,6 +138,8 @@
 .c-container svg{
     margin-left: 1px;
 }
+
 .c-container .custom-dropdown{
     width: max-content;
 }
+
