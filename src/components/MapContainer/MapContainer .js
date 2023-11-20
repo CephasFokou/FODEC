@@ -3,10 +3,11 @@ import { GoogleMap, InfoWindow, LoadScript, Marker, Polyline } from '@react-goog
 import { ChevronDownIcon,ChevronUpIcon } from '@heroicons/react/24/outline';
 import MapTitle from './MapButtons/MapTitle';
 import './Mapcontainer.css'
+import { useSelector } from 'react-redux';
 
-const MapContainer = ({selectedSite}) => {
+const MapContainer = () => {
     const [infoWindowVisible, setInfoWindowVisible] = useState(false);
-
+    const selectedSite = useSelector((state) => state.map?.mapData);
     const mapStyles = {
         width: '100%',
         height: '90vh', // height
@@ -22,7 +23,7 @@ const MapContainer = ({selectedSite}) => {
 
     const setDropdownItem= (newState)=>{
         if(showDropdown===''){
-            setDropdownState(newState)
+            setDropdownState(newState);
         }else{
             setDropdownState('');
         }
@@ -32,8 +33,6 @@ const MapContainer = ({selectedSite}) => {
         <>
             <MapTitle/>
             <LoadScript googleMapsApiKey="AIzaSyAgIIM2yjg9fxC23Dj_psJmI6kAr6QXFgQ" // Google Maps API 
-            //googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY} // Envirro
-            
         >
             <GoogleMap
                 mapContainerStyle={mapStyles}

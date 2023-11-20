@@ -29,7 +29,6 @@ const Site= ({site}) => {
                         </svg>
                     </div>
                 </div>
-                
             </div>
 
             {showDetail &&

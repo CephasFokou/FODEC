@@ -1,8 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const MapTitle = () => {
+    const selectedSite = useSelector((state) => state.map?.mapData);
     return (
-        <div className='absolute mt-8 ml-6 z-10 font-bold text-sm bg-white rounded h-10 w-[190px] flex justify-center items-center text-green-main'>
+        <div className='absolute mt-14 ml-6 z-10 font-bold text-sm bg-white rounded h-10 w-[190px] flex justify-center items-center text-green-main'>
             <svg className=' mr-2' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="red">
                 <g clip-path="url(#clip0_514_9338)">
                 <path d="M9.6488 3.44092C7.5521 1.3453 3.44912 1.10229 0.544902 1.10229C0.244125 1.10229 0 1.34637 0 1.64715C0 4.55137 0.241929 8.65435 2.33863 10.7511C3.22354 11.636 4.5803 12.0316 5.92506 12.0316C7.38644 12.0316 8.83475 11.5641 9.6488 10.75C11.2105 9.18837 11.4971 5.28808 9.6488 3.44092ZM8.87837 9.98062C7.7123 11.1456 4.47461 11.345 3.11024 9.98062C1.41781 8.28824 1.12464 4.85 1.09302 2.19532C3.7477 2.22694 7.18594 2.52005 8.87832 4.21248C10.2427 5.57686 10.0433 8.81567 8.87837 9.98062Z" fill="#5DB075" stroke="#5DB075" stroke-width="0.5"/>
@@ -11,11 +13,11 @@ const MapTitle = () => {
                 </g>
                 <defs>
                 <clipPath id="clip0_514_9338">
-                <rect width="24" height="24" fill="white"/>
+                    <rect width="24" height="24" fill="white"/>
                 </clipPath>
                 </defs>
             </svg>
-            Site ABOM MBANG
+            {selectedSite?.name}
         </div>
     )}
 

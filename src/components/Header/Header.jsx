@@ -1,6 +1,5 @@
 import React from 'react';
 import CustomDropDown from '../CustomDropDown/CustomDropDown';
-
 import './Header.css'
 import { AdjustmentsHorizontalIcon,QuestionMarkCircleIcon,  } from '@heroicons/react/24/outline';
 
@@ -11,9 +10,6 @@ const Header = () => {
     /**
      * const [displayBurgerHeader, setDisplayBurgerHeader]=useState(false); 
      */
-	
-
-
     return (
         <>
              <div className="absolute top-0 left-0 z-40 bg-white hidden w-screen items-center justify-between font-bold text-sm text-black h-[50px] ">
@@ -22,21 +18,13 @@ const Header = () => {
                         <QuestionMarkCircleIcon  className=' text-black h-6 w-6 mr-2'/>
                         <CustomDropDown dropdownItem={speculationDropDownItem} height={'h-8'} minWidth={'w-[150px]'} />
                     </div>
-                    
                     <CustomDropDown dropdownItem={ressourceDropDownItem} height={'h-8'} minWidth={'min-w-[150px]'} />
-                    
-
                     <button className="rounded text-white h-8 w-[117px] mr-2 flex items-center justify-center bg-green-main">
                         <AdjustmentsHorizontalIcon className="h-6 w-6  mr-1" />
                         <span>Filtre</span>
                     </button>
-
-                     
                 </div>
-
-                
             </div>
-
             <div className="flex items-center justify-between font-bold text-sm text-black h-[50px] sm:h-[64px]">
                 <div className="ml-10 lg:ml-4 input-wrapper w-[230px] h-10 pl-2.5  relative">
                     <input type="text" className='outline-0 focus:border-[0.5px]  focus:border-green-main rounded h-[41px] pr-9 pl-1 bg-gray-ligth w-full placeholder:text-black' name="" id=""  placeholder='Recherche par genotype'/>
@@ -48,25 +36,19 @@ const Header = () => {
                     <QuestionMarkCircleIcon  className=' text-black h-6 w-6 mr-2'/>
                     <CustomDropDown dropdownItem={speculationDropDownItem} height={'h-10'} minWidth={'w-[150px]'} />
                     <CustomDropDown dropdownItem={ressourceDropDownItem} height={'h-10'} minWidth={'min-w-[150px]'} />
-                    
-
                     <button className="rounded text-white h-8 sm:h-10 w-[117px] mr-2 flex items-center justify-center bg-green-main">
                         <AdjustmentsHorizontalIcon className="h-6 w-6  mr-1" />
                         <span>Filtre</span>
                     </button>
-
                     <div className='flex items-center'>
                         <div className="h-6 w-6  mr-2">
-                            <img src="./agriculture.jpg" className='rounded-[50%] h-full w-full object-cover' alt="user-profile-picture" />
+                            <img src="./agriculture.jpg" className='rounded-[50%] h-full w-full object-cover' alt="user-profile" />
                         </div>
                         <div className="min-w-fit mr-2">Username</div>
                     </div>  
                 </div>
-
-                
             </div>
         </>
-        
     )
 }
 

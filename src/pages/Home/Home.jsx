@@ -13,7 +13,6 @@ const Home = () => {
             <LeftSidebar title={menuTitle} setTitle={setMenuTitle} setCaption={setMaptitle} />
             <div className="content-container">
                 <Header />
-                {/* Add the main content of your Home component here */}
                 <div className='geo-map-wrapper'>
                     <MapContainer caption={maptitle}/>
                 </div>
