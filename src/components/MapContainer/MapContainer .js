@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 const MapContainer = () => {
     const [infoWindowVisible, setInfoWindowVisible] = useState(false);
     const selectedSite = useSelector((state) => state.map?.mapData);
+    
     const mapStyles = {
         width: '100%',
         height: '90vh', // height

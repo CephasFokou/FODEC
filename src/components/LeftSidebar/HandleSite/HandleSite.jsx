@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './HandleSite.css'
 import Site from './Items/Site'
 import './HandleSite.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addMapData } from '../../../Redux/Reducers/MapSlice';
+import { fetchSites } from '../../../Redux/Reducers/SiteSlice';
 //import CustomDropDown from '../../CustomDropDown/CustomDropDown'
 //import Searchbar from '../Searchbar'
 const siteList=[ {
@@ -24,6 +25,12 @@ const siteList=[ {
 const HandleSite= () => {
     const [searchTerm, setSearchTerm] = useState('');
     const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchSites());
+    }, [dispatch]);
+    const siteData = useSelector(state => state.site.sites);
+    console.log("All site",siteData);   
+    
     const filteredSiteList = siteList.filter((site) =>
       site.name.toLowerCase().includes(searchTerm.toLowerCase())
     );

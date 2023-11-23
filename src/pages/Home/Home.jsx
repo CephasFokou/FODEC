@@ -9,15 +9,15 @@ const Home = () => {
     const [maptitle,setMaptitle]=useState('');
 
     return (
-        <div className="flex justify-start items-start">
-            <LeftSidebar title={menuTitle} setTitle={setMenuTitle} setCaption={setMaptitle} />
-            <div className="content-container">
-                <Header />
-                <div className='geo-map-wrapper'>
-                    <MapContainer caption={maptitle}/>
+            <div className="flex justify-start items-start">
+                <LeftSidebar title={menuTitle} setTitle={setMenuTitle} setCaption={setMaptitle} />
+                <div className="content-container">
+                    <Header />
+                    <div className='geo-map-wrapper'>
+                        <MapContainer caption={maptitle}/>
+                    </div>
                 </div>
             </div>
-        </div>
         )
     }
 

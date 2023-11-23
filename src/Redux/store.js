@@ -7,7 +7,7 @@ const Store = configureStore({
     reducer:{
         auth:AuthSlice,
         map:MapSlice,
-        site:SiteSlice,
+        site:SiteSlice
     }
 })
 export default Store;

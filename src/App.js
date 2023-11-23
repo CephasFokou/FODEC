@@ -12,7 +12,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path='/login' element={(isAuthenticated?<Home/>:<Login/>)}/>
+                <Route path='/login' element={(isAuthenticated === true?<Home/>:<Login/>)}/>
                 <Route path='/signup' element={<Signup />}/>
             </Routes>   
         </BrowserRouter>

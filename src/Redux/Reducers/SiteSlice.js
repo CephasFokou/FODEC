@@ -1,40 +1,38 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import ip from '../../ipAdresse';
 
-export const getAllSites = createAsyncThunk('site/getSites', async ({ rejectWithValue }) => {
-    try {
-        const response = await axios.get(`${ip}/api/site/getSites`);
-        return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response.data);
-    }
+// Define the initial state
+const initialState = {
+    sites: [],
+    status: 'idle',
+    error: null,
+};
+
+// Define the async thunk to fetch data from the API
+export const fetchSites = createAsyncThunk('sites/fetchSites', async () => {
+    const response = await axios.get('http://34.207.245.143:8080/api/sites');
+    const data = await response.json();
+    return data;
 });
 
-// Site Slice
+// Create a slice
 const siteSlice = createSlice({
-    name: 'site',
-    initialState: {
-        site: null,
-        loading: false,
-        error: null,
-    },
-    reducers: {
-    },
+    name: 'sites',
+    initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(getAllSites.pending, (state) => {
-            state.loading = true;
-            state.error = null;
+        .addCase(fetchSites.pending, (state) => {
+            state.status = 'loading';
         })
-        .addCase(getAllSites.fulfilled, (state, { payload }) => {
-            state.loading = false;
-            state.site = payload;
+        .addCase(fetchSites.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.sites = action.payload;
         })
-        .addCase(getAllSites.rejected, (state, { payload }) => {
-            state.loading = false;
-            state.error = payload;
-        })
+        .addCase(fetchSites.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+        });
     },
 });
 
