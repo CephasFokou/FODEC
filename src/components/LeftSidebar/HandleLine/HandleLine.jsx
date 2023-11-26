@@ -1,35 +1,108 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CustomDropDown from '../../CustomDropDown/CustomDropDown';
 import Searchbar from '../Searchbar';
 import Tree from '../Items/Tree';
+import { Form, Input, Modal } from 'antd';
+import { useDispatch } from 'react-redux';
+import { createLigne } from '../../../Redux/Reducers/LigneSlice';
+import { addMapData } from '../../../Redux/Reducers/MapSlice';
 
 const treeList=[ {
     name: 'Artemesia',
-    specification: 'CodeGPS  |  Mort | Mâle | Manquant'
+    specification: 'CodeGPS  |  Mort | Mâle | Manquant',
+    lat: 10, // initial latitude
+    lng: 4, // initial longitude
 },
 {
     name:'Sapin',
-    specification: 'CodeGPS  |  Saint | Mâle'
+    specification: 'CodeGPS  |  Saint | Mâle',
+    lat: 10, // initial latitude
+    lng: 5, // initial longitude
 },
 {
     name:'Eucalyptus',
-    specification: 'CodeGPS  |  Saint | Mâle'
+    specification: 'CodeGPS  |  Saint | Mâle',
+    lat: 20, // initial latitude
+    lng: 15, // initial longitude
 },
 
 ]
 const sortList=['Etat sanitaire','option 2', 'option 3'];
 
-const renderedListItem = treeList.map(tree =>
-    <div className='flex flex-col mb-2.5'>
-        <Tree tree={tree} />
-    </div>
-);
 
 const HandleLine=() => {
+    const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');    
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [name, setName] = useState('');
+
+    const filteredTreeList = treeList.filter((tree) =>
+        tree.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const handleTreeClick = (tree) => {
+        console.log('Site clicked:', tree);
+        dispatch(addMapData(tree));
+    };
+
+    const renderedListItem = filteredTreeList.map(tree =>
+        <div 
+            className='flex flex-col mb-2.5'
+            key={tree.name}
+            onClick={() => handleTreeClick(tree)}
+        >
+            <Tree tree={tree} />
+        </div>
+    );
+
+    const handleAddFruit = () => {
+        setIsModalVisible(true);
+    };
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const onFinish = async (values) => {
+        try {
+            // Dispatch the createLigne action with the form values
+            await dispatch(createLigne(values));
+
+            // Close the modal after successful submission
+            setIsModalVisible(false);
+        } catch (error) {
+            // Handle error (you may want to display an error message to the user)
+            console.error('Error creating site:', error);
+        }
+    };
     return (
         <div className="manrope-font rendered-height pb-10 overflow-auto">
-            <Searchbar />
-
+            <button className='border-2 border-green-main px-5 rounded-md text-green-main' onClick={handleAddFruit}>
+                Ajouter
+            </button>
+            <Searchbar title={searchTerm} onSearch={setSearchTerm}/>
+            <Modal
+                title="Ajout d'une Ligne"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+            >
+                <Form onFinish={onFinish} initialValues={{
+                    name: name,
+                }}>
+                    <Form.Item
+                        label='Nom de la ligne'
+                        name='name'
+                        rules={[{ required: true, message: 'Renseignez le nom du site!' }]}
+                    >
+                        <Input onChange={(e) => setName(e.target.value)} />
+                    </Form.Item>
+                    <Form.Item>
+                        <button type='primary' htmlType='submit' className='px-8 bg-green-main border-2 text-white'>
+                            Ajouter d'une ligne
+                        </button>
+                    </Form.Item>
+                </Form>
+            </Modal>
             <div>
                 <div className='mt-4 mb-3 px-3 w-full text-xs flex justify-between items-center'>
                     <div className='text-gray-true-800' > Search results 02</div>
@@ -49,9 +122,7 @@ const HandleLine=() => {
                 </svg>
                 <span className='ml-2 z-50 text-[10px] text-dark-main cursor-pointer'>Load more</span> 
             </div>
-
         </div>
-        
     )
 };
 export default HandleLine;

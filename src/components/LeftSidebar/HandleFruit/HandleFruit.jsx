@@ -1,43 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CustomDropDown from '../../CustomDropDown/CustomDropDown';
 import Searchbar from '../Searchbar';
 import Fruit from '../Items/Fruit';
+import { addMapData } from '../../../Redux/Reducers/MapSlice';
+import { useDispatch } from 'react-redux';
 
-const fruitList=[ {
-    name: 'fruit 1',
-    type: 'type 1',
-    weight: '1kg',
-    size: '5cm x 3cm',
-    couleur: '#F8e822'
-},
-{
-    name: 'fruit 2',
-    type: 'type 2',
-    weight: '1kg',
-    size: '5cm x 3cm',
-    couleur: '#F8a822'
-},
-{
-    name: 'fruit 3',
-    type: 'type 3',
-    weight: '1kg',
-    size: '2cm x 3cm',
-    couleur: '#F8e822'
-},
-
+const fruitList=[ 
+    {
+        name: 'fruit 1',
+        type: 'type 1',
+        weight: '1kg',
+        size: '5cm x 3cm',
+        couleur: '#F8e822',
+        lat: 10, // initial latitude
+        lng: 15, // initial longitude
+    },
+    {
+        name: 'fruit 2',
+        type: 'type 2',
+        weight: '1kg',
+        size: '5cm x 3cm',
+        couleur: '#F8a822',
+        lat: 5, // initial latitude
+        lng: 15, // initial longitude
+    },
+    {
+        name: 'fruit 3',
+        type: 'type 3',
+        weight: '1kg',
+        size: '2cm x 3cm',
+        couleur: '#F8e822',
+        lat: 4, // initial latitude
+        lng: 10, // initial longitude
+    },
 ]
 const sortList=['Etat sanitaire','option 2', 'option 3'];
 
-const renderedListItem = fruitList.map(fruit =>
-    <div className='flex flex-col mb-2.5'>
-        <Fruit fruit={fruit} />
-    </div>
-);
 
 const HandleFruit=() => {
+    const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');
+    const filteredSiteList = fruitList.filter((fruit) =>
+        fruit.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const handleFruitClick = (tree) => {
+        console.log('Site clicked:', tree);
+        dispatch(addMapData(tree));
+    };
+
+    const renderedListItem = filteredSiteList.map(fruit =>
+        <div 
+            className='flex flex-col mb-2.5'
+            key={fruit.name}
+            onClick={() => handleFruitClick(fruit)}
+        >
+            <Fruit fruit={fruit} />
+        </div>
+    );
     return (
         <div className="manrope-font rendered-height pb-10 overflow-auto">
-            <Searchbar />
+            <Searchbar title={searchTerm} onSearch={setSearchTerm}/>
 
             <div>
                 <div className='mt-4 mb-3 px-3 w-full text-xs flex justify-between items-center'>
@@ -58,9 +81,7 @@ const HandleFruit=() => {
                 </svg>
                 <span className='ml-2 z-50 text-[10px] text-dark-main cursor-pointer'>Load more</span> 
             </div>
-
         </div>
-        
     )
 };
 export default HandleFruit;

@@ -4,57 +4,57 @@ import ip from '../../ipAdresse';
 
 // Define the initial state
 const initialState = {
-    frams: [],
-    farm: null,
+    parcels: [],
+    parcel: null,
     status: 'idle',
     error: null,
 };
 
 // Define the async thunk to fetch data from the API
-export const fetchFarms = createAsyncThunk('farm/fetchFarms', async () => {
-    const response = await axios.get(`${ip}/api/farms`);
+export const fetchParcels = createAsyncThunk('parcel/fetchParcels', async () => {
+    const response = await axios.get(`${ip}/api/parcels`);
     console.log("data", response)
     return response.data;
 });
 
 // Define the async thunk to create a new site
-export const createFarms= createAsyncThunk('farm/createFarms', async (newFarms) => {
-    const response = await axios.post(`${ip}/api/farms`, newFarms);
+export const createParcel= createAsyncThunk('ligne/createParcel', async (newParcel) => {
+    const response = await axios.post(`${ip}/api/lignes`, newParcel);
     return response.data;
 });
 
 // Create a slice
-const farmSlice = createSlice({
+const parcelsSlice = createSlice({
     name: 'farm',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(fetchFarms.pending, (state) => {
+        .addCase(fetchParcels.pending, (state) => {
             state.status = 'loading';
         })
-        .addCase(fetchFarms.fulfilled, (state, action) => {
+        .addCase(fetchParcels.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.frams = action.payload;
+            state.parcels = action.payload;
         })
-        .addCase(fetchFarms.rejected, (state, action) => {
+        .addCase(fetchParcels.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
         })
-        .addCase(createFarms.pending, (state) => {
+        .addCase(createParcel.pending, (state) => {
             state.status = 'loading';
         })
-        .addCase(createFarms.fulfilled, (state, action) => {
+        .addCase(createParcel.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.farm =  action.payload;
-            state.frams.push(state.farm);
+            state.parcel =  action.payload;
+            state.parcels.push(state.parcel);
         })
-        .addCase(createFarms.rejected, (state, action) => {
+        .addCase(createParcel.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
         });
     },
 });
 
-export default farmSlice.reducer;
+export default parcelsSlice.reducer;
 

@@ -4,57 +4,57 @@ import ip from '../../ipAdresse';
 
 // Define the initial state
 const initialState = {
-    frams: [],
-    farm: null,
+    trees: [],
+    tree: null,
     status: 'idle',
     error: null,
 };
 
 // Define the async thunk to fetch data from the API
-export const fetchFarms = createAsyncThunk('farm/fetchFarms', async () => {
-    const response = await axios.get(`${ip}/api/farms`);
+export const fetchTrees = createAsyncThunk('tree/fetchTrees', async () => {
+    const response = await axios.get(`${ip}/api/trees`);
     console.log("data", response)
     return response.data;
 });
 
 // Define the async thunk to create a new site
-export const createFarms= createAsyncThunk('farm/createFarms', async (newFarms) => {
-    const response = await axios.post(`${ip}/api/farms`, newFarms);
+export const createTree= createAsyncThunk('ligne/createTree', async (newTree) => {
+    const response = await axios.post(`${ip}/api/trees`, newTree);
     return response.data;
 });
 
 // Create a slice
-const farmSlice = createSlice({
+const treeSlice = createSlice({
     name: 'farm',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-        .addCase(fetchFarms.pending, (state) => {
+        .addCase(fetchTrees.pending, (state) => {
             state.status = 'loading';
         })
-        .addCase(fetchFarms.fulfilled, (state, action) => {
+        .addCase(fetchTrees.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.frams = action.payload;
+            state.trees = action.payload;
         })
-        .addCase(fetchFarms.rejected, (state, action) => {
+        .addCase(fetchTrees.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
         })
-        .addCase(createFarms.pending, (state) => {
+        .addCase(createTree.pending, (state) => {
             state.status = 'loading';
         })
-        .addCase(createFarms.fulfilled, (state, action) => {
+        .addCase(createTree.fulfilled, (state, action) => {
             state.status = 'succeeded';
-            state.farm =  action.payload;
-            state.frams.push(state.farm);
+            state.tree =  action.payload;
+            state.trees.push(state.tree);
         })
-        .addCase(createFarms.rejected, (state, action) => {
+        .addCase(createTree.rejected, (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
         });
     },
 });
 
-export default farmSlice.reducer;
+export default treeSlice.reducer;
 

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Input, InputNumber, } from 'antd';
+import { Modal, Form, Input, InputNumber, Select} from 'antd';
 import './HandleSite.css';
 import Site from '../Items/Site';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMapData } from '../../../Redux/Reducers/MapSlice';
 import { createSite, fetchSites } from '../../../Redux/Reducers/SiteSlice';
+import Searchbar from '../Searchbar';
+import { fetchDicValues } from '../../../Redux/Reducers/DicValuesSlice';
 //import CustomDropDown from '../../CustomDropDown/CustomDropDown'
 //import Searchbar from '../Searchbar'
 // const siteList=[ {
@@ -47,18 +49,29 @@ const HandleSite = () => {
     const [numberFemaleTreeMissing, setNumberFemaleTreeMissing] = useState(0);
     const [percentageMaleTreeMissing, setPercentageMaleTreeMissing] = useState(0.0);
     const [percentageFemaleTreeMissing, setPercentageFemaleTreeMissing] = useState(0.0);
+    // const [userId, setUserId] = useState('');
+    // const [speculation, setSpeculation] = useState('');
+    // const [geneticRessource, setGeneticRessource] = useState('');
+    // const [parcels, setParcels] = useState([]);
+    // const [geographicalPos, setGeographicalPos] = useState({});
     
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchSites());
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(fetchDicValues());
+    }, [dispatch]);
+    const dicValues = useSelector((state)=> state.dicValue.dicValues);
+    console.log("dic values", dicValues);
     const siteList = useSelector((state) => state.site.sites);
     const data = siteList?.data || [];
     console.log("Loading",data)
     
     const filteredSiteList = data.filter((site) =>
-      site.name.toLowerCase().includes(searchTerm.toLowerCase())
+        site.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleSiteClick = (site) => {
@@ -237,6 +250,26 @@ const HandleSite = () => {
                         </Form.Item>
 
                         <Form.Item
+                            label='Speculation'
+                            name='speculation'
+                        >
+                            <Select>
+                                <option>opiton 1</option>
+                                <option>opiton 2</option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                            label='GeneticRessource'
+                            name='geneticRessource'
+                        >
+                            <Select>
+                                <option>opiton 1</option>
+                                <option>opiton 2</option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item
                             label='Nombre arbres masculins'
                             name='numberMaleTree'
                         >
@@ -324,7 +357,8 @@ const HandleSite = () => {
                 </Modal>
 
                 <div className='relative w-full'>
-                    <label htmlFor='searchSite' className='text-xs text-gray-true-500'>
+                    <Searchbar title={searchTerm} onSearch={setSearchTerm}/>
+                    {/* <label htmlFor='searchSite' className='text-xs text-gray-true-500'>
                         Search by name
                     </label>
                     <input
@@ -348,7 +382,7 @@ const HandleSite = () => {
                             strokeLinecap='round'
                             strokeLinejoin='round'
                         />
-                    </svg>
+                    </svg> */}
                 </div>
                 {renderedListItem}
             </div>
