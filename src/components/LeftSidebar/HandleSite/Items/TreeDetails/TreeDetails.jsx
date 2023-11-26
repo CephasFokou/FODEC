@@ -4,7 +4,7 @@ import React from 'react'
 const TreeDetails = () => {
     return (
         
-        <div className='absolute z-50 treeDetailsPosition w-auto'>
+        <div className='absolute z-50 treeDetailsPosition hidden w-auto'>
             <svg  xmlns="http://www.w3.org/2000/svg" width="246" height="137" viewBox="0 0 246 137" fill="none">
                 <g clip-path="url(#clip0_772_1810)">
                 <rect y="-2" width="246" height="141" fill="#F2F2F2"/>
