@@ -5,7 +5,7 @@ const Tree= ({tree})=>{
     const [showDetail,hideOrShowDEtail]= useState(false);
     return (
         <>
-            <div onClick={()=>hideOrShowDEtail(!showDetail)}  className='border-[0.5px] border-solid border-black/10 w-full min-h-[40px] rounded py-1 px-2 flex items-center justify-between'>
+            <div onClick={()=>hideOrShowDEtail(!showDetail)}  className='relative border-[0.5px] border-solid border-black/10 w-full min-h-[40px] rounded py-1 px-2 flex items-center justify-between'>
                 <div>
                     <div className="font-['Open_Sans'] text-xs text-black/50 font-bold uppercase">{tree.name}</div>
                     <div className="font-medium text-[10px] text-black manrope-font">{tree.specification}</div>
@@ -18,6 +18,8 @@ const Tree= ({tree})=>{
                     </div>
                 </div>
             </div>
+            
+
 
             {showDetail &&
                 <div className='flex-wrap manrope-font rounded border border-solid border-black/10  text-[10px] gray-true-600 flex justify-between items-center pl-2.5 pt-1 pr-1 pb-2.5 max-[1000px]:justify-center max-[1000px]:px-2'>
@@ -30,9 +32,9 @@ const Tree= ({tree})=>{
                         </svg>
                     </div>
                     <div className='manrope-font text-[10px] grow'>
-                        <div className='mb-2 bg-green-main text-white tree-detail-button' >parent</div>
-                        <div className='mb-2 text-dark-main tree-detail-button'>Phenotype</div>
-                        <div className=' text-dark-main tree-detail-button'>Genotype</div>
+                        <div className='w-full mb-2 bg-green-main text-white tree-detail-button' >parent</div>
+                        <div className='w-full mb-2 text-dark-main tree-detail-button'>Phenotype</div>
+                        <div className='w-full text-dark-main tree-detail-button'>Genotype</div>
                     </div>
                    
                 </div>

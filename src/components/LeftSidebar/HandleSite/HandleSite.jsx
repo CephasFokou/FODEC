@@ -29,7 +29,6 @@ const HandleSite= () => {
         dispatch(fetchSites());
     }, [dispatch]);
     const siteData = useSelector(state => state.site.sites);
-    console.log("All site",siteData);   
     
     const filteredSiteList = siteList.filter((site) =>
       site.name.toLowerCase().includes(searchTerm.toLowerCase())

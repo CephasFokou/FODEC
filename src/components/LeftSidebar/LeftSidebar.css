@@ -14,18 +14,18 @@
     width: clamp(20vw,350px,30vw);
 }
 
-.left-sidebar::-webkit-scrollbar {
+*::-webkit-scrollbar {
     height: 5px !important;
     width: 5px !important;
     background: white;
 }
 
-.left-sidebar::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background: lightgray;
     -webkit-border-radius: 8px;
 }
 
-.left-sidebar::-webkit-scrollbar-corner {
+*::-webkit-scrollbar-corner {
     background: white;
 }
 
@@ -101,6 +101,10 @@
     margin-top: auto; /* Push to the bottom */
     padding-bottom: 20px; /* Add padding to separate from the bottom */
 }
+
+.rendered-height{
+    height: calc( 100vh - 180px);
+ }
   
 .control-button {
     background-color: #fff;
@@ -141,5 +145,15 @@
 
 .c-container .custom-dropdown{
     width: max-content;
+}
+
+.tree-detail-button{
+    height: 23px;
+    border-radius: 14.65px;
+    min-width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 

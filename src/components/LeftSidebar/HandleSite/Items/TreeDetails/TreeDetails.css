@@ -1,0 +1,25 @@
+.treeDetrails-bloc{ 
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'manrope',sans-serif;
+    gap: 12px; 
+}
+.treeDetrails-bloc li{
+    list-style-type: none;
+    font-size: 8px;
+}
+
+.treeDetrails-bloc span{
+    margin-left: 8px;
+    font-weight: 500px;
+}
+
+.treeDetailsPosition{
+    padding-bottom: 8px;
+    top: 290px;
+    height: calc(100vh - 290px);
+    left: clamp(20vw,350px,30vw);
+    background-color: white;
+    overflow: auto;
+}
