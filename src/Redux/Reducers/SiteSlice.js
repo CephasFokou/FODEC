@@ -11,8 +11,8 @@ const initialState = {
 // Define the async thunk to fetch data from the API
 export const fetchSites = createAsyncThunk('sites/fetchSites', async () => {
     const response = await axios.get('http://34.207.245.143:8080/api/sites');
-    const data = await response.json();
-    return data;
+    console.log("data", response)
+    return response.data;
 });
 
 // Create a slice
