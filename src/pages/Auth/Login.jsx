@@ -43,7 +43,7 @@ const Login = () => {
                 if (response.meta.requestStatus === 'fulfilled') {
                     navigate('/home');
                 } else if (response.meta.requestStatus === 'rejected') {
-                    alert(response);
+                    alert(JSON.stringify(response));
                 }
             } catch (error) {
                 console.error('An error occurred during login:', error);

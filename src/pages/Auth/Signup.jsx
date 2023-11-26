@@ -103,13 +103,8 @@ const Signup = () => {
                     </button>
                     <div>{error && <div className="text-red-500">{error}</div>}</div>
                     <div className='flex self-center justify-center'>
-<<<<<<< HEAD
                         <span className='text-gray-dark mr-1'>Already have an account?</span>
                         <Link to="/login" >Login here</Link>
-=======
-                        <span className='text-gray-dark'>Already have an account? </span>
-                        <Link to="/" className='text-secondary-main'>Login here</Link>
->>>>>>> e4454398b3c5e3a833fd6d9c63b51e29b218deae
                     </div>
                 </form>
             </div>

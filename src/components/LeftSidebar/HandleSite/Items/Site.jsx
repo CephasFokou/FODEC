@@ -36,16 +36,16 @@ const Site= ({site}) => {
             {showDetail &&
                 <div className='manrope-font rounded border border-solid border-black/10 bg-[#F5F5F5]  text-[10px] gray-true-600 flex justify-between p-2 pb-2.5'>
                     <div className='text-left'>
-                        <span className='block'> <span className='font-extrabold'>15%</span> {geoPos.geneticRessource}</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> arbre mâle NC</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> arbre mâle C</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> arbre femelle NC</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> arbre femelle C</span>
+                        <span className='block'> <span className='font-extrabold'>{geoPos.percentageFarmSite}</span> {geoPos.numberFarms}</span>
+                        <span className='block'> <span className='font-extrabold'>05%</span>{geoPos.numberMaleTreeNotNormal} arbre mâle NC</span>
+                        <span className='block'> <span className='font-extrabold'>05%</span> {geoPos.numberMaleTree}arbre mâle C</span>
+                        <span className='block'> <span className='font-extrabold'>05%</span>{geoPos.numberFemaleTreeNotNormal} arbre femelle NC</span>
+                        <span className='block'> <span className='font-extrabold'>05%</span> {geoPos.numberFemaleTree}arbre femelle C</span>
                     </div>
                     <div className='text-left'>
                         <span className='block'> <span className='font-extrabold'>10%</span> arbre manquant</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> arbre mâle manquant</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> arbre femelle manquant</span>
+                        <span className='block'> <span className='font-extrabold'>{geoPos.percentageMaleTreeMissing}</span> {geoPos.numberMaleTreeMissing}</span>
+                        <span className='block'> <span className='font-extrabold'>{geoPos.percentageFemaleTreeMissing}</span> {geoPos.numberFemaleTreeMissing}</span>
                         <span className='block'> <span className='font-extrabold'>90</span> arbre M manquants</span>
                         <span className='block'> <span className='font-extrabold'>10</span> arbre F manquants</span>
                     </div>

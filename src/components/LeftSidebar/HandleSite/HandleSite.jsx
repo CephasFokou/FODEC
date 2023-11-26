@@ -5,6 +5,7 @@ import Site from './Items/Site';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMapData } from '../../../Redux/Reducers/MapSlice';
 import { fetchSites } from '../../../Redux/Reducers/SiteSlice';
+import axios from 'axios';
 //import CustomDropDown from '../../CustomDropDown/CustomDropDown'
 //import Searchbar from '../Searchbar'
 // const siteList=[ {
@@ -21,23 +22,6 @@ import { fetchSites } from '../../../Redux/Reducers/SiteSlice';
 //     lng: 45, // initial longitude
 // }]
 // //const sortList=['propio','option 2', 'option 3'];
-
-const siteList = [
-    {
-        id: 1,
-        name: 'abom mbanga',
-        amount: '07',
-        lat: 10,
-        lng: 15,
-    },
-    {
-        id: 2,
-        name: 'abom mbangant',
-        amount: '15',
-        lat: 20,
-        lng: 45,
-    },
-];
 
 const HandleSite = () => {
     const [searchTerm, setSearchTerm] = useState('');
