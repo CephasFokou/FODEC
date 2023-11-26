@@ -1,31 +1,40 @@
 import React from 'react';
 import CustomDropDown from '../../CustomDropDown/CustomDropDown';
 import Searchbar from '../Searchbar';
-import Tree from '../Items/Tree';
+import Fruit from '../Items/Fruit';
 
-const treeList=[ {
-    name: 'Artemesia',
-    specification: 'CodeGPS  |  Mort | Mâle | Manquant'
+const fruitList=[ {
+    name: 'fruit 1',
+    type: 'type 1',
+    weight: '1kg',
+    size: '5cm x 3cm',
+    couleur: '#F8e822'
 },
 {
-    name:'Sapin',
-    specification: 'CodeGPS  |  Saint | Mâle'
+    name: 'fruit 2',
+    type: 'type 2',
+    weight: '1kg',
+    size: '5cm x 3cm',
+    couleur: '#F8a822'
 },
 {
-    name:'Eucalyptus',
-    specification: 'CodeGPS  |  Saint | Mâle'
+    name: 'fruit 3',
+    type: 'type 3',
+    weight: '1kg',
+    size: '2cm x 3cm',
+    couleur: '#F8e822'
 },
 
 ]
 const sortList=['Etat sanitaire','option 2', 'option 3'];
 
-const renderedListItem = treeList.map(tree =>
+const renderedListItem = fruitList.map(fruit =>
     <div className='flex flex-col mb-2.5'>
-        <Tree tree={tree} />
+        <Fruit fruit={fruit} />
     </div>
 );
 
-const HandleLine=() => {
+const HandleFruit=() => {
     return (
         <div className="manrope-font rendered-height pb-10 overflow-auto">
             <Searchbar />
@@ -54,4 +63,4 @@ const HandleLine=() => {
         
     )
 };
-export default HandleLine;
+export default HandleFruit;

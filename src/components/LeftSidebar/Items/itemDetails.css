@@ -1,21 +1,24 @@
-.treeDetrails-bloc{ 
+.itemDetail-bloc{ 
     padding-left: 8px;
     display: flex;
     flex-direction: column;
     font-family: 'manrope',sans-serif;
     gap: 12px; 
 }
-.treeDetrails-bloc li{
+.itemDetail-bloc li{
     list-style-type: none;
+    text-transform: capitalize;
     font-size: 10px;
+    
 }
 
-.treeDetrails-bloc span{
+.itemDetail-bloc span{
     margin-left: 8px;
     font-weight: 700;
+    text-transform: capitalize;
 }
 
-.treeDetailsPosition{
+.itemDetailPosition{
     padding-bottom: 8px;
     top: 290px;
     height: calc(100vh - 290px);

@@ -2,6 +2,7 @@ import React, { useState , useEffect} from 'react';
 import './LeftSidebar.css';
 import HandleSite from './HandleSite/HandleSite';
 import HandleLine from './HandleLine/HandleLine';
+import HandleFruit from './HandleFruit/HandleFruit'
 import { ArrowRightOnRectangleIcon,ChevronRightIcon, ArrowTrendingUpIcon, ChevronLeftIcon, MapIcon, MapPinIcon, PlusIcon, SunIcon } from '@heroicons/react/24/outline';
 
 const LeftSidebar = (props) => {
@@ -155,6 +156,10 @@ const LeftSidebar = (props) => {
 						}
 						{
 							selectedMenuItem==='Ligne' && <HandleLine/>
+						}
+						
+						{
+							selectedMenuItem==='Champ' && <HandleFruit/>
 						}
 					
 					</div>
