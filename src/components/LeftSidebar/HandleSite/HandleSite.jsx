@@ -5,24 +5,23 @@ import Site from '../Items/Site';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMapData } from '../../../Redux/Reducers/MapSlice';
 import { fetchSites } from '../../../Redux/Reducers/SiteSlice';
-import axios from 'axios'
-
-const siteList = [
-    {
-        id: 1,
-        name: 'abom mbanga',
-        amount: '07',
-        lat: 10,
-        lng: 15,
-    },
-    {
-        id: 2,
-        name: 'abom mbangant',
-        amount: '15',
-        lat: 20,
-        lng: 45,
-    },
-];
+import axios from 'axios';
+//import CustomDropDown from '../../CustomDropDown/CustomDropDown'
+//import Searchbar from '../Searchbar'
+// const siteList=[ {
+//     id:1,
+//     name: 'abom mbanga',
+//     amount: '07',
+//     lat: 10, // initial latitude
+//     lng: 15, // initial longitude
+// },{
+//     id:2,
+//     name:'abom mbangant',
+//     amount: '15',
+//     lat: 20, // initial latitude
+//     lng: 45, // initial longitude
+// }]
+// //const sortList=['propio','option 2', 'option 3'];
 
 const HandleSite = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -32,12 +31,12 @@ const HandleSite = () => {
     useEffect(() => {
         dispatch(fetchSites());
     }, [dispatch]);
-
-    const siteData = useSelector((state) => state.site.sites);
-    console.log('All site', siteData);
-
-    const filteredSiteList = siteList.filter((site) =>
-        site.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const siteList = useSelector((state) => state.site.sites);
+    const data = siteList?.data || [];
+    console.log("Loading",data)
+    
+    const filteredSiteList = data.filter((site) =>
+      site.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleSiteClick = (site) => {

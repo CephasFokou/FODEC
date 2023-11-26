@@ -13,10 +13,11 @@ const MapContainer = () => {
         width: '100%',
         height: '90vh', // height
     };
-    console.log("selected site ", selectedSite)
+    console.log("selected site ", selectedSite);
+    const geoPos = selectedSite?.geographicalPos || {};
     const defaultCenter = {
-        lat: selectedSite ? selectedSite.lat : 0,
-        lng: selectedSite ? selectedSite.lng : 0,
+        lat: geoPos.leftTop?.latitude || 0,
+        lng: geoPos.leftTop?.longitude || 0,
     };
     const [showDropdown,setDropdownState]=useState('');
     const [selectedParcel, setSelectedParcel]=useState('Choisir parcelle');
@@ -48,9 +49,11 @@ const MapContainer = () => {
                         {infoWindowVisible && (
                             <InfoWindow onCloseClick={() => setInfoWindowVisible(false)}>
                                 <div>
-                                    <h3>{selectedSite.name}</h3>
+                                <h3>{selectedSite.name}</h3>
                                     <p>Amount: {selectedSite.amount}</p>
-                                    {/* Add more information as needed */}
+                                    <p>Speculation: {selectedSite.speculation}</p>
+                                    <p>Genetic Ressource: {selectedSite.geneticRessource}</p>
+                                    <p>Number of Farms: {selectedSite.numberFarms}</p>
                                 </div>
                             </InfoWindow>
                         )}
@@ -60,8 +63,11 @@ const MapContainer = () => {
                 {selectedSite && (
                     <Polyline
                         path={[
-                            { lat: defaultCenter.lat, lng: defaultCenter.lng },
-                            { lat: selectedSite.lat, lng: selectedSite.lng },
+                            { lat: geoPos.leftTop?.latitude, lng: geoPos.leftTop?.longitude },
+                            { lat: geoPos.leftBottom?.latitude, lng: geoPos.leftBottom?.longitude },
+                            { lat: geoPos.rightBottom?.latitude, lng: geoPos.rightBottom?.longitude },
+                            { lat: geoPos.rightTop?.latitude, lng: geoPos.rightTop?.longitude },
+                            { lat: geoPos.leftTop?.latitude, lng: geoPos.leftTop?.longitude }, // Connect back to the start
                         ]}
                         options={{
                             strokeColor: '#FF0000',

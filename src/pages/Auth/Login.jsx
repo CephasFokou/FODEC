@@ -33,19 +33,18 @@ const Login = () => {
         } else if (password === '') {
             setPasswordError('Enter your password');
         } else {
-        const data = {
-            username: username,
-            password: password,
-        };
+            const data = {
+                username: username,
+                password: password,
+            };
 
-        try {
-            const response = await dispatch(loginUser(data));
-
-            if (response.meta.requestStatus === 'fulfilled') {
-                navigate('/');
-            } else if (response.meta.requestStatus === 'rejected') {
-                alert(error);
-            }
+            try {
+                const response = await dispatch(loginUser(data));
+                if (response.meta.requestStatus === 'fulfilled') {
+                    navigate('/home');
+                } else if (response.meta.requestStatus === 'rejected') {
+                    alert(JSON.stringify(response));
+                }
             } catch (error) {
                 console.error('An error occurred during login:', error);
             }

@@ -6,8 +6,7 @@ import Home from './pages/Home/Home';
 import Signup from './pages/Auth/Signup';
 
 function App() {
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    console.log('isAuthenticated', isAuthenticated);
+    const isAuthenticated = localStorage.getItem('auth') === 'true';
     return (
         <BrowserRouter>
             <Routes>
