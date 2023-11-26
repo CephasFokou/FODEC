@@ -2,6 +2,7 @@ import React, { useState , useEffect} from 'react';
 import './LeftSidebar.css';
 import HandleSite from './HandleSite/HandleSite';
 import HandleLine from './HandleLine/HandleLine';
+import HandleFruit from './HandleFruit/HandleFruit'
 import { ArrowRightOnRectangleIcon,ChevronRightIcon, ArrowTrendingUpIcon, ChevronLeftIcon, MapIcon, MapPinIcon, PlusIcon, SunIcon } from '@heroicons/react/24/outline';
 
 const LeftSidebar = (props) => {
@@ -57,7 +58,7 @@ const LeftSidebar = (props) => {
 
     return (
 		<>
-			
+
 			{displayBurgerSideBar && isReduced &&
 				<svg onClick={()=>setIsReduced(false)} fill='#5DB075' className='w-6 h-6 z-50 absolute left-2 top-[13px] lg:top-5 cursor-pointer  ' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 					<path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>
@@ -155,6 +156,10 @@ const LeftSidebar = (props) => {
 						}
 						{
 							selectedMenuItem==='Ligne' && <HandleLine/>
+						}
+						
+						{
+							selectedMenuItem==='Champ' && <HandleFruit/>
 						}
 					
 					</div>

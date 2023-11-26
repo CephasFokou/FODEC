@@ -1,0 +1,28 @@
+.itemDetail-bloc{ 
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'manrope',sans-serif;
+    gap: 12px; 
+}
+.itemDetail-bloc li{
+    list-style-type: none;
+    text-transform: capitalize;
+    font-size: 10px;
+    
+}
+
+.itemDetail-bloc span{
+    margin-left: 8px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.itemDetailPosition{
+    padding-bottom: 8px;
+    top: 290px;
+    height: calc(100vh - 290px);
+    left: clamp(20vw,350px,30vw);
+    background-color: white;
+    overflow: auto;
+}

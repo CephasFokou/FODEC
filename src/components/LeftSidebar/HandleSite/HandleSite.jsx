@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Form, Input, InputNumber, } from 'antd';
 import './HandleSite.css';
-import Site from './Items/Site';
+import Site from '../Items/Site';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMapData } from '../../../Redux/Reducers/MapSlice';
 import { createSite, fetchSites } from '../../../Redux/Reducers/SiteSlice';
