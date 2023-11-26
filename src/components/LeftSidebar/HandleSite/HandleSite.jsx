@@ -163,14 +163,6 @@ const HandleSite = () => {
                             name='name'
                             rules={[{ required: true, message: 'Renseignez le nom du site!' }]}
                         >
-                            <Input />
-                        </Form.Item>
-
-                    <Form.Item
-                            label='Nom du site'
-                            name='name'
-                            rules={[{ required: true, message: 'Renseignez le nom du site!' }]}
-                        >
                             <Input onChange={(e) => setName(e.target.value)} />
                         </Form.Item>
 
