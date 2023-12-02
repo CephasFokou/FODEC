@@ -192,12 +192,12 @@ function sendDataForm(e,form){
         success: function (data) {
             console.log(data);
             //if (data.code == 200) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success')
-                $(".alert-message").text(data.name+ "ENREGISTRE AVEC SUCCES !!!").show(1000);             
+                $(".alert-success").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
                     window.location.reload(true);
-                }, 2000)
+                }, 3000)
             //}else{
                 //$(".alert").removeClass('alert-danger').addClass('alert-danger')
                 // $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete').fadeIn(1000);  
