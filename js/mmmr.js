@@ -77,24 +77,26 @@ function getDataSite(){
         url: URI+'/api/sites',
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function(data,status, xhr) {
             console.log(data);
-            tab = data.data;
-            if ($.isArray(tab) && tab.length > 0) {
-                $.each(tab, function(index, item) {
-                    var content =`<li class="sidebar-item">
-                                <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                    ${item.name.toUpperCase()}
-                                </a>
-                                <div id="site_${item.id}" class="list-unstyled collapse">                
-                                    <a class="sidebar-link" data-bs-target="#">${item.geneticRessource}</a>
-                                </div>
-                            </li>`;
-                    $('#all_sites').append(content);
-                    //console.log(item.name);
-                })
-            }else{
-                console.log('Le tableau est vide.');
+            if (xhr.status == 200) {
+                tab = data.data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        var content =`<li class="sidebar-item">
+                                    <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                        ${item.name.toUpperCase()}
+                                    </a>
+                                    <div id="site_${item.id}" class="list-unstyled collapse">                
+                                        <a class="sidebar-link" data-bs-target="#">${item.geneticRessource}</a>
+                                    </div>
+                                </li>`;
+                        $('#all_sites').append(content);
+                        //console.log(item.name);
+                    })
+                }else{
+                    console.log('Le tableau est vide.');
+                }
             }
           
         },
@@ -109,10 +111,10 @@ function getDataGenetic(){
         url: URI+'/api/dictionaries/3/values',
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
+        success: function(data,status, xhr) {
             console.log(data);
             tab = data;
-            //if (data.code == 200) {
+            if (xhr.status == 200) {
                 if ($.isArray(tab) && tab.length > 0) {
                     var options = '';
                     var j = tab;
@@ -125,7 +127,7 @@ function getDataGenetic(){
                 }else{
                     $('#geneticRessource').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
-            //}
+            }
           
         },
         error: function(xhr, status, error) {
@@ -139,10 +141,11 @@ function getDataSpeculation(){
         url: URI+'/api/dictionaries/2/values',
         method: 'GET',
         dataType: 'json',
-        success: function(data) {
-            console.log(data);
+        success: function(data,status, xhr) {
+            // console.log(data);
+            // console.log('code',xhr.status);
             tab = data;
-            //if (data.code == 200) {
+            if (xhr.status == 200) {
                 if ($.isArray(tab) && tab.length > 0) {
                     var options = '';
                     var j = tab;
@@ -155,7 +158,7 @@ function getDataSpeculation(){
                 }else{
                     $('#speculation').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
-            //}
+            }
         },
         error: function(xhr, status, error) {
             console.error(status + ' : ' + error);
@@ -189,24 +192,24 @@ function sendDataForm(e,form){
         beforeSend: function() {
             $('.btn_submit').prop('disabled', true);
         },
-        success: function (data) {
+        success: function(data,status, xhr) {
             console.log(data);
-            //if (data.code == 200) {
+            if (xhr.status == 200) {
                 $(".alert-success").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
                     window.location.reload(true);
                 }, 3000)
-            //}else{
-                //$(".alert").removeClass('alert-danger').addClass('alert-danger')
-                // $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete').fadeIn(1000);  
-                // $('.btn_submit').prop('disabled', false);
-            //}
+            }else{
+                $(".alert-success").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $('.btn_submit').prop('disabled', false);
+            }
         },
         error: function (statut, erreur) {
-            $(".alert").removeClass('alert-danger').addClass('alert-danger')
-            $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete').show(1000);  
+            $(".alert-success").removeClass('alert-success').addClass('alert-danger').show()
+            $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
             $('.btn_submit').prop('disabled', false);
         },
     });
