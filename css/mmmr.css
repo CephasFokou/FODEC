@@ -1,0 +1,27 @@
+.text-color-chart{
+    color : #5db075 !important;
+}
+#input_search_li{
+    width: 70%;
+    margin-left: 4em;
+}
+.none{
+    display: none;
+}
+input,select{
+    box-shadow: none !important;
+    text-transform: uppercase;
+}
+.form-control{
+    height: 42px !important;
+    outline: none !important;
+    border: 1px solid #ccc;
+}
+.btn{
+    height: 42px !important;
+}
+.form-control:is(:focus,:active){
+    border: .5px solid #5db075 !important;
+    border-color: .5px solid #5db075 !important;
+}
+
