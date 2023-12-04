@@ -327,16 +327,16 @@
 				</nav>
 				<main class="content">
 					<div class="container-fluid p-0">
-						<h1 class="h3 mb-3">Google Maps</h1>
+						<h1 class="h3 mb-3">GEOLOCALISATION</h1>
 						<div class="row">
 							<div class="col-12 col-lg-12">
 								<div class="card">
 									<div class="card-header">
-										<h5 class="card-title" id="site_name">SITE EXAMPLE</h5>
+										<h3 class="card-title" id="site_name">SITE EXAMPLE</h5>
 										<!-- <h6 class="card-subtitle text-muted"></h6> -->
 									</div>
 									<div class="card-body">
-										<div class="content" id="default_map" style="height: 100vh;"></div>
+										<div class="content" id="map" style="height: 100vh;"></div>
 									</div>
 								</div>
 							</div>
@@ -403,49 +403,64 @@
 									</div>
 									<div class="mb-3 col-md-6">
 										<label class="form-label" for="NbreLigneFemelle">Propriétaire</label>
-										<input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1">
+										<input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1" required>
 									</div>
 								</div>
-								<!-- <div class="row">
+								<div class="row">
+									<div class="mb-3 col-md-4">
+										<label class="form-label" for="NbreLigneMale">Nombre de champs</label>
+										<input type="number" class="form-control" id="numberFarms" name="numberFarms" placeholder="1" required>
+
+									</div>
+									<div class="mb-3 col-md-4">
+										<label class="form-label" for="numberMaleLine">Nombre total de ligne M</label>
+										<input type="number" class="form-control" id="numberMaleLine" name="numberMaleLine" placeholder="1" required>
+									</div>
+									<div class="mb-3 col-md-4">
+										<label class="form-label" for="numberFemaleLine">Nombre total de lignes F</label>
+										<input type="number" class="form-control" id="numberFemaleLine" name="numberFemaleLine" placeholder="1" required> 
+									</div>
+								</div>
+								<div class="row">
 									<div class="mb-3 col-md-6">
 										<label class="form-label" for="NbreArbreMale">Nbre Arbre Mal</label>
-										<input type="number" class="form-control" id="NbreArbreMale" name="NbreArbreMale" placeholder="1" required>
+										<input type="number" class="form-control" id="numberMaleTree" name="numberMaleTree" placeholder="1" required>
 									</div>
 									<div class="mb-3 col-md-6">
 										<label class="form-label" for="NbreArbreFemelle">Nbre Arbre Femelle</label>
-										<input type="number" class="form-control" id="NbreArbreFemelle" name="NbreArbreFemelle" placeholder="1" required>
+										<input type="number" class="form-control" id="numberFemaleTree" name="numberFemaleTree" placeholder="1" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NbreArbreMaleNC">Nbre Arbre Mal Nc</label>
-										<input type="number" class="form-control" id="NbreArbreMaleNC" name="NbreArbreMaleNC" placeholder="1" required>
+										<label class="form-label" for="numberMaleTreeNotNormal">Nbre Arbre Mal Nc</label>
+										<input type="number" class="form-control" id="numberMaleTreeNotNormal" name="numberMaleTreeNotNormal" placeholder="1" required>
 									</div>
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NbreArbreFemelleNC">Nbre Arbre Femelle NC</label>
-										<input type="number" class="form-control" id="NbreArbreFemelleNC" name="NbreArbreFemelleNC" placeholder="10" required>
+										<label class="form-label" for="numberFemaleTreeNormal">Nbre Arbre Femelle NC</label>
+										<input type="number" class="form-control" id="numberFemaleTreeNormal" name="numberFemaleTreeNormal" placeholder="10" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="PourcentageArbreMaleNC"> Pourcentage Arbre Mal Nc</label>
-										<input type="number" class="form-control" id="PourcentageArbreMaleNC" name="PourcentageArbreMaleNC" placeholder="1" required>
+										<label class="form-label" for="percentageMaleTreeNotNormal"> Pourcentage Arbre Mal Nc</label>
+										<input type="number" class="form-control" id="percentageMaleTreeNotNormal" name="percentageMaleTreeNotNormal" placeholder="1" required>
 									</div>
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="PourcentageArbreFemelleNC"> Pourcentage Arbre Femelle Nc</label>
-										<input type="number" class="form-control" id="PourcentageArbreFemelleNC" name="PourcentageArbreFemelleNC" placeholder="1" required>
+										<label class="form-label" for="percentageFemaleTreeNotNormal"> Pourcentage Arbre Femelle Nc</label>
+										<input type="number" class="form-control" id="percentageFemaleTreeNotNormal" name="percentageFemaleTreeNotNormal" placeholder="1" required>
 									</div>
 								</div>
 								<div class="row">
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="PourcentageArbreMaleC"> Pourcentage Arbre Mal C</label>
-										<input type="number" class="form-control" id="PourcentageArbreMaleC" name="PourcentageArbreMaleC" placeholder="1" required>
+										<label class="form-label" for="percentageMaleTreeNormal"> Pourcentage Arbre Mal C</label>
+										<input type="number" class="form-control" id="percentageMaleTreeNormal" name="percentageMaleTreeNormal" placeholder="1" required>
 									</div>
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="PourcentageArbreFemelleC"> Pourcentage Arbre Femelle Cc</label>
-										<input type="number" class="form-control" id="PourcentageArbreFemelleC" name="PourcentageArbreFemelleC" placeholder="1" required>
+										<label class="form-label" for="percentageFemaleTreeNormal"> Pourcentage Arbre Femelle Cc</label>
+										<input type="number" class="form-control" id="percentageFemaleTreeNormal" name="percentageFemaleTreeNormal" placeholder="1" required>
 									</div>
-								</div> -->
+								</div>
 								<div class="mb-3 alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
 									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 									<div class="alert-message">
@@ -466,22 +481,32 @@
 			</div>
 		</div>
 		<script src="js/app.js"></script>
+		<script src="js/jquery.min.js" async defer></script>
+		<script src="js/mmmr.js" async defer></script>
 		<script>
-			function initMaps() {
-				var defaultMap = {
-					zoom: 14,
-					center: {
-						lat: 48.89305,
-						lng: 2.35052
-					},
-					mapTypeId: google.maps.MapTypeId.ROADMAP
-				};
-				new google.maps.Map(document.getElementById("default_map"), defaultMap);
-			}
-			function initMap() {
+			// function initMaps() {
+			// 	var defaultMap = {
+			// 		zoom: 14,
+			// 		center: {
+			// 			lat: 3.8872435143887825,
+			// 			lng: 11.503924213490475
+			// 		},
+			// 		mapTypeId: google.maps.MapTypeId.ROADMAP
+			// 	};
+			// 	new google.maps.Map(document.getElementById("default_map"), defaultMap);
+			// }
+			//3.887649919495665, 11.505106234113658
+			var locations = [
+				['MEDICS CARE', 3.887649919495665, 11.505106234113658, 300], // Exemple de localisation à Paris, France
+				['Localisation 2', 51.5074, -0.1278, 500], // Exemple de localisation à Londres, Royaume-Uni
+				// Ajoutez d'autres localisations ici
+			];
+
+			// Initialisation de la carte
+			/*function initMaps() {
 				var map = new google.maps.Map(document.getElementById('default_map'), {
-				center: {lat: 40.712784, lng: -74.005941},
-				zoom: 14 // Ajustez le zoom selon votre préférence
+				center: {lat: 0, lng: 0},
+				zoom: 2 // Ajustez le zoom selon votre préférence
 				});
 
 				// Ajout des marqueurs pour chaque localisation avec nom et superficie
@@ -492,27 +517,67 @@
 				var marker = new google.maps.Marker({
 					position: {lat: location[1], lng: location[2]},
 					map: map,
-					title: "SITE EXAMPLE"
+					title: location[0]
 				});
 
 				var contentString = '<div><strong>' + location[0] + '</strong><br>Superficie: ' + location[3] + ' m²</div>';
 
 				google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
 					return function() {
-					infowindow.setContent(contentString);
-					infowindow.open(map, marker);
+						infowindow.setContent(contentString);
+						infowindow.open(map, marker);
 					};
 				})(marker, contentString, infowindow));
 				}
+			}*/
+			var map;
+
+			// Fonction pour initialiser la carte avec le pays où vous vous trouvez
+			function initMaps() {
+				// Récupère la position géographique actuelle de l'utilisateur (par défaut)
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var userLocation = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude
+					};
+
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: userLocation,
+						zoom: 16, // Zoom ajusté pour afficher le pays
+						mapTypeId: google.maps.MapTypeId.SATELLITE
+					});
+				}, function() {
+					// En cas d'erreur de géolocalisation, affiche une carte par défaut centrée sur zéro
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: { lat: 0, lng: 0 },
+						zoom: 16, // Zoom plus large pour une vue plus étendue
+						mapTypeId: google.maps.MapTypeId.SATELLITE
+					});
+				});
+			}
+
+			// Fonction pour mettre à jour la carte avec de nouvelles coordonnées
+			function updateMap(latitude, longitude,name) {
+				var location = {
+					lat: latitude,
+					lng: longitude
+				};
+				//alert(location);
+				// Centre la carte sur le nouvel emplacement
+				map.setCenter(location);
+
+				// Crée un marqueur pour l'emplacement sélectionné
+				var marker = new google.maps.Rectangle({
+					position: location,
+					map: map
+				});
+				$("#site_name").text(name);
 			}
 
 		</script>
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-aWrwgr64q4b3TEZwQ0lkHI4lZK-moM4&amp;callback=initMaps" async defer></script> -->
 
 	    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta"></script>
-
-		<script src="js/jquery.min.js" async defer></script>
-		<script src="js/mmmr.js" async defer></script>
 		<script>
 			// fetch('sidebar.html')
 			// 	.then(response => response.text())

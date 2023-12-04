@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-    <input type="text" id="filterInput" placeholder="Entrez votre filtre ici">
+    <!-- <input type="text" id="filterInput" placeholder="Entrez votre filtre ici">
     
     <ul class="list-unstyled">
         <li class="sidebar-item">
@@ -78,11 +78,85 @@
                 </li>
             </ul>
         </li>
-    </ul> 
+    </ul>  -->
+    <!-- Votre liste d'emplacements -->
+    <ul id="locations">
+        <li onclick="updateMap(48.8566,2.3522)" data-lat="48.8566" data-lng="2.3522">Paris</li>
+        <li onclick="updateMap(3.887649919495665,11.505106234113658)" data-lat="3.887649919495665" data-lng="11.505106234113658">MEDICS</li>
+        <!-- Ajoutez d'autres éléments d'emplacement ici -->
+    </ul>
+    
+    <!-- Div pour afficher la carte -->
+    <!-- Bouton pour actualiser l'emplacement -->
+    <button id="refreshButton">Actualiser</button>
 
+    <div id="map" style="height: 400px; width: 100%;"></div>
+
+    <div id="map" style="height: 400px; width: 100%;"></div>
+  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Données des localisations (nom, latitude, longitude)
+        var locations = [
+        { name: 'MEDICS CARE', lat: 3.887649919495665, lng: 11.505106234113658 },
+        { name: 'Londres', lat: 51.5074, lng: -0.1278 },
+        // Ajoutez d'autres localisations ici
+        ];
+
+        var map;
+
+        // Fonction pour initialiser la carte avec le pays où vous vous trouvez
+        function initMaps() {
+            // Récupère la position géographique actuelle de l'utilisateur (par défaut)
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+                };
+
+                map = new google.maps.Map(document.getElementById('map'), {
+                center: userLocation,
+                zoom: 16 // Zoom ajusté pour afficher le pays
+                });
+            }, function() {
+                // En cas d'erreur de géolocalisation, affiche une carte par défaut centrée sur zéro
+                map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 0, lng: 0 },
+                zoom: 16 // Zoom plus large pour une vue plus étendue
+                });
+            });
+        }
+
+        // Fonction pour mettre à jour la carte avec de nouvelles coordonnées
+        function updateMap(latitude, longitude) {
+            var location = {
+                lat: latitude,
+                lng: longitude
+            };
+
+            // Centre la carte sur le nouvel emplacement
+            map.setCenter(location);
+
+            // Crée un marqueur pour l'emplacement sélectionné
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+
+        // Écouteur de clic sur le bouton d'actualisation
+        document.getElementById('refreshButton').addEventListener('click', function() {
+            // Exemple de coordonnées (latitude et longitude)
+            var newLatitude = 3.887649919495665; // Exemple : Latitude pour Paris
+            var newLongitude = 11.505106234113658; // Exemple : Longitude pour Paris
+
+            // Actualise la carte avec les nouvelles coordonnées
+            updateMap(newLatitude, newLongitude);
+        });
+
+
+
         $(document).ready(function(){
             $('#filterInput').on('keyup', function(){
                 var searchText = $(this).val().toLowerCase();
@@ -97,5 +171,6 @@
             });
         });
     </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta"></script>
 </body>
 </html>

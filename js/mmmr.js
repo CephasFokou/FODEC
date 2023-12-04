@@ -1,5 +1,14 @@
 var URI = "http://5.250.176.223:8080";
 var tab = [];
+
+if(navigator.onLine) {
+    //alert(237)
+}else{
+    alert('Vérifier votre connexion')
+    setTimeout(function(){
+        window.location.reload();
+    },2000)
+}
 function toogleInput(element) {
     $("#" + element).toggle(1000);
 }
@@ -72,6 +81,7 @@ function collapseData(value){
 // 		document.getElementById('sidebar-nav').innerHTML = data;
 // });
 
+
 /** GET DATA SITE */
 function getDataSite(){
     $.ajax({
@@ -86,30 +96,30 @@ function getDataSite(){
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}
+                                            ${item.name.toUpperCase()}<br/>
+                                            <small>${item.geneticRessource.toUpperCase()}</small>
                                         </a>
                                         <div class="card mb-3 bg-light cursor-pointer border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}">
-                                            <div class="card-body p-3">
+                                            <div class="card-body p-3" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')">
                                                 <div class="row">
-                                                    <div class="col-md-6 display-grid">
+                                                    <div class="col-md-12 display-grid">
                                                         <span><b>${item.percentageFarmSite}%</b> champs</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre male NC</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre male C</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre femelle NC</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre femelle C</span>
-                                                    </div>
-                                                    <div class="col-md-6 display-grid">
-                                                        <span><b>${item.numberFarms}%</b> arbre manquant</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre male manquant</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre femelle manquant</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre M manquants</span>
-                                                        <span><b>${item.numberFarms}%</b> arbre F manquants</span>
+                                                        <span><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                        <span><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                        <span><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                        <span><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                        <span><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                        <span><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
+                                                        <span><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
+                                                        <span><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                        <span><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>`;
                         $('#all_sites').append(content);
+                        $("#site_name").text(item.name.toUpperCase());
                         //console.log(item.name);
                     })
                 }else{
@@ -228,7 +238,7 @@ function sendDataForm(e,form){
                 }, 3000)
             }else{
                 $(".alert-success").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
                 $('.btn_submit').prop('disabled', false);
             }
         },

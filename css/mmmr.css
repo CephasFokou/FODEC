@@ -25,7 +25,8 @@ input,select{
     border-color: .5px solid #5db075 !important;
 }
 .display-grid{
-    display: grid;
+    margin: 0px 48px;
+    display: inline-grid;
 }
 /* .width-p{
     width: 80%;

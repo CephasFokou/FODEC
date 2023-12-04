@@ -14453,10 +14453,10 @@
  .sidebar {
      background: #293042;
      direction: ltr;
-     /* max-width: 260px;
-     min-width: 260px; */
-     max-width: 300px;
-     min-width: 300px;
+     max-width: 260px;
+     min-width: 260px;
+     /* max-width: 300px; */
+     /* min-width: 300px; */
      transition: margin-left 0.35s ease-in-out, left 0.35s ease-in-out, margin-right 0.35s ease-in-out, right 0.35s ease-in-out;
  }
  body[data-theme="colored"] .sidebar {
