@@ -24,4 +24,11 @@ input,select{
     border: .5px solid #5db075 !important;
     border-color: .5px solid #5db075 !important;
 }
+.display-grid{
+    display: grid;
+}
+/* .width-p{
+    width: 80%;
+    margin-left: 10%;
+} */
 

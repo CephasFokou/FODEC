@@ -66,11 +66,12 @@ function collapseData(value){
     $('#site_'+value).toggle();
 }
 
-fetch('sidebar.html')
-	.then(response => response.text())
-	.then(data => {
-		document.getElementById('sidebar-nav').innerHTML = data;
-});
+// fetch('sidebar.html')
+// 	.then(response => response.text())
+// 	.then(data => {
+// 		document.getElementById('sidebar-nav').innerHTML = data;
+// });
+
 /** GET DATA SITE */
 function getDataSite(){
     $.ajax({
@@ -78,19 +79,36 @@ function getDataSite(){
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
-            console.log(data);
+            console.log('all sites' ,data);
             if (xhr.status == 200) {
                 tab = data.data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                    <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                        ${item.name.toUpperCase()}
-                                    </a>
-                                    <div id="site_${item.id}" class="list-unstyled collapse">                
-                                        <a class="sidebar-link" data-bs-target="#">${item.geneticRessource}</a>
-                                    </div>
-                                </li>`;
+                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}
+                                        </a>
+                                        <div class="card mb-3 bg-light cursor-pointer border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}">
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <div class="col-md-6 display-grid">
+                                                        <span><b>${item.percentageFarmSite}%</b> champs</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre male NC</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre male C</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre femelle NC</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre femelle C</span>
+                                                    </div>
+                                                    <div class="col-md-6 display-grid">
+                                                        <span><b>${item.numberFarms}%</b> arbre manquant</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre male manquant</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre femelle manquant</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre M manquants</span>
+                                                        <span><b>${item.numberFarms}%</b> arbre F manquants</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>`;
                         $('#all_sites').append(content);
                         //console.log(item.name);
                     })
@@ -112,7 +130,7 @@ function getDataGenetic(){
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
-            console.log(data);
+            console.log('geneticRessource',data);
             tab = data;
             if (xhr.status == 200) {
                 if ($.isArray(tab) && tab.length > 0) {
@@ -142,7 +160,7 @@ function getDataSpeculation(){
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
-            // console.log(data);
+            console.log('speculation',data);
             // console.log('code',xhr.status);
             tab = data;
             if (xhr.status == 200) {
@@ -165,6 +183,13 @@ function getDataSpeculation(){
         }
     });
 }
+
+/** APPEL DES FONCTIONS */
+
+getDataSite();
+getDataGenetic();
+getDataSpeculation();
+
 function sendDataForm(e,form){
     e.preventDefault();
     var datas = $("#"+form).serializeArray();
@@ -214,11 +239,7 @@ function sendDataForm(e,form){
         },
     });
 }
-/** APPEL DES FONCTIONS */
 
-getDataSite();
-getDataGenetic();
-getDataSpeculation();
 
 $(document).ready(function () {
     $.ajax({
