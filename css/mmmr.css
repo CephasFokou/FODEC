@@ -28,6 +28,9 @@ input,select{
     margin: 0px 48px;
     display: inline-grid;
 }
+/* .settings{
+    display: none !important;
+} */
 /* .width-p{
     width: 80%;
     margin-left: 10%;
