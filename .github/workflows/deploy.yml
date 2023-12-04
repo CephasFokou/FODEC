@@ -16,11 +16,6 @@ jobs:
     # - name: Set up Docker
     #   uses: docker/setup-docker@v2
 
-    - name: Set up Docker
-      uses: docker/cli@v2
-      with:
-        dockerfile: Dockerfile
-
     - name: Build and push Docker image
       run: |
         docker build -t karlmabs/seed-track-web:latest .
