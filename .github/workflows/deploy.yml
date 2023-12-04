@@ -1,0 +1,33 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - website_front
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: docker/setup-docker@v2
+
+    - name: Build and push Docker image
+      run: |
+        docker build -t karlmabs/seed-track-web:latest .
+        docker login -u karlmabs -p Barcelone1!
+        docker push karlmabs/seed-track-web:latest
+
+    - name: SSH into VPS and deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: http://5.250.176.223/
+        username: root
+        key: r5J4A5Ol
+        script: |
+          cd /root/SEEDTRACK_WEB
+          docker-compose up -d --build
