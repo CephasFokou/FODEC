@@ -457,11 +457,11 @@
 										<input type="number" class="form-control" id="percentageMaleTreeNormal" name="percentageMaleTreeNormal" placeholder="1" required>
 									</div>
 									<div class="mb-3 col-md-6">
-										<label class="form-label" for="percentageFemaleTreeNormal"> Pourcentage Arbre Femelle Cc</label>
+										<label class="form-label" for="percentageFemaleTreeNormal"> Pourcentage Arbre Femelle C</label>
 										<input type="number" class="form-control" id="percentageFemaleTreeNormal" name="percentageFemaleTreeNormal" placeholder="1" required>
 									</div>
 								</div>
-								<div class="mb-3 alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
 									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 									<div class="alert-message">
 										
@@ -544,14 +544,14 @@
 					map = new google.maps.Map(document.getElementById('map'), {
 						center: userLocation,
 						zoom: 16, // Zoom ajusté pour afficher le pays
-						mapTypeId: google.maps.MapTypeId.SATELLITE
+						mapTypeId: google.maps.MapTypeId.HYBRID 
 					});
 				}, function() {
 					// En cas d'erreur de géolocalisation, affiche une carte par défaut centrée sur zéro
 					map = new google.maps.Map(document.getElementById('map'), {
 						center: { lat: 0, lng: 0 },
 						zoom: 16, // Zoom plus large pour une vue plus étendue
-						mapTypeId: google.maps.MapTypeId.SATELLITE
+						mapTypeId: google.maps.MapTypeId.HYBRID 
 					});
 				});
 			}
@@ -565,12 +565,21 @@
 				//alert(location);
 				// Centre la carte sur le nouvel emplacement
 				map.setCenter(location);
-
-				// Crée un marqueur pour l'emplacement sélectionné
-				var marker = new google.maps.Rectangle({
+				var marker = new google.maps.Marker({
 					position: location,
 					map: map
 				});
+				var infowindow = new google.maps.InfoWindow();
+				var contentString = '<div><strong>' + name + '</strong></div>';
+
+				google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
+					return function() {
+						infowindow.setContent(contentString);
+						infowindow.open(map, marker);
+					};
+				})(marker, contentString, infowindow));
+				// Crée un marqueur pour l'emplacement sélectionné
+				
 				$("#site_name").text(name);
 			}
 

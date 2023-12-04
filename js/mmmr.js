@@ -230,19 +230,19 @@ function sendDataForm(e,form){
         success: function(data,status, xhr) {
             console.log(data);
             if (xhr.status == 200) {
-                $(".alert-success").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
                     window.location.reload(true);
                 }, 3000)
             }else{
-                $(".alert-success").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
                 $(".alert-message").text(data.message+ ' '+data.httpStatus);  
                 $('.btn_submit').prop('disabled', false);
             }
         },
-        error: function (statut, erreur) {
+        error: function (status, erreur) {
             $(".alert-success").removeClass('alert-success').addClass('alert-danger').show()
             $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
             $('.btn_submit').prop('disabled', false);
