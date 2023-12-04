@@ -3,8 +3,7 @@ import React from 'react'
 
 const FruitDetails = () => {
     return (
-        
-        <div className='absolute z-50 itemDetailPosition w-auto'>
+        <div className='absolute z-50 itemDetailPosition w-auto visible' style={{display:'none'}}>
             <svg xmlns="http://www.w3.org/2000/svg" width="246" height="109" viewBox="0 0 246 109" fill="none">
                 <g clip-path="url(#clip0_778_3798)">
                     <rect y="-16" width="246" height="141" fill="#F2F2F2"/>

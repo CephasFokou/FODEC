@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Form, Input, InputNumber, Select} from 'antd';
+import { Modal, Form, Input, InputNumber, Select, notification} from 'antd';
 import './HandleSite.css';
 import Site from '../Items/Site';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,22 +7,8 @@ import { addMapData } from '../../../Redux/Reducers/MapSlice';
 import { createSite, fetchSites } from '../../../Redux/Reducers/SiteSlice';
 import Searchbar from '../Searchbar';
 import { fetchDicValues } from '../../../Redux/Reducers/DicValuesSlice';
-//import CustomDropDown from '../../CustomDropDown/CustomDropDown'
-//import Searchbar from '../Searchbar'
-// const siteList=[ {
-//     id:1,
-//     name: 'abom mbanga',
-//     amount: '07',
-//     lat: 10, // initial latitude
-//     lng: 15, // initial longitude
-// },{
-//     id:2,
-//     name:'abom mbangant',
-//     amount: '15',
-//     lat: 20, // initial latitude
-//     lng: 45, // initial longitude
-// }]
-// //const sortList=['propio','option 2', 'option 3'];
+import { Option } from 'antd/es/mentions';
+import { SmileOutlined } from '@ant-design/icons';
 
 const HandleSite = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -49,14 +35,14 @@ const HandleSite = () => {
     const [numberFemaleTreeMissing, setNumberFemaleTreeMissing] = useState(0);
     const [percentageMaleTreeMissing, setPercentageMaleTreeMissing] = useState(0.0);
     const [percentageFemaleTreeMissing, setPercentageFemaleTreeMissing] = useState(0.0);
-    // const [userId, setUserId] = useState('');
-    // const [speculation, setSpeculation] = useState('');
-    // const [geneticRessource, setGeneticRessource] = useState('');
-    // const [parcels, setParcels] = useState([]);
-    // const [geographicalPos, setGeographicalPos] = useState({});
+    //const [userId, setUserId] = useState('');
+    const [speculation, setSpeculation] = useState('');
+    const [geneticRessource, setGeneticRessource] = useState('');
+    //const [parcels, setParcels] = useState([]);
+    //const [geographicalPos, setGeographicalPos] = useState({});
     
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchSites());
     }, [dispatch]);
@@ -64,18 +50,33 @@ const HandleSite = () => {
     useEffect(() => {
         dispatch(fetchDicValues());
     }, [dispatch]);
+
     const dicValues = useSelector((state)=> state.dicValue.dicValues);
-    console.log("dic values", dicValues);
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotification = () => {
+        api.open({
+            message: 'Site',
+            description:
+            'Site created successfully',
+            icon: <SmileOutlined style={{ color: '#5DB075' }} />,
+        });
+    };
+    const [itemsToShow, setItemsToShow] = useState(10);
+
+    // Separate DicValues into Genetic Ressource and Speculation
+    const geneticRessourceValues = dicValues.filter((value) => value.dictionary?.code === '_geneticRessource');
+    const speculationValues = dicValues.filter((value) => value.dictionary?.code === '_speculation');
+
     const siteList = useSelector((state) => state.site.sites);
     const data = siteList?.data || [];
-    console.log("Loading",data)
     
     const filteredSiteList = data.filter((site) =>
         site.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const handleSiteClick = (site) => {
-        console.log('Site clicked:', site);
         dispatch(addMapData(site));
     };
 
@@ -86,21 +87,48 @@ const HandleSite = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
+    const onLoadMore = () => {
+        // Increase the count to show more items
+        setItemsToShow((prevCount) => prevCount + 10);
+    };
     const onFinish = async (values) => {
-        try {
+        try {             
+            // Add additional properties to the values object
+            const modifiedValues = {
+                ...values,
+                geographicalPos: {
+                    leftTop: { latitude: 40.7128, longitude: -74.0060 },       // Example: New York City
+                    leftBottom: { latitude: 34.0522, longitude: -118.2437 },   // Example: Los Angeles
+                    rightBottom: { latitude: 41.8781, longitude: -87.6298 },   // Example: Chicago
+                    rightTop: { latitude: 51.5074, longitude: -0.1278 },
+                },
+                parcels:null,
+                userId:1,
+                additionalFields: {
+                    additionalProp1: "string",
+                    additionalProp2: "string",
+                    additionalProp3: "string",
+                },
+            };
+            console.log("modifiedValues ",modifiedValues);
             // Dispatch the createSite action with the form values
-            await dispatch(createSite(values));
-
-            // Close the modal after successful submission
-            setIsModalVisible(false);
+            const response = await dispatch(createSite(modifiedValues));
+            if (createSite.fulfilled.match(response)) {
+                console.log("creating site", modifiedValues)
+                openNotification();
+                // Close the modal after successful submission
+                setIsModalVisible(false);
+            }else if (createSite.rejected.match(response)) {
+                console.log("rejected", response);
+            }
         } catch (error) {
             // Handle error (you may want to display an error message to the user)
             console.error('Error creating site:', error);
         }
     };
 
-    const renderedListItem = filteredSiteList.map((site) => (
+
+    const renderedListItem = filteredSiteList.slice(0, itemsToShow).map((site) => (
         <div
             className='flex flex-col gap-2.5 cursor-pointer'
             key={site.name}
@@ -109,10 +137,11 @@ const HandleSite = () => {
             <Site site={site} />
         </div>
     ));
-
+    
     return (
         <>
             <div className='manrope-font'>
+                {contextHolder}
                 <button className='border-2 border-green-main px-5 rounded-md text-green-main' onClick={handleAddSite}>
                     Ajouter
                 </button>
@@ -146,30 +175,21 @@ const HandleSite = () => {
                         numberFemaleTreeMissing: numberFemaleTreeMissing,
                         percentageMaleTreeMissing: percentageMaleTreeMissing,
                         percentageFemaleTreeMissing: percentageFemaleTreeMissing,
-                        speculation: "_geneticRessource",
-                        geneticRessource: "CHAMPS SEMENCIER",
-                        user: "karlmabs",
-                        parcels: [],
+                        speculation: speculation,
+                        geneticRessource: geneticRessource,
+                        userId: 1,
+                        parcels: null,
                         geographicalPos: {
-                            leftTop: {
-                                latitude: 1.0,
-                                longitude: 2.0
-                            },
-                            leftBottom: {
-                                latitude: 3.0,
-                                longitude: 4.0
-                            },
-                            rightTop: {
-                                latitude: 6.0,
-                                longitude: 0.0
-                            },
-                            rightBottom: {
-                                latitude: 8.0,
-                                longitude: 7.0
-                            },
-                            image: null
+                            leftTop: { latitude: 40.7128, longitude: -74.0060 },       
+                            leftBottom: { latitude: 34.0522, longitude: -118.2437 },   
+                            rightBottom: { latitude: 41.8781, longitude: -87.6298 },  
+                            rightTop: { latitude: 51.5074, longitude: -0.1278 },
                         },
-                        additionalFields: {}
+                        additionalFields: {
+                            additionalProp1: "string",
+                            additionalProp2: "string",
+                            additionalProp3: "string",
+                        },  // Set default value for additionalFields
                     }}>
                         <Form.Item
                             label='Nom du site'
@@ -253,9 +273,12 @@ const HandleSite = () => {
                             label='Speculation'
                             name='speculation'
                         >
-                            <Select>
-                                <option>opiton 1</option>
-                                <option>opiton 2</option>
+                            <Select value={speculation} onChange={(value) => setSpeculation(value.name)}>
+                                {speculationValues.map((dicSpeculation) => (
+                                    <Option key={dicSpeculation.id} value={dicSpeculation.code}>
+                                        {dicSpeculation.label}
+                                    </Option>
+                                ))}
                             </Select>
                         </Form.Item>
 
@@ -263,9 +286,12 @@ const HandleSite = () => {
                             label='GeneticRessource'
                             name='geneticRessource'
                         >
-                            <Select>
-                                <option>opiton 1</option>
-                                <option>opiton 2</option>
+                            <Select value={geneticRessource} onChange={(value) => setGeneticRessource(value.name)}>
+                                {geneticRessourceValues.map((dicGeneticRessource) => (
+                                    <Option key={dicGeneticRessource.id} value={dicGeneticRessource.code}>
+                                        {dicGeneticRessource.label}
+                                    </Option>
+                                ))}
                             </Select>
                         </Form.Item>
 
@@ -358,6 +384,7 @@ const HandleSite = () => {
 
                 <div className='relative w-full'>
                     <Searchbar title={searchTerm} onSearch={setSearchTerm}/>
+                    <div className='text-gray-true-800 text-xs' > Search results <span className='font-bold'>{renderedListItem.length}</span></div>
                     {/* <label htmlFor='searchSite' className='text-xs text-gray-true-500'>
                         Search by name
                     </label>
@@ -385,6 +412,22 @@ const HandleSite = () => {
                     </svg> */}
                 </div>
                 {renderedListItem}
+                {filteredSiteList.length > itemsToShow && (
+                    <div className='z-50 w-[100px] absolute bottom-4 tree-detail-button translate-x-1/2 right-1/2  bg-white'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
+                        <path
+                            d="M9.71751 4.4092H6.44536V1.13705C6.44536 0.735536 6.11974 0.409912 5.71822 0.409912H4.99108C4.58956 0.409912 4.26393 0.735536 4.26393 1.13705V4.4092H0.991791C0.590272 4.4092 0.264648 4.73482 0.264648 5.13634V5.86348C0.264648 6.265 0.590272 6.59063 0.991791 6.59063H4.26393V9.86277C4.26393 10.2643 4.58956 10.5899 4.99108 10.5899H5.71822C6.11974 10.5899 6.44536 10.2643 6.44536 9.86277V6.59063H9.71751C10.119 6.59063 10.4446 6.265 10.4446 5.86348V5.13634C10.4446 4.73482 10.119 4.4092 9.71751 4.4092Z"
+                            fill="#3CCB7F"
+                        />
+                        </svg>
+                        <span
+                            className='ml-2 z-50 text-[10px] text-dark-main cursor-pointer'
+                            onClick={onLoadMore}
+                        >
+                            Load more
+                        </span>
+                    </div>
+                )}
             </div>
         </>
     );

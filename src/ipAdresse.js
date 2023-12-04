@@ -1,2 +1,2 @@
-const ip  = 'http://34.207.245.143:8080'
+const ip  = 'http://5.250.176.223:8080'
 export default ip;

@@ -8,7 +8,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const loading = useSelector((state) => state.auth.loading);
-    const error = useSelector((state) => state.auth.error);
+    //const error = useSelector((state) => state.auth.error);
 
     const [formData, setFormData] = useState({
         username: '',
@@ -17,6 +17,7 @@ const Login = () => {
 
     const [passwordError, setPasswordError] = useState('');
     const [usernameError, setUsernameError] = useState('');
+    const [generalError, setGeneralErrorError] = useState('');
 
     const { username, password } = formData;
 
@@ -43,7 +44,13 @@ const Login = () => {
                 if (response.meta.requestStatus === 'fulfilled') {
                     navigate('/home');
                 } else if (response.meta.requestStatus === 'rejected') {
-                    alert(JSON.stringify(response));
+                    console.log("response status", response)
+                    const errorMessage = response.payload;
+                    if (errorMessage.message === 'Bad credentials') {
+                        setGeneralErrorError('Bad credentials');
+                    }  else {
+                        setGeneralErrorError('An error occurred during Login. Please try again later.');
+                    }
                 }
             } catch (error) {
                 console.error('An error occurred during login:', error);
@@ -60,6 +67,7 @@ const Login = () => {
                         <span className='text-green-main'>TRACK</span>
                     </h2>
 
+                    <div className="justify-start">{generalError && <div className='text-red-500 items-start'>{generalError}</div>}</div>
                     <div className='form-group'>
                         <input
                             className='form-input'
@@ -89,7 +97,6 @@ const Login = () => {
                     <button type='submit' className='mt-5 mb-10 bg-green-main self-center sm:self-end text-white mr-2.5'>
                         {loading ? 'Logging In...' : 'Login'}
                     </button>
-                    {error && <div className='text-red-500'>{error}</div>}
                     <div className='flex self-center justify-center'>
                         <span className='text-gray-dark mr-1'>Forgot your password?</span>
                         <Link to='/signup'>Click here</Link>

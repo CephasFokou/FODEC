@@ -13,7 +13,7 @@ const initialState = {
 // Define the async thunk to fetch data from the API
 export const fetchFruit = createAsyncThunk('fruit/fetchFruit', async () => {
     const response = await axios.get(`${ip}/api/fruits`);
-    console.log("data", response)
+    console.log("data ", response)
     return response.data;
 });
 

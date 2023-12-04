@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 const Site= ({site}) => {
     const [showDetail,hideOrShowDEtail]= useState(false);
     const selectedSite = useSelector((state) => state.map?.mapData);
-    const geoPos = selectedSite?.geographicalPos || {};
     const displaSiteFarms=(farmId)=>{
         //to be define
     }
@@ -36,18 +35,19 @@ const Site= ({site}) => {
             {showDetail &&
                 <div className='manrope-font rounded border border-solid border-black/10 bg-[#F5F5F5]  text-[10px] gray-true-600 flex justify-between p-2 pb-2.5'>
                     <div className='text-left'>
-                        <span className='block'> <span className='font-extrabold'>{geoPos.percentageFarmSite}</span> {geoPos.numberFarms}</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span>{geoPos.numberMaleTreeNotNormal} arbre mâle NC</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> {geoPos.numberMaleTree}arbre mâle C</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span>{geoPos.numberFemaleTreeNotNormal} arbre femelle NC</span>
-                        <span className='block'> <span className='font-extrabold'>05%</span> {geoPos.numberFemaleTree}arbre femelle C</span>
+                        <span className='block'> <span className='font-extrabold'>{selectedSite.percentageFarmSite} Pourcentage/site</span></span>
+                        <span className='block'><span className="font-extrabold"> {selectedSite.numberFarms} Nombre de champs</span></span>
+                        <span className='block'> <span className='font-extrabold'></span>{selectedSite.numberMaleTreeNotNormal} arbre mâle NC</span>
+                        <span className='block'> <span className='font-extrabold'></span> {selectedSite.numberMaleTree}arbre mâle C</span>
+                        <span className='block'> <span className='font-extrabold'></span>{selectedSite.numberFemaleTreeNotNormal} arbre femelle NC</span>
+                        <span className='block'> <span className='font-extrabold'></span> {selectedSite.numberFemaleTree}arbre femelle C</span>
                     </div>
                     <div className='text-left'>
-                        <span className='block'> <span className='font-extrabold'>10%</span> arbre manquant</span>
-                        <span className='block'> <span className='font-extrabold'>{geoPos.percentageMaleTreeMissing}</span> {geoPos.numberMaleTreeMissing}</span>
-                        <span className='block'> <span className='font-extrabold'>{geoPos.percentageFemaleTreeMissing}</span> {geoPos.numberFemaleTreeMissing}</span>
-                        <span className='block'> <span className='font-extrabold'>90</span> arbre M manquants</span>
-                        <span className='block'> <span className='font-extrabold'>10</span> arbre F manquants</span>
+                        <span className='block'> <span className='font-extrabold'></span> arbre manquant</span>
+                        <span className='block'> <span className='font-extrabold'>{selectedSite.percentageMaleTreeMissing}</span> {selectedSite.numberMaleTreeMissing}arbre M manquants</span>
+                        <span className='block'> <span className='font-extrabold'>{selectedSite.percentageFemaleTreeMissing}</span> {selectedSite.numberFemaleTreeMissing} arbre F manquants</span>
+                        {/* <span className='block'> <span className='font-extrabold'></span> arbre M manquants</span>
+                        <span className='block'> <span className='font-extrabold'></span> arbre F manquants</span> */}
                     </div>
                 </div>
             }

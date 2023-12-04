@@ -8,20 +8,42 @@ const initialState = {
     farm: null,
     status: 'idle',
     error: null,
+    loading : false,
 };
 
 // Define the async thunk to fetch data from the API
 export const fetchFarms = createAsyncThunk('farm/fetchFarms', async () => {
     const response = await axios.get(`${ip}/api/farms`);
-    console.log("data", response)
+    console.log("data farm", response)
     return response.data;
 });
 
+// export const fetchFarms = createAsyncThunk(
+//     'farm/fetchFarms',
+//     async (_, { rejectWithValue }) => {
+//         try {
+//             const response = await axios.get(`${ip}/api/farms`);
+//             console.log("fetch Farms",response.data);
+//             return response.data;
+//         } catch (error) {
+//             return rejectWithValue(error.response.data);
+//         }
+//     }
+// );
+
 // Define the async thunk to create a new site
-export const createFarms= createAsyncThunk('farm/createFarms', async (newFarms) => {
-    const response = await axios.post(`${ip}/api/farms`, newFarms);
-    return response.data;
-});
+export const createFarms = createAsyncThunk(
+    'farm/createFarms',
+    async (newFarms, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${ip}/api/farms`, newFarms);
+            console.log("farms created ",response.data);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 // Create a slice
 const farmSlice = createSlice({

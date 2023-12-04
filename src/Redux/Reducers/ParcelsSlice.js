@@ -13,7 +13,7 @@ const initialState = {
 // Define the async thunk to fetch data from the API
 export const fetchParcels = createAsyncThunk('parcel/fetchParcels', async () => {
     const response = await axios.get(`${ip}/api/parcels`);
-    console.log("data", response)
+    console.log("data parcel", response)
     return response.data;
 });
 

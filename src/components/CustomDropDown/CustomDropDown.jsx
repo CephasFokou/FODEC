@@ -16,19 +16,18 @@ const CustomDropDown= ({dropdownItem,height,minWidth}) => {
 
     return (
         <div  onMouseLeave={()=>setDropdownState(false)}  onClick={()=>setDropdownState(!showDropdown)} className={`custom-dropdown h-8 ${minWidth} sm:${height}`}>
-                    <div className="min-w-fit">{selectedDropdownItem}</div> 
-                    {showDropdown? 
-                        <>
-                            <ChevronUpIcon className='dropdown-icon'/>
-
-                            <div className='custom-dropdown-item-container w-full ' onClick={()=>setDropdownState(false)}>
-                                {renderedDropdownItem}
-                            </div>
-                        </>
-                        :
-                        <ChevronDownIcon onClick={()=>setDropdownState(true)} className='dropdown-icon'/>
-                    }
-                </div>
+            <div className="min-w-fit">{selectedDropdownItem}</div> 
+            {showDropdown? 
+                <>
+                    <ChevronUpIcon className='dropdown-icon'/>
+                    <div className='custom-dropdown-item-container w-full ' onClick={()=>setDropdownState(false)}>
+                        {renderedDropdownItem}
+                    </div>
+                </>
+                :
+                <ChevronDownIcon onClick={()=>setDropdownState(true)} className='dropdown-icon'/>
+            }
+        </div>
     )
 
 }

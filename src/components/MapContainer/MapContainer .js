@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { GoogleMap, InfoWindow, LoadScript, Marker, Polyline } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, LoadScript, Marker, Polygon, Polyline } from '@react-google-maps/api';
 import { ChevronDownIcon,ChevronUpIcon } from '@heroicons/react/24/outline';
 import MapTitle from './MapButtons/MapTitle';
 import './Mapcontainer.css'
@@ -42,22 +42,42 @@ const MapContainer = () => {
                 center={defaultCenter}
             >
                 {selectedSite && (
-                    <Marker
-                        position={{ lat: selectedSite.lat, lng: selectedSite.lng }}
-                        onClick={() => setInfoWindowVisible(!infoWindowVisible)}
-                    >
-                        {infoWindowVisible && (
-                            <InfoWindow onCloseClick={() => setInfoWindowVisible(false)}>
-                                <div>
-                                <h3>{selectedSite.name}</h3>
-                                    <p>Amount: {selectedSite.amount}</p>
-                                    <p>Speculation: {selectedSite.speculation}</p>
-                                    <p>Genetic Ressource: {selectedSite.geneticRessource}</p>
-                                    <p>Number of Farms: {selectedSite.numberFarms}</p>
-                                </div>
-                            </InfoWindow>
-                        )}
-                    </Marker>
+                    <>
+                        <Marker
+                            position={{ lat: selectedSite.lat, lng: selectedSite.lng }}
+                            onClick={() => setInfoWindowVisible(!infoWindowVisible)}
+                            onMouseOver={() => setInfoWindowVisible(true)}
+                            onMouseOut={() => setInfoWindowVisible(false)}
+                        >
+                            {infoWindowVisible && (
+                                <InfoWindow onCloseClick={() => setInfoWindowVisible(false)}>
+                                    <div>
+                                        <h3>{selectedSite.name}</h3>
+                                        <p>Amount: {selectedSite.amount}</p>
+                                        <p>Speculation: {selectedSite.speculation}</p>
+                                        <p>Genetic Resource: {selectedSite.geneticResource}</p>
+                                        <p>Number of Farms: {selectedSite.numberFarms}</p>
+                                    </div>
+                                </InfoWindow>
+                            )}
+                        </Marker>
+
+                        <Polygon
+                            path={[
+                                { lat: geoPos.leftTop?.latitude, lng: geoPos.leftTop?.longitude },
+                                { lat: geoPos.leftBottom?.latitude, lng: geoPos.leftBottom?.longitude },
+                                { lat: geoPos.rightBottom?.latitude, lng: geoPos.rightBottom?.longitude },
+                                { lat: geoPos.rightTop?.latitude, lng: geoPos.rightTop?.longitude },
+                            ]}
+                            options={{
+                                strokeColor: '#00FF00',
+                                strokeOpacity: 1,
+                                strokeWeight: 2,
+                                fillOpacity: 0.2,
+                                fillColor: "#00FF00", // Green color
+                            }}
+                        />
+                    </>
                 )}
 
                 {selectedSite && (
@@ -73,6 +93,8 @@ const MapContainer = () => {
                             strokeColor: '#FF0000',
                             strokeOpacity: 1,
                             strokeWeight: 2,
+                            fillOpacity: 0.5,
+                            fillColor: "#00FF00", // Green color
                         }}
                     />
                 )}
@@ -101,12 +123,10 @@ const MapContainer = () => {
                 {showDropdown==='parcel'? 
                     <>
                         <ChevronUpIcon className='ml-1 w-4 h-5'/>
-                        
                         <div className='map-dropdown-item-container w-full' onClick={()=>setDropdownState('')}>
                             <div className="map-dropdown-item" onClick={() =>setSelectedParcel('parcel 1')}>parcel 1</div>
                             <div className="map-dropdown-item" onClick={() =>setSelectedFarm('parcel 2')}>parcel 2</div>
                         </div>
-
                     </>
                     :
                     <ChevronDownIcon onClick={()=>setDropdownState('parcel')} className='ml-1 w-4 h-5'/>
