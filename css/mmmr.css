@@ -28,6 +28,14 @@ input,select{
     margin: 0px 48px;
     display: inline-grid;
 }
+#map_icon{
+    margin-left: 17em;
+    margin-top: -2em;
+    position: absolute;
+    z-index: 222;
+    color: #5db075;
+    cursor: pointer;
+}
 /* .settings{
     display: none !important;
 } */

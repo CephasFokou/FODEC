@@ -99,8 +99,9 @@ function getDataSite(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small>${item.geneticRessource.toUpperCase()}</small>
                                         </a>
-                                        <ul class="card mb-3 bg-light cursor-pointer border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}" data-bs-parent="#site_${item.id}">
-                                            <div class="card-body p-3" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')">
+                                        <i class="fas fa-map" id="map_icon" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <ul class="card mb-3 bg-light cursor-default border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                            <div class="card-body p-3">
                                                 <div class="row">
                                                     <div class="col-md-12 display-grid">
                                                         <span><b>${item.percentageFarmSite}%</b> champs</span>
@@ -274,8 +275,8 @@ $(document).ready(function () {
             $('.auth-form-btn').prop('disabled', false);
         },
     });
-    $('.collapse').on('show.bs.collapse', function () {
-        // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir
-        $('.collapse').not($(this)).collapse('hide');
-    });
+    // $('.collapse').on('show.bs.collapse', function () {
+    //     // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir
+    //     $('.collapse').not($(this)).collapse('hide');
+    // });
 });
