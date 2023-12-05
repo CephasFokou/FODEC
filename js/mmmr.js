@@ -99,7 +99,7 @@ function getDataSite(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small>${item.geneticRessource.toUpperCase()}</small>
                                         </a>
-                                        <div class="card mb-3 bg-light cursor-pointer border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}">
+                                        <ul class="card mb-3 bg-light cursor-pointer border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')">
                                                 <div class="row">
                                                     <div class="col-md-12 display-grid">
@@ -116,7 +116,7 @@ function getDataSite(){
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </ul>
                                     </li>`;
                         $('#all_sites').append(content);
                         $("#site_name").text(item.name.toUpperCase());
@@ -273,5 +273,9 @@ $(document).ready(function () {
         error: function (statut, erreur) {
             $('.auth-form-btn').prop('disabled', false);
         },
+    });
+    $('.collapse').on('show.bs.collapse', function () {
+        // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir
+        $('.collapse').not($(this)).collapse('hide');
     });
 });

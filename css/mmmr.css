@@ -1,8 +1,8 @@
 .text-color-chart{
     color : #5db075 !important;
 }
-#input_search_li{
-    width: 70%;
+.input-w-75{
+    width: 70% !important;
     margin-left: 4em;
 }
 .none{
