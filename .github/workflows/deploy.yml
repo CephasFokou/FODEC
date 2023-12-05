@@ -18,9 +18,9 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t karlmabs/seed-track-web:latest .
+        docker build -t karlmabs/seed-track-web:2.0 .
         docker login -u karlmabs -p Barcelone1!
-        docker push karlmabs/seed-track-web:latest
+        docker push karlmabs/seed-track-web:2.0
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
@@ -31,5 +31,4 @@ jobs:
         script: |
           cd /root/SEEDTRACK_WEB
           docker-compose down
-          docker rmi seedtrack_web_web_1
           docker-compose up -d --build
