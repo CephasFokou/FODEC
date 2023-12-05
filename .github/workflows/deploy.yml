@@ -31,6 +31,6 @@ jobs:
         password: r5J4A5Ol
         script: |
           cd /root/SEEDTRACK_WEB
-          export IMAGE_TAG = ${{ steps.docker_tag.outputs.tag }}
+          export IMAGE_TAG=${{ steps.docker_tag.outputs.tag }}
           docker-compose down
           docker-compose up -d --build
