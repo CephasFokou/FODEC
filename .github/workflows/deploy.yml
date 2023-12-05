@@ -31,5 +31,5 @@ jobs:
         script: |
           cd /root/SEEDTRACK_WEB
           docker-compose down
-          docker image prune -f
+          docker rmi seedtrack_web_web_1
           docker-compose up -d --build
