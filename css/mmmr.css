@@ -5,6 +5,16 @@
     width: 70% !important;
     margin-left: 4em;
 }
+
+.input-w-80 {
+    width: 80% !important;
+    margin-left: 4em;
+}
+
+a.sidebar-link.collapsed {
+    line-height: 1;
+}
+
 .none{
     display: none;
 }
@@ -13,7 +23,7 @@ input,select{
     text-transform: uppercase;
 }
 .form-control{
-    height: 42px !important;
+    height: 31px !important;
     outline: none !important;
     border: 1px solid #ccc;
 }
@@ -28,14 +38,33 @@ input,select{
     margin: 0px 48px;
     display: inline-grid;
 }
-#map_icon{
-    margin-left: 17em;
-    margin-top: -2em;
+.map_icon {
+    /* margin-left: 0; */
+    margin-top: 0;
     position: absolute;
+    right: 20px;
+    top: 10px;
     z-index: 222;
     color: #5db075;
     cursor: pointer;
 }
+
+.sidebar .sidebar-dropdown [aria-expanded="true"]:before{
+    display: none;
+}
+
+a.sidebar-link {
+    line-height: 1;
+}
+.show a.collapsed.sidebar-link:after {
+    width: 80%;
+    margin-left: -90px;
+    border-bottom: 0.1px #ddd solid;
+    position: absolute;
+    bottom: 0px;
+    content: '';
+}
+
 /* .settings{
     display: none !important;
 } */

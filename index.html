@@ -45,34 +45,32 @@
 						<!-- INCLUDE SIDEBAR -->
 						<li class="sidebar-item">
 							<a data-bs-target="#sites" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Gestions Sites</span>
+								<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Gestions Sites</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">
+								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="sites" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<a class='sidebar-link' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">Ajouter Un site</a>
-									<span class="badge badge-sidebar-primary cursor-pointer" onclick="toogleInput('input_search_li')">
-										<i class="fas fa-search"></i>
-									</span>
-									<span class="input-group input-group-navbar input-w-75" id="input_search_li">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
 										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value)">
 									</span>
 								</li>
-								<div id="all_sites">
+								<div id="all_sites" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
 						</li>
 						<li class="sidebar-item">
 							<a data-bs-target="#parcerelle" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions Parcerelles</span>
+								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions Parcerelles</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
+								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<a class='sidebar-link' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">Ajouter Une parcerelle</a>
-									<span class="badge badge-sidebar-primary cursor-pointer" onclick="toogleInput('input_search_li_par')">
-										<i class="fas fa-search"></i>
-									</span>
-									<span class="input-group input-group-navbar input-w-75" id="input_search_li_par">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_par">
 										<input type="text" id="filterInputpar" class="form-control input-search" placeholder="Search Parcerelle" onkeyup="filterData(this.value)">
 									</span>
 								</li>

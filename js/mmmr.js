@@ -97,23 +97,27 @@ function getDataSite(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small>${item.geneticRessource.toUpperCase()}</small>
+                                            <small class="text-body-tertiary">${item.geneticRessource}</small>
                                         </a>
-                                        <i class="fas fa-map" id="map_icon" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="card mb-3 bg-light cursor-default border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
-                                                    <div class="col-md-12 display-grid">
-                                                        <span><b>${item.percentageFarmSite}%</b> champs</span>
-                                                        <span><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                        <span><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                        <span><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                        <span><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
-                                                        <span><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                        <span><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
-                                                        <span><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
-                                                        <span><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                        <span><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                        </div>
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
