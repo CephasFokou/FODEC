@@ -95,9 +95,9 @@ function getDataSite(){
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small>${item.geneticRessource.toUpperCase()}</small>
+                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed line-height-1-3">
+                                            ${item.name.toUpperCase()}<br>
+                                            <span>${item.geneticRessource.toLowerCase()}</span>
                                         </a>
                                         <i class="fas fa-map" id="map_icon" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
                                         <ul class="card mb-3 bg-light cursor-default border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}" data-bs-parent="#site_${item.id}">

@@ -49,12 +49,15 @@
 							</a>
 							<ul id="sites" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<a class='sidebar-link' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">Ajouter Un site</a>
-									<span class="badge badge-sidebar-primary cursor-pointer" onclick="toogleInput('input_search_li')">
-										<i class="fas fa-search"></i>
-									</span>
+									<a class="sidebar-link a-add-site" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">
+										Ajouter
+										<span class="icon-add cursor-pointer">
+											<i class="fas fa-plus text-success"></i>
+										</span>
+									</a>
+									
 									<span class="input-group input-group-navbar input-w-75" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value)">
+										<input type="text" id="filterInput" class="form-control input-35" placeholder="Search Site" onkeyup="filterData(this.value)">
 									</span>
 								</li>
 								<div id="all_sites">
@@ -68,10 +71,12 @@
 							</a>
 							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<a class='sidebar-link' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">Ajouter Une parcerelle</a>
-									<span class="badge badge-sidebar-primary cursor-pointer" onclick="toogleInput('input_search_li_par')">
-										<i class="fas fa-search"></i>
-									</span>
+									<a class='sidebar-link a-add-site' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
+										Ajouter
+										<span class="cursor-pointer icon-add">
+											<i class="fas fa-plus text-success"></i>
+										</span>
+									</a>
 									<span class="input-group input-group-navbar input-w-75" id="input_search_li_par">
 										<input type="text" id="filterInputpar" class="form-control input-search" placeholder="Search Parcerelle" onkeyup="filterData(this.value)">
 									</span>

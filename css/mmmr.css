@@ -36,6 +36,23 @@ input,select{
     color: #5db075;
     cursor: pointer;
 }
+.a-add-site{
+    font-weight : 800;
+    color: #5db075 !important;
+}
+.icon-add{
+    position: absolute;
+    right: 1em;
+}
+.margin-left-4-18{
+    margin-left : 4.18em;
+}
+.input-35{
+    height: 35px !important;
+}
+.line-height-1-3{
+    line-height : 1.3;
+}
 /* .settings{
     display: none !important;
 } */

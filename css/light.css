@@ -14759,9 +14759,10 @@
  }
  .badge-sidebar-primary,
  .badge-sidebar-secondary {
-     position: absolute;
+     /* position: absolute;
      right: 20px;
-     top: 12px;
+     top: 12px; */
+     margin-left : 4.3em;
  }
  .sidebar-dropdown .badge-sidebar-primary,
  .sidebar-dropdown .badge-sidebar-secondary {
