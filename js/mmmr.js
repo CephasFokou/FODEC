@@ -198,10 +198,67 @@ function getDataSpeculation(){
         }
     });
 }
+/** GET DATA PARCELS */
+function getDataParcels(){
+    $.ajax({
+        url: URI+'/api/parcels',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('all parcels' ,data);
+            if (xhr.status == 200) {
+                tab = data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        var content =`<li class="sidebar-item">
+                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
+                                            <small class="text-body-tertiary">${item.actualDensity}</small>
+                                        </a>
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                        </div>
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </li>`;
+                        $('#parcerelle').append(content);
+                        // $("#site_name").text(item.name.toUpperCase());
+                        //console.log(item.name);
+                    })
+                }else{
+                    console.log('Le tableau est vide.');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
 
 /** APPEL DES FONCTIONS */
 
 getDataSite();
+getDataParcels();
 getDataGenetic();
 getDataSpeculation();
 
@@ -286,8 +343,8 @@ function sendDataWithFormData(e,form){
                 longitude: $('#lt_longitude').val() == null ? 0 : $('#lt_longitude').val() 
             },
             rightBottom: { 
-                latitude: $('#rl_latitude').val() == null ? 0 : $('#rl_latitude').val(), 
-                longitude: $('#rl_longitude').val() == null ? 0 : $('#rl_longitude').val() 
+                latitude: $('#rb_latitude').val() == null ? 0 : $('#rb_latitude').val(), 
+                longitude: $('#rb_longitude').val() == null ? 0 : $('#rb_longitude').val() 
             },
             rightTop: { 
                 latitude: $('#rt_latitude').val() == null ? 0 : $('#rt_latitude').val(), 
