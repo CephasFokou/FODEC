@@ -2,7 +2,7 @@ var URI = "http://5.250.176.223:8080";
 var tab = [];
 
 if(navigator.onLine) {
-    //alert(237)
+    console.log('Connexion internet active');
 }else{
     alert('Vérifier votre connexion')
     setTimeout(function(){
@@ -12,27 +12,48 @@ if(navigator.onLine) {
 function toogleInput(element) {
     $("#" + element).toggle(1000);
 }
-function filterData(value) {
+function filterData(value,type) {
     //alert(value)
     var filterText = value; // Récupère le texte du champ d'entrée en minuscules
     var regex = new RegExp(filterText, "i"); // Crée une expression régulière avec le texte saisi (insensible à la casse)
-    $("#all_sites li").each(function () {
-        var text = $(this).text().toLowerCase(); // Récupère le texte de chaque élément de la liste en minuscules
-        if (filterText.length >= 3 && regex.test(text)) {
-            // Vérifie si le texte de l'élément correspond à l'expression régulière après trois caractères
-            $(this).show(); // Affiche l'élément
-            // $(this).find('.collapse').collapse('show');
-            console.log($(this).show());
-        } else if (filterText.length === 0) {
-            // Si l'input est vide, affiche tous les éléments
-            $("#all_sites li").show();
-            //$(this).find('.collapse').collapse('hide');
-            // $(this).find('.collapse').collapse('show');
-        } else {
-            $(this).hide(); // Cache les éléments qui ne correspondent pas ou si moins de trois caractères ont été saisis
-            console.log("data not found");
-        }
-    });
+    if (type =="site") {
+        $("#all_sites li").each(function () {
+            var text = $(this).text().toLowerCase(); // Récupère le texte de chaque élément de la liste en minuscules
+            if (filterText.length >= 3 && regex.test(text)) {
+                // Vérifie si le texte de l'élément correspond à l'expression régulière après trois caractères
+                $(this).show(); // Affiche l'élément
+                // $(this).find('.collapse').collapse('show');
+                console.log($(this).show());
+            } else if (filterText.length === 0) {
+                // Si l'input est vide, affiche tous les éléments
+                $("#all_sites li").show();
+                //$(this).find('.collapse').collapse('hide');
+                // $(this).find('.collapse').collapse('show');
+            } else {
+                $(this).hide(); // Cache les éléments qui ne correspondent pas ou si moins de trois caractères ont été saisis
+                console.log("data not found");
+            }
+        });
+    } else {
+        $("#all_parcels li").each(function () {
+            var text = $(this).text().toLowerCase(); // Récupère le texte de chaque élément de la liste en minuscules
+            if (filterText.length >= 3 && regex.test(text)) {
+                // Vérifie si le texte de l'élément correspond à l'expression régulière après trois caractères
+                $(this).show(); // Affiche l'élément
+                // $(this).find('.collapse').collapse('show');
+                console.log($(this).show());
+            } else if (filterText.length === 0) {
+                // Si l'input est vide, affiche tous les éléments
+                $("#all_parcels li").show();
+                //$(this).find('.collapse').collapse('hide');
+                // $(this).find('.collapse').collapse('show');
+            } else {
+                $(this).hide(); // Cache les éléments qui ne correspondent pas ou si moins de trois caractères ont été saisis
+                console.log("data not found");
+            }
+        });
+    }
+   
 }
 function searchFunction(value) {
     var input, filter, ul, li, a, i, txtValue;
@@ -92,6 +113,7 @@ function getDataSite(){
             console.log('all sites' ,data);
             if (xhr.status == 200) {
                 tab = data.data;
+                var options = "";
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
@@ -125,8 +147,15 @@ function getDataSite(){
                                     </li>`;
                         $('#all_sites').append(content);
                         $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
                     })
+                    //APPEL SITE SELECT BOX
+        
+                    for (var i = 0; i < tab.length; i++) {
+                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
+                    }
+                    $('#siteId').html(options);
+                    console.log(options);
+
                 }else{
                     console.log('Le tableau est vide.');
                 }
@@ -239,7 +268,7 @@ function getDataParcels(){
                                             </div>
                                         </ul>
                                     </li>`;
-                        $('#parcerelle').append(content);
+                        $('#all_parcels').append(content);
                         // $("#site_name").text(item.name.toUpperCase());
                         //console.log(item.name);
                     })
@@ -311,21 +340,7 @@ function sendDataForm(e,form){
         },
     });
 }
-// Fonction pour fusionner deux objets
-function mergeObjects(obj1, obj2) {
-    var merged = {};
-    for (var prop in obj1) {
-        if (obj1.hasOwnProperty(prop)) {
-            merged[prop] = obj1[prop];
-        }
-    }
-    for (var prop in obj2) {
-        if (obj2.hasOwnProperty(prop)) {
-            merged[prop] = obj2[prop];
-        }
-    }
-    return merged;
-}
+
 function sendDataWithFormData(e,form){
     e.preventDefault();
     var form_ = $('#'+form)[0];
@@ -383,7 +398,7 @@ function sendDataWithFormData(e,form){
         },
         success: function(data,status, xhr) {
             console.log(data);
-            if (xhr.status == 200) {
+            if (xhr.status == 200 || xhr.status == 201) {
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
@@ -411,7 +426,88 @@ function sendDataWithFormData(e,form){
         }
     });
 }
+function sendDataParcelWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
 
+    // Ajout de données supplémentaires à l'objet FormData existant
+    var secondJSON = {
+        geographicalPos: {
+            leftBottom: { 
+                latitude: $('#lb_latitude_parcel').val() == null ? 0 : $('#lb_latitude_parcel').val(),
+                longitude: $('#lb_longitude_parcel').val() == null ? 0 : $('#lb_longitude_parcel').val()
+            },
+            leftTop: { 
+                latitude: $('#lt_latitude_parcel').val() == null ? 0 : $('#lt_latitude_parcel').val(), 
+                longitude: $('#lt_longitude_parcel').val() == null ? 0 : $('#lt_longitude_parcel').val() 
+            },
+            rightBottom: { 
+                latitude: $('#rb_latitude_parcel').val() == null ? 0 : $('#rb_latitude_parcel').val(), 
+                longitude: $('#rb_longitude_parcel').val() == null ? 0 : $('#rb_longitude_parcel').val() 
+            },
+            rightTop: { 
+                latitude: $('#rt_latitude_parcel').val() == null ? 0 : $('#rt_latitude_parcel').val(), 
+                longitude: $('#rt_longitude_parcel').val() == null ? 0 : $('#rt_longitude_parcel').val()
+            }
+        }
+    };
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    // Affichage des données JSON dans la console
+    console.log("objet 1",formDataObj);
+    console.log("objet 2",secondJSON);    
+    
+    // Ajout des propriétés du deuxième objet au premier objet
+    Object.assign(formDataObj, secondJSON);
+    var all_JSON = JSON.stringify(formDataObj);
+
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+
+    $.ajax({
+        url: URI+'/api/parcels',
+        type: "POST",
+        contentType: 'application/json',
+        data: all_JSON,
+        dataType: "json",
+        beforeSend: function() {
+            $('.btn_submit').prop('disabled', true);
+        },
+        success: function(data,status, xhr) {
+            console.log(data,status,xhr);
+            if (xhr.status == 200 || xhr.status == 201) {
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $("#"+form).get(0).reset();
+                setTimeout(function(){
+                    window.location.reload(true);
+                }, 3000)
+            }else{
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $('.btn_submit').prop('disabled', false);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', error);
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $('.btn_submit').prop('disabled', false);
+            } else {
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(xhr.message+ ' '+error);  
+                $('.btn_submit').prop('disabled', false);
+                console.log('Erreur : ', status, error);
+            }
+        }
+    });
+}
 
 $(document).ready(function () {
     $.ajax({

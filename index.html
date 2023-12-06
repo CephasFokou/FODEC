@@ -54,7 +54,7 @@
 							<ul id="sites" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
 									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value)">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'site')">
 									</span>
 								</li>
 								<div id="all_sites" class="px-2 py-3">
@@ -70,7 +70,14 @@
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-								
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'parcels')">
+									</span>
+								</li>
+								<div id="all_parcels" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
 							</ul>
 						</li>
 					</ul>
@@ -194,14 +201,14 @@
 						<form class="profile-form" id="add_site" method="post" action="#" onsubmit="sendDataWithFormData(event,'add_site')">
 							<div class="accordion" id="accordionExample">
 								<div class="card">
-									<div class="card-header" id="headingTwo">
+									<div class="card-header" id="heading_1">
 										<h5 class="card-title my-2">
-											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_2" aria-expanded="true" aria-controls="collapse_2">
 												Informations du Site
 											</a>
 										</h5>
 									</div>
-									<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+									<div id="collapse_2" class="collapse show" aria-labelledby="heading_1" data-bs-parent="#accordionExample">
 										<div class="card-body">
 											<div class="row">
 												<div class="mb-3 col-md-6">
@@ -286,14 +293,14 @@
 									</div>
 								</div>
 								<div class="card">
-									<div class="card-header" id="headingThree">
+									<div class="card-header" id="heading_2">
 										<h5 class="card-title my-2">
-											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_2" aria-expanded="true" aria-controls="collapse_2">
 												Informations geographiques
 											</a>
 										</h5>
 									</div>
-									<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+									<div id="collapse_2" class="collapse" aria-labelledby="heading_2" data-bs-parent="#accordionExample">
 										<div class="card-body">
 											<div class="row">
 												<div class="mb-3 col-md-6">
@@ -353,6 +360,8 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- ADD PARCERELLE -->
 		<div class="modal fade" id="addParcerelle" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -361,17 +370,109 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_parcerelle" method="post" action="#" onsubmit="sendDataForm(event,'add_parcerelle')">
-							<div class="card-body">
-								<div class="row">
-									<div class="mb-3 col-md-12">
-										<label class="form-label" for="NomSite">Nom de la parcerelle</label>
-										<input type="text" class="form-control" id="name" name="name" placeholder="Site Mpos" required>
+						<form class="profile-form" id="add_parcerelle" method="post" action="#" onsubmit="sendDataParcelWithFormData(event,'add_parcerelle')">
+							<div class="accordion" id="accordionExampleTwo">
+								<div class="card">
+									<div class="card-header" id="heading_3">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_3" aria-expanded="true" aria-controls="collapse_3">
+												Informations parcerelle
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_3" class="collapse show" aria-labelledby="heading_3" data-bs-parent="#accordionExampleTwo">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NomSite">Nom de la parcerelle</label>
+													<input type="text" class="form-control" id="name" name="name" placeholder="Parcerelle Mpos" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="speculation">Choisir le site</label>
+													<select name="siteId" class="form-control" id="siteId">
+														
+													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="initialDensity">Densité Initiale</label>
+													<input type="text" class="form-control" id="initialDensity" name="initialDensity" placeholder="Densité Initiale" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="actualDensity">Densité Actuelle</label>
+													<input type="text" class="form-control" id="actualDensity" name="actualDensity" placeholder="Densité Actuelle" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="initialArea">Zone Initiale</label>
+													<input type="text" class="form-control" id="initialArea" name="initialArea" placeholder="Zone Initiale" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="actualArea">Zone Actuelle</label>
+													<input type="text" class="form-control" id="actualArea" name="actualArea" placeholder="Zone Actuelle" required>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" id="heading_4">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_4" aria-expanded="true" aria-controls="collapse_4">
+												Informations geographiques
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_4" class="collapse" aria-labelledby="heading_4" data-bs-parent="#accordionExampleTwo">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_latitude">leftBottom Latitude</label>
+													<input type="text" class="form-control" id="lb_latitude_parcel"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_longitude">leftBottom Longitude</label>
+													<input type="text" class="form-control" id="lb_longitude_parcel" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_latitude">leftTop Latitude</label>
+													<input type="text" class="form-control" id="lt_latitude_parcel" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_longitude">leftTop Longitude</label>
+													<input type="text" class="form-control" id="lt_longitude_parcel" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_latitude">rightBottom Latitude</label>
+													<input type="text" class="form-control" id="rb_latitude_parcel" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_longitude">rightBottom Longitude</label>
+													<input type="text" class="form-control" id="rb_longitude_parcel"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_latitude">rightTop Latitude</label>
+													<input type="text" class="form-control" id="rt_latitude_parcel" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_longitude">rightTop Longitude</label>
+													<input type="text" class="form-control" id="rt_longitude_parcel" placeholder="1" >
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
 							<div class="card-footer">
-								<!-- <button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button> -->
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
 							</div>
 						</form>
 					</div>
@@ -459,38 +560,7 @@
 					});
 				});
 			}
-			// Coordonnées géographiques
-			var coordinates = {
-				leftBottom: { latitude: 1.2222, longitude: 1.2222 },
-				leftTop: { latitude: 1.2222, longitude: 1.2222 },
-				rightBottom: { latitude: 0, longitude: 0 },
-				rightTop: { latitude: 1.2222, longitude: 1.2222 }
-			};
-
-			// Calcul du centre de la carte (moyenne des latitudes et longitudes)
-			var latitudes = Object.values(coordinates).map(coord => coord.latitude);
-			var longitudes = Object.values(coordinates).map(coord => coord.longitude);
-
-			var avgLatitude = latitudes.reduce((total, current) => total + current, 0) / latitudes.length;
-			var avgLongitude = longitudes.reduce((total, current) => total + current, 0) / longitudes.length;
-
-			// Affichage de la carte Google Maps centrée sur la position moyenne
-			function initMap() {
-				var map = new google.maps.Map(document.getElementById('map'), {
-					center: { lat: avgLatitude, lng: avgLongitude },
-					zoom: 10 // Niveau de zoom de la carte
-				});
-
-				// Optionnel : Ajouter des marqueurs pour chaque point (leftBottom, leftTop, rightBottom, rightTop)
-				for (var key in coordinates) {
-					var marker = new google.maps.Marker({
-						position: coordinates[key],
-						map: map,
-						title: key
-					});
-				}
-			}
-
+			
 			// Fonction pour mettre à jour la carte avec de nouvelles coordonnées
 			function updateMap(latitude, longitude,name) {
 				var location = {
@@ -521,7 +591,7 @@
 		</script>
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-aWrwgr64q4b3TEZwQ0lkHI4lZK-moM4&amp;callback=initMaps" async defer></script> -->
 
-	    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMap&libraries=maps,marker&v=beta"></script>
+	    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta"></script>
 		<script>
 			// fetch('sidebar.html')
 			// 	.then(response => response.text())
