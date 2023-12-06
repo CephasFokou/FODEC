@@ -95,25 +95,29 @@ function getDataSite(){
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed line-height-1-3">
-                                            ${item.name.toUpperCase()}<br>
-                                            <span>${item.geneticRessource.toLowerCase()}</span>
+                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
+                                            <small class="text-body-tertiary">${item.geneticRessource}</small>
                                         </a>
-                                        <i class="fas fa-map" id="map_icon" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="card mb-3 bg-light cursor-default border width-p sidebar-dropdown list-unstyled collapse" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
-                                                    <div class="col-md-12 display-grid">
-                                                        <span><b>${item.percentageFarmSite}%</b> champs</span>
-                                                        <span><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                        <span><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                        <span><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                        <span><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
-                                                        <span><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                        <span><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
-                                                        <span><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
-                                                        <span><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                        <span><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                        </div>
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -248,6 +252,106 @@ function sendDataForm(e,form){
             $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
             $('.btn_submit').prop('disabled', false);
         },
+    });
+}
+// Fonction pour fusionner deux objets
+function mergeObjects(obj1, obj2) {
+    var merged = {};
+    for (var prop in obj1) {
+        if (obj1.hasOwnProperty(prop)) {
+            merged[prop] = obj1[prop];
+        }
+    }
+    for (var prop in obj2) {
+        if (obj2.hasOwnProperty(prop)) {
+            merged[prop] = obj2[prop];
+        }
+    }
+    return merged;
+}
+function sendDataWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    // Ajout de données supplémentaires à l'objet FormData existant
+    var secondJSON = {
+        geographicalPos: {
+            leftBottom: { 
+                latitude: $('#lb_latitude').val() == null ? 0 : $('#lb_latitude').val(),
+                longitude: $('#lb_longitude').val() == null ? 0 : $('#lb_longitude').val()
+            },
+            leftTop: { 
+                latitude: $('#lt_latitude').val() == null ? 0 : $('#lt_latitude').val(), 
+                longitude: $('#lt_longitude').val() == null ? 0 : $('#lt_longitude').val() 
+            },
+            rightBottom: { 
+                latitude: $('#rl_latitude').val() == null ? 0 : $('#rl_latitude').val(), 
+                longitude: $('#rl_longitude').val() == null ? 0 : $('#rl_longitude').val() 
+            },
+            rightTop: { 
+                latitude: $('#rt_latitude').val() == null ? 0 : $('#rt_latitude').val(), 
+                longitude: $('#rt_longitude').val() == null ? 0 : $('#rt_longitude').val()
+            }
+        }
+    };
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+    
+    //Conversion de l'objet JavaScript en chaîne JSON
+    //var jsonData = JSON.stringify(formDataObj);
+    // Convertir les données géographiques en JSON
+
+    // Affichage des données JSON dans la console
+    console.log("objet 1",formDataObj);
+    console.log("objet 2",secondJSON);    
+    
+    // Ajout des propriétés du deuxième objet au premier objet
+    Object.assign(formDataObj, secondJSON);
+    var all_JSON = JSON.stringify(formDataObj);
+
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+
+    $.ajax({
+        url: URI+'/api/sites',
+        type: "POST",
+        contentType: 'application/json',
+        data: all_JSON,
+        dataType: "json",
+        beforeSend: function() {
+            $('.btn_submit').prop('disabled', true);
+        },
+        success: function(data,status, xhr) {
+            console.log(data);
+            if (xhr.status == 200) {
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $("#"+form).get(0).reset();
+                setTimeout(function(){
+                    window.location.reload(true);
+                }, 3000)
+            }else{
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $('.btn_submit').prop('disabled', false);
+            }
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', error);
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $('.btn_submit').prop('disabled', false);
+            } else {
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(xhr.message+ ' '+error);  
+                $('.btn_submit').prop('disabled', false);
+                console.log('Erreur : ', status, error);
+            }
+        }
     });
 }
 

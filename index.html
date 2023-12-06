@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -45,39 +46,32 @@
 						<!-- INCLUDE SIDEBAR -->
 						<li class="sidebar-item">
 							<a data-bs-target="#sites" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Gestions Sites</span>
+								<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Gestions Sites</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">
+								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="sites" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<a class="sidebar-link a-add-site" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">
-										Ajouter
-										<span class="icon-add cursor-pointer">
-											<i class="fas fa-plus text-success"></i>
-										</span>
-									</a>
-									
-									<span class="input-group input-group-navbar input-w-75" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-35" placeholder="Search Site" onkeyup="filterData(this.value)">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value)">
 									</span>
 								</li>
-								<div id="all_sites">
+								<div id="all_sites" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
 						</li>
 						<li class="sidebar-item">
 							<a data-bs-target="#parcerelle" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions Parcerelles</span>
+								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions Parcerelles</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
+								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<a class='sidebar-link a-add-site' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
-										Ajouter
-										<span class="cursor-pointer icon-add">
-											<i class="fas fa-plus text-success"></i>
-										</span>
-									</a>
-									<span class="input-group input-group-navbar input-w-75" id="input_search_li_par">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_par">
 										<input type="text" id="filterInputpar" class="form-control input-search" placeholder="Search Parcerelle" onkeyup="filterData(this.value)">
 									</span>
 								</li>
@@ -96,7 +90,7 @@
 					</a>
 					<form class="d-none d-sm-inline-block">
 						<div class="input-group input-group-navbar">
-							<input type="text" class="form-control" placeholder="Search projects…" aria-label="Search">
+							<input type="text" class="form-control" style="height : 43px !important" placeholder="Search projects…" aria-label="Search">
 							<button class="btn" type="button">
 							<i class="align-middle" data-feather="search"></i>
 							</button>
@@ -204,92 +198,154 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_site" method="post" action="#" onsubmit="sendDataForm(event,'add_site')">
-							<div class="card-body">
-								<div class="row">
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NomSite">Nom du site</label>
-										<input type="text" class="form-control" id="name" name="name" placeholder="Site Mpos" required>
+						<form class="profile-form" id="add_site" method="post" action="#" onsubmit="sendDataWithFormData(event,'add_site')">
+							<div class="accordion" id="accordionExample">
+								<div class="card">
+									<div class="card-header" id="headingTwo">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+												Informations du Site
+											</a>
+										</h5>
 									</div>
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="speculation">Speculation</label>
-										<select name="speculation" class="form-control" id="speculation">
-											
-										</select>
+									<div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NomSite">Nom du site</label>
+													<input type="text" class="form-control" id="name" name="name" placeholder="Site Mpos" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="speculation">Speculation</label>
+													<select name="speculation" class="form-control" id="speculation">
+														
+													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
+													<select name="geneticRessource" class="form-control" id="geneticRessource">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneFemelle">Propriétaire</label>
+													<input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1" required>
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-4">
+													<label class="form-label" for="NbreLigneMale">Nombre de champs</label>
+													<input type="number" class="form-control" id="numberFarms" name="numberFarms" placeholder="1">
+			
+												</div>
+												<div class="mb-3 col-md-4">
+													<label class="form-label" for="numberMaleLine">Nombre de ligne M</label>
+													<input type="number" class="form-control" id="numberMaleLine" name="numberMaleLine" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-4">
+													<label class="form-label" for="numberFemaleLine">Nombre de lignes F</label>
+													<input type="number" class="form-control" id="numberFemaleLine" name="numberFemaleLine" placeholder="1" > 
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreArbreMale">Nbre Arbre Mal</label>
+													<input type="number" class="form-control" id="numberMaleTree" name="numberMaleTree" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreArbreFemelle">Nbre Arbre Femelle</label>
+													<input type="number" class="form-control" id="numberFemaleTree" name="numberFemaleTree" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="numberMaleTreeNotNormal">Nbre Arbre Mal Nc</label>
+													<input type="number" class="form-control" id="numberMaleTreeNotNormal" name="numberMaleTreeNotNormal" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="numberFemaleTreeNormal">Nbre Arbre Femelle NC</label>
+													<input type="number" class="form-control" id="numberFemaleTreeNormal" name="numberFemaleTreeNormal" placeholder="10" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="percentageMaleTreeNotNormal"> Pourcentage Arbre Mal Nc</label>
+													<input type="number" class="form-control" id="percentageMaleTreeNotNormal" name="percentageMaleTreeNotNormal" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="percentageFemaleTreeNotNormal"> Pourcentage Arbre Femelle Nc</label>
+													<input type="number" class="form-control" id="percentageFemaleTreeNotNormal" name="percentageFemaleTreeNotNormal" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="percentageMaleTreeNormal"> Pourcentage Arbre Mal C</label>
+													<input type="number" class="form-control" id="percentageMaleTreeNormal" name="percentageMaleTreeNormal" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="percentageFemaleTreeNormal"> Pourcentage Arbre Femelle C</label>
+													<input type="number" class="form-control" id="percentageFemaleTreeNormal" name="percentageFemaleTreeNormal" placeholder="1" >
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
-										<select name="geneticRessource" class="form-control" id="geneticRessource">
-											
-										</select>
+								<div class="card">
+									<div class="card-header" id="headingThree">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+												Informations geographiques
+											</a>
+										</h5>
 									</div>
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NbreLigneFemelle">Propriétaire</label>
-										<input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1" required>
-									</div>
-								</div>
-								<div class="row">
-									<div class="mb-3 col-md-4">
-										<label class="form-label" for="NbreLigneMale">Nombre de champs</label>
-										<input type="number" class="form-control" id="numberFarms" name="numberFarms" placeholder="1" required>
-
-									</div>
-									<div class="mb-3 col-md-4">
-										<label class="form-label" for="numberMaleLine">Nombre total de ligne M</label>
-										<input type="number" class="form-control" id="numberMaleLine" name="numberMaleLine" placeholder="1" required>
-									</div>
-									<div class="mb-3 col-md-4">
-										<label class="form-label" for="numberFemaleLine">Nombre total de lignes F</label>
-										<input type="number" class="form-control" id="numberFemaleLine" name="numberFemaleLine" placeholder="1" required> 
-									</div>
-								</div>
-								<div class="row">
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NbreArbreMale">Nbre Arbre Mal</label>
-										<input type="number" class="form-control" id="numberMaleTree" name="numberMaleTree" placeholder="1" required>
-									</div>
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="NbreArbreFemelle">Nbre Arbre Femelle</label>
-										<input type="number" class="form-control" id="numberFemaleTree" name="numberFemaleTree" placeholder="1" required>
-									</div>
-								</div>
-								<div class="row">
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="numberMaleTreeNotNormal">Nbre Arbre Mal Nc</label>
-										<input type="number" class="form-control" id="numberMaleTreeNotNormal" name="numberMaleTreeNotNormal" placeholder="1" required>
-									</div>
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="numberFemaleTreeNormal">Nbre Arbre Femelle NC</label>
-										<input type="number" class="form-control" id="numberFemaleTreeNormal" name="numberFemaleTreeNormal" placeholder="10" required>
-									</div>
-								</div>
-								<div class="row">
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="percentageMaleTreeNotNormal"> Pourcentage Arbre Mal Nc</label>
-										<input type="number" class="form-control" id="percentageMaleTreeNotNormal" name="percentageMaleTreeNotNormal" placeholder="1" required>
-									</div>
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="percentageFemaleTreeNotNormal"> Pourcentage Arbre Femelle Nc</label>
-										<input type="number" class="form-control" id="percentageFemaleTreeNotNormal" name="percentageFemaleTreeNotNormal" placeholder="1" required>
+									<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneMale">leftBottom Latitude</label>
+													<input type="text" class="form-control" id="lb_latitude"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="numberMaleLine">leftBottom Longitude</label>
+													<input type="text" class="form-control" id="lb_longitude" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneMale">leftTop Latitude</label>
+													<input type="text" class="form-control" id="lt_latitude" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="numberMaleLine">leftTop Longitude</label>
+													<input type="text" class="form-control" id="lt_longitude" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneMale">rightBottom Latitude</label>
+													<input type="text" class="form-control" id="rb_latitude" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="numberMaleLine">rightBottom Longitude</label>
+													<input type="text" class="form-control" id="rb_longitude"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneMale">rightTop Latitude</label>
+													<input type="text" class="form-control" id="rt_latitude" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="numberMaleLine">rightTop Longitude</label>
+													<input type="text" class="form-control" id="rt_longitude" placeholder="1" >
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="percentageMaleTreeNormal"> Pourcentage Arbre Mal C</label>
-										<input type="number" class="form-control" id="percentageMaleTreeNormal" name="percentageMaleTreeNormal" placeholder="1" required>
-									</div>
-									<div class="mb-3 col-md-6">
-										<label class="form-label" for="percentageFemaleTreeNormal"> Pourcentage Arbre Femelle C</label>
-										<input type="number" class="form-control" id="percentageFemaleTreeNormal" name="percentageFemaleTreeNormal" placeholder="1" required>
-									</div>
-								</div>
-								<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
-									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-									<div class="alert-message">
-										
-									</div>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
 								</div>
 							</div>
 							<div class="card-footer">
