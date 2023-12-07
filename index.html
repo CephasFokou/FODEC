@@ -46,7 +46,7 @@
 						<!-- INCLUDE SIDEBAR -->
 						<li class="sidebar-item">
 							<a data-bs-target="#sites" data-bs-toggle="collapse" class="sidebar-link collapsed">
-								<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Gestions Sites</span>
+								<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Gestions des Sites</span>
 							</a>
 							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addSite">
 								<i class="fas fa-plus"></i>
@@ -64,7 +64,7 @@
 						</li>
 						<li class="sidebar-item">
 							<a data-bs-target="#parcerelle" data-bs-toggle="collapse" class="sidebar-link collapsed">
-								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions Parcerelles</span>
+								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions des Parcerelles</span>
 							</a>
 							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
 								<i class="fas fa-plus"></i>
@@ -76,6 +76,60 @@
 									</span>
 								</li>
 								<div id="all_parcels" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#farms" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="command"></i> <span class="align-middle">Gestions des Champs</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addFarms">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="farms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'farms')">
+									</span>
+								</li>
+								<div id="all_farms" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#lines" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Gestions des lignes</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addLine">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="lines" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'lines')">
+									</span>
+								</li>
+								<div id="all_lines" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#trees" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="git-pull-request"></i> <span class="align-middle">Gestions des Arbres</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addTree">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="trees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'trees')">
+									</span>
+								</li>
+								<div id="all_trees" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
@@ -96,48 +150,6 @@
 							</button>
 						</div>
 					</form>
-					<!-- <ul class="navbar-nav">
-						<li class="nav-item px-2 dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Mega menu
-							</a>
-							<div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="servicesDropdown">
-								<div class="d-md-flex align-items-start justify-content-start">
-									<div class="dropdown-mega-list">
-										<div class="dropdown-header">UI Elements</div>
-										<a class="dropdown-item" href="#">Alerts</a>
-										<a class="dropdown-item" href="#">Buttons</a>
-										<a class="dropdown-item" href="#">Cards</a>
-										<a class="dropdown-item" href="#">Carousel</a>
-										<a class="dropdown-item" href="#">General</a>
-										<a class="dropdown-item" href="#">Grid</a>
-										<a class="dropdown-item" href="#">Modals</a>
-										<a class="dropdown-item" href="#">Tabs</a>
-										<a class="dropdown-item" href="#">Typography</a>
-									</div>
-									<div class="dropdown-mega-list">
-										<div class="dropdown-header">Forms</div>
-										<a class="dropdown-item" href="#">Layouts</a>
-										<a class="dropdown-item" href="#">Basic Inputs</a>
-										<a class="dropdown-item" href="#">Input Groups</a>
-										<a class="dropdown-item" href="#">Advanced Inputs</a>
-										<a class="dropdown-item" href="#">Editors</a>
-										<a class="dropdown-item" href="#">Validation</a>
-										<a class="dropdown-item" href="#">Wizard</a>
-									</div>
-									<div class="dropdown-mega-list">
-										<div class="dropdown-header">Tables</div>
-										<a class="dropdown-item" href="#">Basic Tables</a>
-										<a class="dropdown-item" href="#">Responsive Table</a>
-										<a class="dropdown-item" href="#">Table with Buttons</a>
-										<a class="dropdown-item" href="#">Column Search</a>
-										<a class="dropdown-item" href="#">Muulti Selection</a>
-										<a class="dropdown-item" href="#">Ajax Sourced Data</a>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul> -->
 					<div class="navbar-collapse collapse">
 						<ul class="navbar-nav navbar-align">
 							<li class="nav-item dropdown">
@@ -247,46 +259,6 @@
 												<div class="mb-3 col-md-4">
 													<label class="form-label" for="numberFemaleLine">Nombre de lignes F</label>
 													<input type="number" class="form-control" id="numberFemaleLine" name="numberFemaleLine" placeholder="1" > 
-												</div>
-											</div>
-											<div class="row">
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="NbreArbreMale">Nbre Arbre Mal</label>
-													<input type="number" class="form-control" id="numberMaleTree" name="numberMaleTree" placeholder="1" >
-												</div>
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="NbreArbreFemelle">Nbre Arbre Femelle</label>
-													<input type="number" class="form-control" id="numberFemaleTree" name="numberFemaleTree" placeholder="1" >
-												</div>
-											</div>
-											<div class="row">
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="numberMaleTreeNotNormal">Nbre Arbre Mal Nc</label>
-													<input type="number" class="form-control" id="numberMaleTreeNotNormal" name="numberMaleTreeNotNormal" placeholder="1" >
-												</div>
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="numberFemaleTreeNormal">Nbre Arbre Femelle NC</label>
-													<input type="number" class="form-control" id="numberFemaleTreeNormal" name="numberFemaleTreeNormal" placeholder="10" >
-												</div>
-											</div>
-											<div class="row">
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="percentageMaleTreeNotNormal"> Pourcentage Arbre Mal Nc</label>
-													<input type="number" class="form-control" id="percentageMaleTreeNotNormal" name="percentageMaleTreeNotNormal" placeholder="1" >
-												</div>
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="percentageFemaleTreeNotNormal"> Pourcentage Arbre Femelle Nc</label>
-													<input type="number" class="form-control" id="percentageFemaleTreeNotNormal" name="percentageFemaleTreeNotNormal" placeholder="1" >
-												</div>
-											</div>
-											<div class="row">
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="percentageMaleTreeNormal"> Pourcentage Arbre Mal C</label>
-													<input type="number" class="form-control" id="percentageMaleTreeNormal" name="percentageMaleTreeNormal" placeholder="1" >
-												</div>
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="percentageFemaleTreeNormal"> Pourcentage Arbre Femelle C</label>
-													<input type="number" class="form-control" id="percentageFemaleTreeNormal" name="percentageFemaleTreeNormal" placeholder="1" >
 												</div>
 											</div>
 										</div>
@@ -483,6 +455,363 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- ADD FARMS -->
+		<div class="modal fade" id="addFarms" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'un champs</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_farms" method="post" action="#" onsubmit="sendDataFarmsWithFormData(event,'add_farms')">
+							<div class="accordion" id="accordionExampleFarms">
+								<div class="card">
+									<div class="card-header" id="heading_4">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_farms" aria-expanded="true" aria-controls="collapse_farms">
+												Informations du champs
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_farms" class="collapse show" aria-labelledby="heading_4" data-bs-parent="#accordionExampleFarms">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NomSite">Nom du champs</label>
+													<input type="text" class="form-control" id="name_farms" name="name" placeholder="Champs 1" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="parcelId">Choisir la parcerelle</label>
+													<select name="parcelId" class="form-control" id="parcelId">
+														
+													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="initialDensity">Densité Initiale</label>
+													<input type="text" class="form-control" id="initialDensity_farms" name="initialDensity" placeholder="Densité Initiale" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="actualDensity">Densité Actuelle</label>
+													<input type="text" class="form-control" id="actualDensity_farms" name="lastDensity" placeholder="Densité Finale" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="initialArea">Zone Initiale</label>
+													<input type="text" class="form-control" id="initialArea_farms" name="initialArea" placeholder="Zone Initiale" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="actualArea">Zone Actuelle</label>
+													<input type="text" class="form-control" id="actualArea_farms" name="lastArea" placeholder="Zone Finale" required>
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmType">Choisir le type de champs</label>
+													<select name="farmType" class="form-control" id="farmType">
+														<option value="type champs">type champs</option>
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="floorType">Choisir le type de Flore</label>
+													<select name="floorType" class="form-control" id="floorType">
+														<option value="type flore"> type flore</option>
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" id="heading_5">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_farms_geo" aria-expanded="true" aria-controls="collapse_farms_geo">
+												Informations geographiques
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_farms_geo" class="collapse" aria-labelledby="heading_5" data-bs-parent="#accordionExampleFarms">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_latitude">leftBottom Latitude</label>
+													<input type="text" class="form-control" id="lb_latitude_farms"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_longitude">leftBottom Longitude</label>
+													<input type="text" class="form-control" id="lb_longitude_farms" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_latitude">leftTop Latitude</label>
+													<input type="text" class="form-control" id="lt_latitude_farms" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_longitude">leftTop Longitude</label>
+													<input type="text" class="form-control" id="lt_longitude_farms" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_latitude">rightBottom Latitude</label>
+													<input type="text" class="form-control" id="rb_latitude_farms" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_longitude">rightBottom Longitude</label>
+													<input type="text" class="form-control" id="rb_longitude_farms"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_latitude">rightTop Latitude</label>
+													<input type="text" class="form-control" id="rt_latitude_farms" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_longitude">rightTop Longitude</label>
+													<input type="text" class="form-control" id="rt_longitude_farms" placeholder="1" >
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ADD LINE -->
+		<div class="modal fade" id="addLine" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'une ligne</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_line" method="post" action="#" onsubmit="sendDataLineWithFormData(event,'add_line')">
+							<div class="accordion" id="accordionExampleLine">
+								<div class="card">
+									<div class="card-header" id="heading_5">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_line" aria-expanded="true" aria-controls="collapse_line">
+												Informations de la ligne
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_line" class="collapse show" aria-labelledby="heading_5" data-bs-parent="#accordionExampleLine">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NomSite">Nom de la ligne</label>
+													<input type="text" class="form-control" id="name_line" name="name" placeholder="Line 1" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmId">Choisir le champs</label>
+													<select name="farmId" class="form-control" id="farmId_line">
+														
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" id="heading_6">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_line_geo" aria-expanded="true" aria-controls="collapse_line_geo">
+												Informations geographiques
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_line_geo" class="collapse" aria-labelledby="heading_6" data-bs-parent="#accordionExampleLine">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_latitude">leftBottom Latitude</label>
+													<input type="text" class="form-control" id="lb_latitude_line"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_longitude">leftBottom Longitude</label>
+													<input type="text" class="form-control" id="lb_longitude_line" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_latitude">leftTop Latitude</label>
+													<input type="text" class="form-control" id="lt_latitude_line" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_longitude">leftTop Longitude</label>
+													<input type="text" class="form-control" id="lt_longitude_line" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_latitude">rightBottom Latitude</label>
+													<input type="text" class="form-control" id="rb_latitude_line" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_longitude">rightBottom Longitude</label>
+													<input type="text" class="form-control" id="rb_longitude_line"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_latitude">rightTop Latitude</label>
+													<input type="text" class="form-control" id="rt_latitude_line" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_longitude">rightTop Longitude</label>
+													<input type="text" class="form-control" id="rt_longitude_line" placeholder="1" >
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ADD TREES (ARBRES) -->
+		<div class="modal fade" id="addTree" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'un arbre</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_tree" method="post" action="#" onsubmit="sendDataTreeWithFormData(event,'add_tree')">
+							<div class="accordion" id="accordionExampleTree">
+								<div class="card">
+									<div class="card-header" id="heading_7">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_tree" aria-expanded="true" aria-controls="collapse_tree">
+												Informations sur l'Arbre
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_tree" class="collapse show" aria-labelledby="heading_7" data-bs-parent="#accordionExampleTree">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NomSite">Nom de l'arbre</label>
+													<input type="text" class="form-control" id="name_line" name="name" placeholder="Arbre 237" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmId">Choisir la ligne</label>
+													<select name="lineId" class="form-control" id="lineId_tree">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="parentMale">Parent Male</label>
+													<input type="text" class="form-control" id="parentMale" name="parentMale"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="parentFemale">Parent Femelle</label>
+													<input type="text" class="form-control" id="parentFemale" name="parentFemale" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-12">
+													<label class="form-label" for="altitude">Altitude</label>
+													<input type="text" class="form-control" id="altitude_tree" name="altitude" placeholder="1" >
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header" id="heading_8">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_tree_geo" aria-expanded="true" aria-controls="collapse_tree_geo">
+												Informations geographiques
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_tree_geo" class="collapse" aria-labelledby="heading_8" data-bs-parent="#accordionExampleTree">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_latitude">leftBottom Latitude</label>
+													<input type="text" class="form-control" id="lb_latitude_tree"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lb_longitude">leftBottom Longitude</label>
+													<input type="text" class="form-control" id="lb_longitude_tree" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_latitude">leftTop Latitude</label>
+													<input type="text" class="form-control" id="lt_latitude_tree" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="lt_longitude">leftTop Longitude</label>
+													<input type="text" class="form-control" id="lt_longitude_tree" placeholder="1" >
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_latitude">rightBottom Latitude</label>
+													<input type="text" class="form-control" id="rb_latitude_tree" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rb_longitude">rightBottom Longitude</label>
+													<input type="text" class="form-control" id="rb_longitude_tree"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_latitude">rightTop Latitude</label>
+													<input type="text" class="form-control" id="rt_latitude_tree" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="rt_longitude">rightTop Longitude</label>
+													<input type="text" class="form-control" id="rt_longitude_tree" placeholder="1" >
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
 		<script src="js/app.js"></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -560,7 +889,48 @@
 					});
 				});
 			}
-			
+			// La fonction afficherCarte prend des coordonnées et affiche une carte avec ces coordonnées
+			function afficherCarte(leftBottom, leftTop, rightBottom, rightTop,name) {
+				var coordinates = {
+					leftBottom: leftBottom,
+					leftTop: leftTop,
+					rightBottom: rightBottom,
+					rightTop: rightTop
+				};
+
+				var latitudes = Object.values(coordinates).map(coord => coord.latitude);
+				var longitudes = Object.values(coordinates).map(coord => coord.longitude);
+
+				var avgLatitude = latitudes.reduce((total, current) => total + current, 0) / latitudes.length;
+				var avgLongitude = longitudes.reduce((total, current) => total + current, 0) / longitudes.length;
+
+				var locations =  {
+					center: { lat: avgLatitude, lng: avgLongitude },
+					zoom: 16 // Niveau de zoom de la carte
+				};	
+
+				for (var key in coordinates) {
+					var marker = new google.maps.Marker({
+						position: coordinates[key],
+						map: map,
+						title: key
+					});
+				}
+				var infowindow = new google.maps.InfoWindow();
+				var contentString = '<div><strong>' + name + '</strong></div>';
+
+				google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
+					return function() {
+						infowindow.setContent(contentString);
+						infowindow.open(map, marker);
+					};
+				})(marker, contentString, infowindow));
+				// Crée un marqueur pour l'emplacement sélectionné
+				
+				$("#site_name").text(name);
+
+			}
+
 			// Fonction pour mettre à jour la carte avec de nouvelles coordonnées
 			function updateMap(latitude, longitude,name) {
 				var location = {
