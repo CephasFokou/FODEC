@@ -53,7 +53,7 @@
 							</a>
 							<ul id="sites" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_site">
 										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'site')">
 									</span>
 								</li>
@@ -71,8 +71,8 @@
 							</a>
 							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'parcels')">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_parcel">
+										<input type="text" id="filterInput2" class="form-control input-search" placeholder="Search parcel" onkeyup="filterData(this.value,'parcels')">
 									</span>
 								</li>
 								<div id="all_parcels" class="px-2 py-3">
@@ -89,8 +89,8 @@
 							</a>
 							<ul id="farms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'farms')">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_farms">
+										<input type="text" id="filterInput3" class="form-control input-search" placeholder="Search farms" onkeyup="filterData(this.value,'farms')">
 									</span>
 								</li>
 								<div id="all_farms" class="px-2 py-3">
@@ -107,8 +107,8 @@
 							</a>
 							<ul id="lines" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
-									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'lines')">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_line">
+										<input type="text" id="filterInput4" class="form-control input-search" placeholder="Search Line" onkeyup="filterData(this.value,'lines')">
 									</span>
 								</li>
 								<div id="all_lines" class="px-2 py-3">
@@ -130,6 +130,24 @@
 									</span>
 								</li>
 								<div id="all_trees" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#fruits" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="compass"></i> <span class="align-middle">Gestions des Fruits</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addFruit">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="fruits" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_fruit">
+										<input type="text" id="filterInput5" class="form-control input-search" placeholder="Search Fruit" onkeyup="filterData(this.value,'fruits')">
+									</span>
+								</li>
+								<div id="all_fruits" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
@@ -788,6 +806,83 @@
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="rt_longitude">rightTop Longitude</label>
 													<input type="text" class="form-control" id="rt_longitude_tree" placeholder="1" >
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ADD FRUITS -->
+		<div class="modal fade" id="addFruit" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'un Fruit</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_fruit" method="post" action="#" onsubmit="sendDataFruitWithFormData(event,'add_fruit')">
+							<div class="accordion" id="accordionExampleFruit">
+								<div class="card">
+									<div class="card-header" id="heading_9">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_fruit" aria-expanded="true" aria-controls="collapse_fruit">
+												Informations sur le fruit
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_fruit" class="collapse show" aria-labelledby="heading_7" data-bs-parent="#accordionExampleFruit">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NomSite">Nom de l'arbre</label>
+													<input type="text" class="form-control" id="name_fruit" name="name" placeholder="Fruit 237" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmId">Choisir l'arbre</label>
+													<select name="treeId" class="form-control" id="treeId_fruit">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-4">
+													<label class="form-label" for="width_fruit">Largeur</label>
+													<input type="text" class="form-control" id="width_fruit" name="width"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-4">
+													<label class="form-label" for="length_fruit">Longueur</label>
+													<input type="text" class="form-control" id="length_fruit" name="length" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-4">
+													<label class="form-label" for="length_fruit">Poids</label>
+													<input type="text" class="form-control" id="weight_fruit" name="weight" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="altitude">Couleur</label>
+													<input type="color" class="form-control" id="color_fruit" name="color" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="altitude">Type Fruit</label>
+													<select name="type" class="form-control" id="typeFruit">
+														<option value="FRUIT_TYPE">type Fruit</option>
+													</select>
 												</div>
 											</div>
 										</div>

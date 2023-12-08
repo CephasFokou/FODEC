@@ -106,6 +106,24 @@ function filterData(value,type) {
                 console.log("data not found");
             }
         });
+    }else if(type =="fruits") {
+        $("#all_fruits li").each(function () {
+            var text = $(this).text().toLowerCase(); // Récupère le texte de chaque élément de la liste en minuscules
+            if (filterText.length >= 3 && regex.test(text)) {
+                // Vérifie si le texte de l'élément correspond à l'expression régulière après trois caractères
+                $(this).show(); // Affiche l'élément
+                // $(this).find('.collapse').collapse('show');
+                console.log($(this).show());
+            } else if (filterText.length === 0) {
+                // Si l'input est vide, affiche tous les éléments
+                $("#all_fruits li").show();
+                //$(this).find('.collapse').collapse('hide');
+                // $(this).find('.collapse').collapse('show');
+            } else {
+                $(this).hide(); // Cache les éléments qui ne correspondent pas ou si moins de trois caractères ont été saisis
+                console.log("data not found");
+            }
+        });
     }
    
 }
@@ -298,12 +316,12 @@ function getDataParcels(){
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                        <a data-bs-target="#parcel_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.actualDensity}</small>
                                         </a>
                                         <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
@@ -361,12 +379,12 @@ function getDataFarms(){
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                        <a data-bs-target="#farms_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.farmType}</small>
                                         </a>
                                         <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
@@ -417,12 +435,12 @@ function getDataLine(){
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                        <a data-bs-target="#line_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.name}</small>
                                         </a>
                                         <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
@@ -469,12 +487,12 @@ function getDataTree(){
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                        <a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.name}</small>
                                         </a>
                                         <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
@@ -488,6 +506,60 @@ function getDataTree(){
                                         </ul>
                                     </li>`;
                         $('#all_trees').append(content);
+                        // $("#site_name").text(item.name.toUpperCase());
+                        //console.log(item.name);
+                    })
+                    var options = "";
+                    for (var i = 0; i < tab.length; i++) {
+                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
+                    }
+                    $('#treeId_fruit').html(options);
+                }else{
+                    console.log('Le tableau est vide.');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+/** GET DATA FRUIT */
+function getDataFruit(){
+    //alert(237)
+    $.ajax({
+        url: URI+'/api/fruits',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('all fruit' ,data);
+            if (xhr.status == 200) {
+                tab = data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        var content =`<li class="sidebar-item">
+                                        <a data-bs-target="#fruit_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
+                                            <small class="text-body-tertiary">${item.type}</small>
+                                        </a>
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${index}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="fruit_${index}" data-bs-parent="#fruit_${index}">
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.width}</b> Largeur</span>
+                                                            <span class="px-2 bg-"><b>${item.length}</b> Longueur</span>
+                                                            <span class="px-2 bg-"><b>${item.weight}</b> Poids</span>
+                                                            <span class="px-2 bg-"><b>${item.color}</b> Couleur</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </li>`;
+                        $('#all_fruits').append(content);
                         // $("#site_name").text(item.name.toUpperCase());
                         //console.log(item.name);
                     })
@@ -511,6 +583,7 @@ getDataParcels();
 getDataFarms();
 getDataLine();
 getDataTree();
+getDataFruit();
 
 function sendDataForm(e,form){
     e.preventDefault();
@@ -941,6 +1014,61 @@ function sendDataTreeWithFormData(e,form){
 
     $.ajax({
         url: URI+'/api/trees',
+        type: "POST",
+        contentType: 'application/json',
+        data: all_JSON,
+        dataType: "json",
+        beforeSend: function() {
+            $('.btn_submit').prop('disabled', true);
+        },
+        success: function(data,status, xhr) {
+            console.log(data,status,xhr);
+            if (xhr.status == 200 || xhr.status == 201) {
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $("#"+form).get(0).reset();
+                setTimeout(function(){
+                    window.location.reload(true);
+                }, 3000)
+            }else{
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $('.btn_submit').prop('disabled', false);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', error);
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $('.btn_submit').prop('disabled', false);
+            } else {
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(xhr.message+ ' '+error);  
+                $('.btn_submit').prop('disabled', false);
+                console.log('Erreur : ', status, error);
+            }
+        }
+    });
+}
+/**POST DATRA FRUIT */
+function sendDataFruitWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+
+    $.ajax({
+        url: URI+'/api/fruits',
         type: "POST",
         contentType: 'application/json',
         data: all_JSON,
