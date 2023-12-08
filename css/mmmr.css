@@ -72,3 +72,9 @@ a.sidebar-link {
     width: 80%;
     margin-left: 10%;
 } */
+
+ul.sidebar-nav > li.sidebar-item {
+    margin: 10px 10px;
+    text-transform: uppercase;
+    border-bottom: #dddddd47 1px solid;
+}
