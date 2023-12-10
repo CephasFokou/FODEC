@@ -78,3 +78,16 @@ ul.sidebar-nav > li.sidebar-item {
     text-transform: uppercase;
     border-bottom: #dddddd47 1px solid;
 }
+
+
+.dropdown-desc {
+    padding: 0;
+    margin: 0 -20px 0px 50px;
+}
+
+.dropdown-desc-text {
+    text-transform: capitalize;
+    margin: 2px 0;
+    line-height: 1;
+    text-wrap: nowrap;
+}
