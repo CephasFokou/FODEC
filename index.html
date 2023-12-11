@@ -24,8 +24,23 @@
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
-			
 			gtag('config', 'G-Q3ZYEKLQ68');
+
+			var getAuth = localStorage.getItem('auth');
+			if(!getAuth){
+				window.location.href='login.html';
+			}else{
+				var getuser = atob(getAuth);
+				//var getuser_decode = JSON.parse(getuser);
+				var jsonString = JSON.stringify(getuser); // Convertir l'objet en chaîne JSON
+				var parsedObj = JSON.parse(jsonString); 
+
+				console.log(`getuser`, parsedObj);
+				var user_username = document.getElementById('user_username');
+        		//user_username.textContent = getuser.username;
+				alert('User username: ' + getuser.username)
+				
+			}
 		</script>
 	</head>
 	<!--
@@ -175,7 +190,7 @@
 								<i class="align-middle" data-feather="settings"></i>
 								</a>
 								<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-									<img src="img/user.png" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" /> <span class="text-dark">Chris Wood</span>
+									<img src="img/user.png" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" /><span id="user_username" class="text-dark"></span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end">
 									<!-- <a class='dropdown-item' href='pages-profile.html'><i class="align-middle me-1" data-feather="user"></i> Profile</a>
@@ -183,7 +198,7 @@
 									<div class="dropdown-divider"></div>
 									<a class='dropdown-item' href='pages-settings.html'>Settings & Privacy</a>
 									<a class="dropdown-item" href="#">Help</a> -->
-									<a class="dropdown-item" href="#">Deconnexion</a>
+									<a class="dropdown-item" href="javascript:void(0)" onclick="authLogout(event)">Deconnexion</a>
 								</div>
 							</li>
 						</ul>
@@ -196,7 +211,8 @@
 							<div class="col-12 col-lg-12">
 								<div class="card">
 									<div class="card-header">
-										<h3 class="card-title" id="site_name">SITE EXAMPLE</h5>
+										<h3 class="card-title" id="site_name"></h5>
+											<!-- <button onclick="fetchMap()">fetch Map</button> -->
 										<!-- <h6 class="card-subtitle text-muted"></h6> -->
 									</div>
 									<div class="card-body">
@@ -220,6 +236,8 @@
 				</footer>
 			</div>
 		</div>
+
+		<!-- ADD SITE -->
 		<div class="modal fade" id="addSite" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -262,21 +280,6 @@
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NbreLigneFemelle">Propriétaire</label>
 													<input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1" required>
-												</div>
-											</div>
-											<div class="row">
-												<div class="mb-3 col-md-4">
-													<label class="form-label" for="NbreLigneMale">Nombre de champs</label>
-													<input type="number" class="form-control" id="numberFarms" name="numberFarms" placeholder="1">
-			
-												</div>
-												<div class="mb-3 col-md-4">
-													<label class="form-label" for="numberMaleLine">Nombre de ligne M</label>
-													<input type="number" class="form-control" id="numberMaleLine" name="numberMaleLine" placeholder="1" >
-												</div>
-												<div class="mb-3 col-md-4">
-													<label class="form-label" for="numberFemaleLine">Nombre de lignes F</label>
-													<input type="number" class="form-control" id="numberFemaleLine" name="numberFemaleLine" placeholder="1" > 
 												</div>
 											</div>
 										</div>
@@ -529,7 +532,9 @@
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="farmType">Choisir le type de champs</label>
 													<select name="farmType" class="form-control" id="farmType">
-														<option value="type champs">type champs</option>
+														<option value="MONO_CLONAL">MONO_CLONAL</option>
+														<option value="BI_CLONAL">BI_CLONAL</option>
+														<option value="MULTI_CLONAL">MULTI_CLONAL</option>
 													</select>
 												</div>
 												<div class="mb-3 col-md-6">
@@ -858,7 +863,7 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="farmId">Choisir l'arbre</label>
-													<select name="treeId" class="form-control" id="treeId_fruit">
+													<select name="treeId" class="form-control select2" data-toggle="select2" id="treeId_fruit">
 														
 													</select>
 												</div>
@@ -881,8 +886,13 @@
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="altitude">Type Fruit</label>
 													<select name="type" class="form-control" id="typeFruit">
-														<option value="FRUIT_TYPE">type Fruit</option>
+														<option value="CABOSSE">CABOSSE</option>
+														<option value="BAIE">BAIE</option>
 													</select>
+												</div>
+												<div class="mb-3 col-md-12">
+													<label class="form-label" for="altitude">Image Fruit</label>
+													<input type="file" class="form-control" name="picture" id="picture">
 												</div>
 											</div>
 										</div>
@@ -907,58 +917,22 @@
 				</div>
 			</div>
 		</div>
+
 		<script src="js/app.js"></script>
+		<script src="js/mmmr.js" async defer></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<script src="js/mmmr.js" async defer></script>
 		<script>
-			// function initMaps() {
-			// 	var defaultMap = {
-			// 		zoom: 14,
-			// 		center: {
-			// 			lat: 3.8872435143887825,
-			// 			lng: 11.503924213490475
-			// 		},
-			// 		mapTypeId: google.maps.MapTypeId.ROADMAP
-			// 	};
-			// 	new google.maps.Map(document.getElementById("default_map"), defaultMap);
-			// }
-			//3.887649919495665, 11.505106234113658
+			/*document.addEventListener("DOMContentLoaded", function() {
+			});*/
+
 			var locations = [
 				['MEDICS CARE', 3.887649919495665, 11.505106234113658, 300], // Exemple de localisation à Paris, France
 				['Localisation 2', 51.5074, -0.1278, 500], // Exemple de localisation à Londres, Royaume-Uni
 				// Ajoutez d'autres localisations ici
 			];
 
-			// Initialisation de la carte
-			/*function initMaps() {
-				var map = new google.maps.Map(document.getElementById('default_map'), {
-				center: {lat: 0, lng: 0},
-				zoom: 2 // Ajustez le zoom selon votre préférence
-				});
-
-				// Ajout des marqueurs pour chaque localisation avec nom et superficie
-				var infowindow = new google.maps.InfoWindow();
-
-				for (var i = 0; i < locations.length; i++) {
-				var location = locations[i];
-				var marker = new google.maps.Marker({
-					position: {lat: location[1], lng: location[2]},
-					map: map,
-					title: location[0]
-				});
-
-				var contentString = '<div><strong>' + location[0] + '</strong><br>Superficie: ' + location[3] + ' m²</div>';
-
-				google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
-					return function() {
-						infowindow.setContent(contentString);
-						infowindow.open(map, marker);
-					};
-				})(marker, contentString, infowindow));
-				}
-			}*/
 			var map;
 
 			// Fonction pour initialiser la carte avec le pays où vous vous trouvez
@@ -984,50 +958,9 @@
 					});
 				});
 			}
-			// La fonction afficherCarte prend des coordonnées et affiche une carte avec ces coordonnées
-			function afficherCarte(leftBottom, leftTop, rightBottom, rightTop,name) {
-				var coordinates = {
-					leftBottom: leftBottom,
-					leftTop: leftTop,
-					rightBottom: rightBottom,
-					rightTop: rightTop
-				};
-
-				var latitudes = Object.values(coordinates).map(coord => coord.latitude);
-				var longitudes = Object.values(coordinates).map(coord => coord.longitude);
-
-				var avgLatitude = latitudes.reduce((total, current) => total + current, 0) / latitudes.length;
-				var avgLongitude = longitudes.reduce((total, current) => total + current, 0) / longitudes.length;
-
-				var locations =  {
-					center: { lat: avgLatitude, lng: avgLongitude },
-					zoom: 16 // Niveau de zoom de la carte
-				};	
-
-				for (var key in coordinates) {
-					var marker = new google.maps.Marker({
-						position: coordinates[key],
-						map: map,
-						title: key
-					});
-				}
-				var infowindow = new google.maps.InfoWindow();
-				var contentString = '<div><strong>' + name + '</strong></div>';
-
-				google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow) {
-					return function() {
-						infowindow.setContent(contentString);
-						infowindow.open(map, marker);
-					};
-				})(marker, contentString, infowindow));
-				// Crée un marqueur pour l'emplacement sélectionné
-				
-				$("#site_name").text(name);
-
-			}
 
 			// Fonction pour mettre à jour la carte avec de nouvelles coordonnées
-			function updateMap(latitude, longitude,name) {
+			function updateMap237(latitude, longitude,name) {
 				var location = {
 					lat: latitude,
 					lng: longitude
@@ -1052,8 +985,123 @@
 				
 				$("#site_name").text(name);
 			}
+			// Fonction prenant quatre objets comme paramètres
+			function construireMap(leftTop, leftBottom, rightTop, rightBottom) {
+				// Extraction des valeurs de latitude et de longitude pour chaque coin
+				var latLeftTop = leftTop.lat;
+				var lngLeftTop = leftTop.lng;
+			
+				var latLeftBottom = leftBottom.lat;
+				var lngLeftBottom = leftBottom.lng;
+			
+				var latRightTop = rightTop.lat;
+				var lngRightTop = rightTop.lng;
+			
+				var latRightBottom = rightBottom.lat;
+				var lngRightBottom = rightBottom.lng;
+			
+				// Création d'une carte avec les coins spécifiés
+				var map = new google.maps.Map(document.getElementById('map'), {
+					center: { lat: (latLeftTop + latRightBottom) / 2, lng: (lngLeftTop + lngRightBottom) / 2 }, // Centre de la carte
+					zoom: 10, // Zoom par défaut
+					mapTypeId: google.maps.MapTypeId.HYBRID,
+					title: name
+				});
+
+				// Utilisation des valeurs pour placer des marqueurs ou créer des formes, etc.
+				// Exemple : Placer des marqueurs pour chaque coin
+				var markerLeftTop = new google.maps.Polygon({
+					position: { lat: latLeftTop, lng: lngLeftTop },
+					map: map,
+					title: 'Coin supérieur gauche'
+				});
+			
+				var markerLeftBottom = new google.maps.Polygon({
+				position: { lat: latLeftBottom, lng: lngLeftBottom },
+					map: map,
+					title: 'Coin inférieur gauche'
+				});
+			
+				var markerRightTop = new google.maps.Polygon({
+					position: { lat: latRightTop, lng: lngRightTop },
+					map: map,
+					title: 'Coin supérieur droit'
+				});
+			
+				var markerRightBottom = new google.maps.Polygon({
+					position: { lat: latRightBottom, lng: lngRightBottom },
+					map: map,
+					title: 'Coin inférieur droit'
+				});
+			}
+
+			function updateMap(lt_latitude,lt_longitude, lb_latitude, lb_longitude,rt_latitude,rt_longitude, rb_latitude, rb_longitude,name) {
+				//alert(name+lt_latitude+lt_longitude)
+
+				// Extraction des valeurs de latitude et de longitude pour chaque coin
+				var latLeftTop = parseInt(lt_latitude);
+				var lngLeftTop = parseInt(lt_longitude);
+				var latLeftBottom = parseInt(lb_latitude);
+				var lngLeftBottom = parseInt(lb_longitude);
+				var latRightTop = parseInt(rt_latitude);
+				var lngRightTop = parseInt(rt_longitude);
+				var latRightBottom = parseInt(rb_latitude);
+				var lngRightBottom = parseInt(rb_longitude);
+				var div_1 = (latLeftTop + latRightBottom) / 2;
+				var div_2 = (lngLeftTop + lngRightBottom) / 2; 
+				// Création d'une carte avec les coins spécifiés
+				var map = new google.maps.Map(document.getElementById('map'), {
+					center: {
+						lat: (latLeftTop + latRightBottom) / 2,
+						lng: (lngLeftTop + lngRightBottom) / 2
+					}, // Centre de la carte
+					zoom: 10, // Zoom par défaut
+					mapTypeId: google.maps.MapTypeId.HYBRID
+				});
+				console.log(`data`, latLeftTop+' * '+latRightBottom+' 	* '+lngLeftTop+' * '+lngRightBottom);
+				console.log(`lat`, div_1+' long '+div_2);
+
+				// Utilisation des valeurs pour placer des marqueurs ou créer des formes, etc.
+				// Exemple : Placer des marqueurs pour chaque coin
+				var markerLeftTop = new google.maps.Marker({
+					position: { lat: latLeftTop, lng: lngLeftTop },
+					map: map,
+					title: name
+				});
+			
+				var markerLeftBottom = new google.maps.Marker({
+					position: { lat: latLeftBottom, lng: lngLeftBottom },
+					map: map,
+					title: name
+				});
+			
+				var markerRightTop = new google.maps.Marker({
+					position: { lat: latRightTop, lng: lngRightTop },
+					map: map,
+					title: name
+				});
+			
+				var markerRightBottom = new google.maps.Marker({
+					position: { lat: latRightBottom, lng: lngRightBottom },
+					map: map,
+					title: name
+				});
+			
+				$("#site_name").text(name);
+			}
+			
+			// Exemple d'appel de la fonction avec quatre objets
+			var leftTop = { lat: 40.712, lng: -74.006 }; // Exemple : Coin supérieur gauche
+			var leftBottom = { lat: 40.695, lng: -74.006 }; // Exemple : Coin inférieur gauche
+			var rightTop = { lat: 40.712, lng: -73.97 }; // Exemple : Coin supérieur droit
+			var rightBottom = { lat: 40.695, lng: -73.97 }; // Exemple : Coin inférieur droit
+			function fetchMap(){
+				construireMap(leftTop, leftBottom, rightTop, rightBottom);
+			}
+  
 
 		</script>
+
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-aWrwgr64q4b3TEZwQ0lkHI4lZK-moM4&amp;callback=initMaps" async defer></script> -->
 
 	    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta"></script>

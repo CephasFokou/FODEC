@@ -1,5 +1,6 @@
 var URI = "http://5.250.176.223:8080";
 var tab = [];
+let globalImageContent;
 
 if(navigator.onLine) {
     console.log('Connexion internet active');
@@ -175,74 +176,7 @@ function collapseData(value){
 // });
 
 
-/** GET DATA SITE */
-function getDataSite(){
-    $.ajax({
-        url: URI+'/api/sites',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all sites' ,data);
-            if (xhr.status == 200) {
-                tab = data.data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        let leftBottom = item.geographicalPos.leftBottom;
-                        let leftTop = item.geographicalPos.leftTop;
-                        let rightBottom = item.geographicalPos.rightBottom;
-                        let rightTop = item.geographicalPos.rightTop;
-                        //console.log(leftBottom);
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.geneticRessource}</small>
-                                        </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="afficherCarte('${leftBottom}','${leftTop}','${rightBottom}','${rightTop}','${item.name.toUpperCase()}')"></i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
-                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
-                                                        </div>
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_sites').append(content);
-                        $("#site_name").text(item.name.toUpperCase());
-                    })
-                    //APPEL SITE SELECT BOX
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#siteId').html(options);
-                    ///console.log(options);
 
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
 /**GET DATA GENETIC RESSOURCE */
 function getDataGenetic(){
     $.ajax({
@@ -303,6 +237,83 @@ function getDataSpeculation(){
         }
     });
 }
+
+/** GET DATA SITE */
+function getDataSite(){
+    $.ajax({
+        url: URI+'/api/sites',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('all sites' ,data);
+            if (xhr.status == 200) {
+                tab = data.data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = item.geographicalPos.leftTop.latitude;
+                        var lt_longitude = item.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = item.geographicalPos.rightTop.latitude;
+                        var rt_longitude = item.geographicalPos.rightTop.longitude;
+                        
+                        console.log(rt_longitude);
+                        var content =`<li class="sidebar-item">
+                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
+                                            <small class="text-body-tertiary">${item.geneticRessource}</small>
+                                        </a>
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>	  
+                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                        </div>
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </li>`;
+                        $('#all_sites').append(content);
+                        $("#site_name").text(item.name.toUpperCase());
+                    })
+                    //APPEL SITE SELECT BOX
+                    var options = "";
+                    for (var i = 0; i < tab.length; i++) {
+                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
+                    }
+                    $('#siteId').html(options);
+                    ///console.log(options);
+
+                }else{
+                    console.log('Le tableau est vide.');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
 /** GET DATA PARCELS */
 function getDataParcels(){
     $.ajax({
@@ -315,12 +326,24 @@ function getDataParcels(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
+                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = item.geographicalPos.leftTop.latitude;
+                        var lt_longitude = item.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = item.geographicalPos.rightTop.latitude;
+                        var rt_longitude = item.geographicalPos.rightTop.longitude;
+                        console.log("parcels", lb_latitude)
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#parcel_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.actualDensity}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>	  
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
@@ -378,12 +401,24 @@ function getDataFarms(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
+                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = item.geographicalPos.leftTop.latitude;
+                        var lt_longitude = item.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = item.geographicalPos.rightTop.latitude;
+                        var rt_longitude = item.geographicalPos.rightTop.longitude;
+
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#farms_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.farmType}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
@@ -434,12 +469,24 @@ function getDataLine(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
+                                                var lb_latitude = item.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = item.geographicalPos.leftTop.latitude;
+                        var lt_longitude = item.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = item.geographicalPos.rightTop.latitude;
+                        var rt_longitude = item.geographicalPos.rightTop.longitude;
+
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#line_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.name}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
@@ -486,12 +533,23 @@ function getDataTree(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
+                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = item.geographicalPos.leftTop.latitude;
+                        var lt_longitude = item.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = item.geographicalPos.rightTop.latitude;
+                        var rt_longitude = item.geographicalPos.rightTop.longitude;
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.name}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
                                             <div class="card-body p-3">
                                                 <div class="row">
@@ -584,6 +642,47 @@ getDataFarms();
 getDataLine();
 getDataTree();
 getDataFruit();
+
+// Fonction pour convertir l'image en base64
+function getImageAsBase64(inputId, callback) {
+    var input = document.getElementById(inputId);
+
+    input.addEventListener('change', function() {
+        var file = this.files[0]; // Récupère le fichier image sélectionné
+
+        if (file) {
+            var reader = new FileReader(); // Crée un objet FileReader
+
+            reader.onload = function(event) {
+                var base64Image = event.target.result; // Contient les données base64 de l'image
+                callback(base64Image); // Appelle la fonction de rappel avec les données base64
+            };
+
+            reader.readAsDataURL(file); // Lit le contenu du fichier en tant que données base64
+        }
+    });
+
+    // Vérification si une image est déjà présente (par exemple, si le champ est rempli par défaut)
+    if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            var base64Image = event.target.result;
+            callback(base64Image);
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+
+function contentImage(value){
+    return value;
+}
+function processBase64Image(base64Image) {
+    //console.log('Image convertie en données base64 :', base64Image);
+    globalImageContent  = contentImage(base64Image);
+}
 
 function sendDataForm(e,form){
     e.preventDefault();
@@ -1052,11 +1151,14 @@ function sendDataTreeWithFormData(e,form){
         }
     });
 }
+getImageAsBase64('picture', processBase64Image);
 /**POST DATRA FRUIT */
 function sendDataFruitWithFormData(e,form){
     e.preventDefault();
     var form_ = $('#'+form)[0];
     var formData = new FormData(form_);
+
+    formData.append('picture', globalImageContent);
 
     var formDataObj = {};
     formData.forEach(function(value, key){
@@ -1065,14 +1167,17 @@ function sendDataFruitWithFormData(e,form){
 
     var all_JSON = JSON.stringify(formDataObj);
     // Affichage du premier objet JSON mis à jour dans la console
+    console.log('pictureImage',globalImageContent);
     console.log('ALL JSON',all_JSON);
 
     $.ajax({
         url: URI+'/api/fruits',
         type: "POST",
+        enctype: 'multipart/form-data',
         contentType: 'application/json',
         data: all_JSON,
         dataType: "json",
+        // processData: false,
         beforeSend: function() {
             $('.btn_submit').prop('disabled', true);
         },
@@ -1083,7 +1188,7 @@ function sendDataFruitWithFormData(e,form){
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
-                    window.location.reload(true);
+                    //window.location.reload(true);
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -1107,7 +1212,74 @@ function sendDataFruitWithFormData(e,form){
         }
     });
 }
+console.log(`window`, window.location);
 
+function authLogin(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+    $.ajax({
+        url: URI+'/api/auth/signin',
+        type: "POST",
+        enctype: 'multipart/form-data',
+        contentType: 'application/json',
+        data: all_JSON,
+        dataType: "json",
+        // processData: false,
+        beforeSend: function() {
+            $('.btn_submit').prop('disabled', true);
+        },
+        success: function(data,status, xhr) {
+            console.log(data,status,xhr);
+            if (xhr.status == 200 || xhr.status == 201) {
+                localStorage.setItem('auth', btoa(data));
+                //atob decoder
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text("CONNEXION EFFECTUEE AVEC SUCCES !!!");             
+                $("#"+form).get(0).reset();
+                setTimeout(function(){
+                    $(".alert-message").text("Vous serez rediriger vers une autre page !!!").fadeIn(1000);
+                    window.location.href="index.html";
+                 }, 3000)
+            }else{
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $('.btn_submit').prop('disabled', false);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', error);
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('USERNAME OU PASSWORD INCORRECT');  
+                $('.btn_submit').prop('disabled', false);
+            } else {
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(xhr.message+ ' '+error);  
+                $('.btn_submit').prop('disabled', false);
+                console.log('Erreur : ', status, error);
+            }
+        }
+    });
+}
+function authLogout(event){
+    event.preventDefault();
+    if (confirm('Voulez-vous vraiment vous deconnectez ?')) {
+        // Code à exécuter si l'utilisateur clique sur "OK"
+        localStorage.removeItem('auth');
+        window.location.href="login.html";
+    }
+}
 $(document).ready(function () {
     $.ajax({
         url: $("#login-form").attr("action"),
