@@ -38,7 +38,6 @@
 				console.log(`getuser`, parsedObj);
 				var user_username = document.getElementById('user_username');
         		//user_username.textContent = getuser.username;
-				alert('User username: ' + getuser.username)
 				
 			}
 		</script>
@@ -145,24 +144,6 @@
 									</span>
 								</li>
 								<div id="all_trees" class="px-2 py-3">
-									<!-- GET SITE AFTER CHARGEMENT DATA API -->
-								</div>
-							</ul>
-						</li>
-						<li class="sidebar-item">
-							<a data-bs-target="#fruits" data-bs-toggle="collapse" class="sidebar-link collapsed">
-								<i class="align-middle" data-feather="compass"></i> <span class="align-middle">Gestions des Fruits</span>
-							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addFruit">
-								<i class="fas fa-plus"></i>
-							</a>
-							<ul id="fruits" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-								<li class="sidebar-item">
-									<span class="input-group input-group-navbar input-w-80" id="input_search_li_fruit">
-										<input type="text" id="filterInput5" class="form-control input-search" placeholder="Search Fruit" onkeyup="filterData(this.value,'fruits')">
-									</span>
-								</li>
-								<div id="all_fruits" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
