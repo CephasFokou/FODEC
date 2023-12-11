@@ -78,6 +78,9 @@ ul.sidebar-nav > li.sidebar-item {
     text-transform: uppercase;
     border-bottom: #dddddd47 1px solid;
 }
+.select2-container {
+    z-index: 2000;
+}
 
 
 .dropdown-desc {
