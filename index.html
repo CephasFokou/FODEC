@@ -26,21 +26,21 @@
 			gtag('js', new Date());
 			gtag('config', 'G-Q3ZYEKLQ68');
 
-			var getAuth = localStorage.getItem('auth');
-			if(!getAuth){
-				window.location.href='login.html';
-			}else{
-				var getuser = atob(getAuth);
-				//var getuser_decode = JSON.parse(getuser);
-				var jsonString = JSON.stringify(getuser); // Convertir l'objet en chaîne JSON
-				var parsedObj = JSON.parse(jsonString); 
+			// var getAuth = localStorage.getItem('auth');
+			// if(!getAuth){
+			// 	window.location.href='login.html';
+			// }else{
+			// 	var getuser = atob(getAuth);
+			// 	//var getuser_decode = JSON.parse(getuser);
+			// 	var jsonString = JSON.stringify(getuser); // Convertir l'objet en chaîne JSON
+			// 	var parsedObj = JSON.parse(jsonString); 
 
-				console.log(`getuser`, parsedObj);
-				var user_username = document.getElementById('user_username');
-        		//user_username.textContent = getuser.username;
-				alert('User username: ' + getuser.username)
+			// 	console.log(`getuser`, parsedObj);
+			// 	var user_username = document.getElementById('user_username');
+        	// 	//user_username.textContent = getuser.username;
+			// 	alert('User username: ' + getuser.username)
 				
-			}
+			// }
 		</script>
 	</head>
 	<!--
