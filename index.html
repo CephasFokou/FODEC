@@ -29,17 +29,6 @@
 			var getAuth = localStorage.getItem('auth');
 			if(!getAuth){
 				window.location.href='login.html';
-			}else{
-				var getuser = atob(getAuth);
-				//var getuser_decode = JSON.parse(getuser);
-				var jsonString = JSON.stringify(getuser); // Convertir l'objet en chaîne JSON
-				var parsedObj = JSON.parse(jsonString); 
-
-				console.log(`getuser`, parsedObj);
-				var user_username = document.getElementById('user_username');
-        		//user_username.textContent = getuser.username;
-				alert('User username: ' + getuser.username)
-				
 			}
 		</script>
 	</head>
@@ -190,7 +179,8 @@
 								<i class="align-middle" data-feather="settings"></i>
 								</a>
 								<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-									<img src="img/user.png" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" /><span id="user_username" class="text-dark"></span>
+									<img src="img/user.png" class="avatar img-fluid rounded-circle me-1" alt="Chris Wood" />
+									<span id="user_username" class="text-dark"></span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end">
 									<!-- <a class='dropdown-item' href='pages-profile.html'><i class="align-middle me-1" data-feather="user"></i> Profile</a>
@@ -228,7 +218,7 @@
 						<div class="row text-muted">
 							<div class="col-6 text-end">
 								<p class="mb-0">
-									&copy; 2023 - <a class='text-muted' href='javascript:void(0)'>SEEDTRACK</a>
+									&copy; 2023 - <script>document.write(new Date().getFullYear())</script><a class='text-muted' href='javascript:void(0)'>SEEDTRACK</a>
 								</p>
 							</div>
 						</div>
@@ -924,6 +914,15 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		<script>
+			var getAuth = localStorage.getItem('auth');
+			if(getAuth) {
+				var getUser_decode =  JSON.parse(getAuth); 
+				var username = getUser_decode.username;         
+				var role = getUser_decode.roles[0];        
+				var user_username = document.getElementById('user_username');
+				user_username.textContent = username;
+				console.log(`user`, user_username);
+			}
 			/*document.addEventListener("DOMContentLoaded", function() {
 			});*/
 

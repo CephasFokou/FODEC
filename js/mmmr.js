@@ -1151,7 +1151,7 @@ function sendDataTreeWithFormData(e,form){
         }
     });
 }
-getImageAsBase64('picture', processBase64Image);
+//getImageAsBase64('picture', processBase64Image);
 /**POST DATRA FRUIT */
 function sendDataFruitWithFormData(e,form){
     e.preventDefault();
@@ -1239,10 +1239,9 @@ function authLogin(e,form){
             $('.btn_submit').prop('disabled', true);
         },
         success: function(data,status, xhr) {
-            console.log(data,status,xhr);
             if (xhr.status == 200 || xhr.status == 201) {
-                localStorage.setItem('auth', btoa(data));
-                //atob decoder
+                console.log(data);
+                localStorage.setItem('auth', JSON.stringify(data));
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text("CONNEXION EFFECTUEE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
