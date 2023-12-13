@@ -17,6 +17,7 @@
 		<!-- Remove this after purchasing -->
 		<link class="js-stylesheet" href="css/light.css" rel="stylesheet">
 		<link class="js-stylesheet" href="css/mmmr.css" rel="stylesheet">
+		<link class="js-stylesheet" href="css/loader.css" rel="stylesheet">
 		<!-- <script src="js/settings.js"></script> -->
 		<!-- END SETTINGS -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3ZYEKLQ68"></script>
@@ -40,6 +41,14 @@
 		data-sidebar-behavior: sticky (default), fixed, compact
 		-->
 	<body data-theme="light" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
+		<div class="preloader-wrap">
+            <div class="spinner spinner-10">
+                <div class="ms-cube1 ms-cube"></div>
+                <div class="ms-cube2 ms-cube"></div>
+                <div class="ms-cube4 ms-cube"></div>
+                <div class="ms-cube3 ms-cube"></div>
+            </div>
+        </div>
 		<div class="wrapper">
 			<nav id="sidebar" class="sidebar">
 				<div class="sidebar-content js-simplebar">
@@ -914,6 +923,7 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		<script>
+
 			var getAuth = localStorage.getItem('auth');
 			if(getAuth) {
 				var getUser_decode =  JSON.parse(getAuth); 
