@@ -26,6 +26,7 @@ input,select{
     height: 31px !important;
     outline: none !important;
     border: 1px solid #ccc;
+    text-transform: none!important;
 }
 .btn{
     height: 42px !important;
@@ -65,13 +66,19 @@ a.sidebar-link {
     content: '';
 }
 
-/* .settings{
-    display: none !important;
-} */
-/* .width-p{
-    width: 80%;
-    margin-left: 10%;
-} */
+.login-form-container {
+    background: #F5F5F5!important;
+    position: absolute;
+    top: 0;
+}
+
+.main.login {
+    background: unset!important;
+    background-image: url(../img/pngocean1.png)!important;
+    background-size: contain!important;
+    background-repeat: no-repeat!important;
+    background-position: right!important;
+}
 
 ul.sidebar-nav > li.sidebar-item {
     margin: 10px 10px;
