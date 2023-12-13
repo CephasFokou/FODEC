@@ -25,14 +25,19 @@
 	<!-- Remove this after purchasing -->
 	<link class="js-stylesheet" href="css/light.css" rel="stylesheet">
 	<link class="js-stylesheet" href="css/mmmr.css" rel="stylesheet">
+	<link class="js-stylesheet" href="css/loader.css" rel="stylesheet">
 	<!-- <script src="js/settings.js"></script> -->
 	<!-- END SETTINGS -->
 	<script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-	gtag('config', 'G-Q3ZYEKLQ68');
+		gtag('config', 'G-Q3ZYEKLQ68');
+		var getAuth = localStorage.getItem('auth');
+		if(getAuth){
+			window.location.href='index.html';
+		}
 	</script>
 </head>
 <!--
@@ -45,6 +50,14 @@
 
 <body data-theme="light" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
 	<div class="main d-flex justify-content-center w-100">
+		<div class="preloader-wrap">
+			<div class="spinner spinner-10">
+				<div class="ms-cube1 ms-cube"></div>
+				<div class="ms-cube2 ms-cube"></div>
+				<div class="ms-cube4 ms-cube"></div>
+				<div class="ms-cube3 ms-cube"></div>
+			</div>
+		</div>
 		<main class="content d-flex p-0">
 			<div class="container d-flex flex-column">
 				<div class="row h-100">
