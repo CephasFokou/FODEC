@@ -139,7 +139,7 @@
 							<ul id="trees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 								<li class="sidebar-item">
 									<span class="input-group input-group-navbar input-w-80" id="input_search_li">
-										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Site" onkeyup="filterData(this.value,'trees')">
+										<input type="text" id="filterInput" class="form-control input-search" placeholder="Search Tree" onkeyup="filterData(this.value,'trees')">
 									</span>
 								</li>
 								<div id="all_trees" class="px-2 py-3">
@@ -161,6 +161,24 @@
 									</span>
 								</li>
 								<div id="all_fruits" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#feuilles" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="slack"></i> <span class="align-middle">Gestions des feuilles</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addLeave">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="feuilles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_leave">
+										<input type="text" id="filterInput6" class="form-control input-search" placeholder="Search Leave" onkeyup="filterData(this.value,'leaves')">
+									</span>
+								</li>
+								<div id="all_leaves" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
@@ -227,7 +245,7 @@
 						<div class="row text-muted">
 							<div class="col-6 text-end">
 								<p class="mb-0">
-									&copy; 2023 - <script>document.write(new Date().getFullYear())</script><a class='text-muted' href='javascript:void(0)'>SEEDTRACK</a>
+									&copy; 2023 - <script>document.write(new Date().getFullYear())</script> <a class='text-muted' href='javascript:void(0)'>SEEDTRACK</a>
 								</p>
 							</div>
 						</div>
@@ -264,7 +282,7 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="speculation">Speculation</label>
-													<select name="speculation" class="form-control" id="speculation">
+													<select name="speculation" class="form-control speculation" id="speculation">
 														
 													</select>
 												</div>
@@ -272,7 +290,7 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
-													<select name="geneticRessource" class="form-control" id="geneticRessource">
+													<select name="geneticRessource" class="form-control geneticRessource" id="geneticRessource">
 														
 													</select>
 												</div>
@@ -404,6 +422,32 @@
 													<input type="text" class="form-control" id="actualArea" name="actualArea" placeholder="Zone Actuelle" required>
 												</div>
 											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
+													<select name="geneticRessource" class="form-control geneticRessource" id="geneticRessource">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="speculation">Speculation</label>
+													<select name="speculation" class="form-control speculation" id="speculation">
+													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmType">Choisir le type de ferme</label>
+													<select name="farmType" class="form-control farmType" id="farmType_parcel">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="pollinisation">pollinisation</label>
+													<select name="pollinisation" class="form-control pollinisation" id="pollinisation">
+													</select>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -528,20 +572,13 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="farmType">Choisir le type de champs</label>
-													<select name="farmType" class="form-control" id="farmType">
-														<option value="MONO_CLONAL">MONO_CLONAL</option>
-														<option value="BI_CLONAL">BI_CLONAL</option>
-														<option value="MULTI_CLONAL">MULTI_CLONAL</option>
+												<div class="mb-3 col-md-12">
+													<label class="form-label" for="farmType">Choisir le type de ferme</label>
+													<select name="farmType" class="form-control farmType" id="farmType">
+														
 													</select>
 												</div>
-												<div class="mb-3 col-md-6">
-													<label class="form-label" for="floorType">Choisir le type de Flore</label>
-													<select name="floorType" class="form-control" id="floorType">
-														<option value="type flore"> type flore</option>
-													</select>
-												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -857,7 +894,7 @@
 										<div class="card-body">
 											<div class="row">
 												<div class="mb-3 col-md-6">
-													<label class="form-label" for="NomSite">Nom de l'arbre</label>
+													<label class="form-label" for="NomSite">Nom du Fruit</label>
 													<input type="text" class="form-control" id="name_fruit" name="name" placeholder="Fruit 237" required>
 												</div>
 												<div class="mb-3 col-md-6">
@@ -889,10 +926,10 @@
 														<option value="BAIE">BAIE</option>
 													</select>
 												</div>
-												<div class="mb-3 col-md-12">
+												<!-- <div class="mb-3 col-md-12">
 													<label class="form-label" for="altitude">Image Fruit</label>
 													<input type="file" class="form-control" name="picture" id="picture">
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -916,7 +953,85 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- ADD LEAVE -->
+		<div class="modal fade" id="addLeave" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'une feuille</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_leave" method="post" action="#" onsubmit="sendDataLeaveWithFormData(event,'add_leave')">
+							<div class="accordion" id="accordionExampleLeave">
+								<div class="card">
+									<div class="card-header" id="heading_10">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_leave" aria-expanded="true" aria-controls="collapse_leave">
+												Informations sur la feuille
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_leave" class="collapse show" aria-labelledby="heading_8" data-bs-parent="#accordionExampleLeave">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="shape">Nom de la feuille</label>
+													<select name="shape" class="form-control" id="shape">
+														<option value="LEAF_SHAPE">LEAF_SHAPE</option>
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmId">Choisir l'arbre</label>
+													<select name="treeId" class="form-control select2" data-toggle="select2" id="treeId_leave">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="width_fruit">Taille</label>
+													<input type="text" class="form-control" id="size" name="size"  placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="length_fruit">Poids</label>
+													<input type="text" class="form-control" id="weight_leave" name="weight" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="altitude">Couleur</label>
+													<input type="color" class="form-control" id="color_leave" name="color" placeholder="1" >
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="altitude">Type Feuille</label>
+													<select name="type" class="form-control" id="typeLeave">
+														<option value="LEAF_TYPE">LEAF_TYPE</option>
+													</select>
+												</div>
+												<!-- <div class="mb-3 col-md-12">
+													<label class="form-label" for="altitude">Image Fruit</label>
+													<input type="file" class="form-control" name="picture" id="picture">
+												</div> -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
+							<div class="card-footer">
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+					</div>
+				</div>
+			</div>
+		</div>
 		<script src="js/app.js"></script>
 		<script src="js/mmmr.js" async defer></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->
@@ -931,7 +1046,7 @@
 				var role = getUser_decode.roles[0];        
 				var user_username = document.getElementById('user_username');
 				user_username.textContent = username;
-				console.log(`user`, user_username);
+				//console.log(`user`, user_username);
 			}
 			/*document.addEventListener("DOMContentLoaded", function() {
 			});*/

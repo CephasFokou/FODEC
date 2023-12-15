@@ -23,6 +23,7 @@
 	<!-- Remove this after purchasing -->
 	<link class="js-stylesheet" href="css/light.css" rel="stylesheet">
 	<link class="js-stylesheet" href="css/mmmr.css" rel="stylesheet">
+	<link class="js-stylesheet" href="css/loader.css" rel="stylesheet">
 	<!-- END SETTINGS -->
 </head>
 
@@ -79,8 +80,10 @@
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Password</label>
-											<input class="form-control form-control-lg fs-6" type="password"
+											<input class="form-control form-control-lg fs-6" type="password" id="password"
 												name="password" placeholder="Password" />
+											<span toggle="#password-field2" onclick="return tooglePassword('password','created-password')" class="fas fa-fw fa-eye field-icon created-password cursor-pointer text-color-logo"></span>
+
 											<!-- <small>
 												<a href='pages-reset-password.html'>Forgot password?</a>
 											</small> -->

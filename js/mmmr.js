@@ -1,7 +1,13 @@
 var URI = "http://5.250.176.223:8080";
 var tab = [];
 let globalImageContent;
-
+var getAuth = localStorage.getItem('auth');
+if(getAuth) {
+	var getUser_decode =  JSON.parse(getAuth); 
+	var userId = getUser_decode.id;         
+	var role = getUser_decode.roles[0];        
+	console.log(`user`, userId);
+}
 if(navigator.onLine) {
     console.log('Connexion internet active');
 }else{
@@ -125,7 +131,26 @@ function filterData(value,type) {
                 console.log("data not found");
             }
         });
+    }else if(type =="leaves") {
+        $("#all_leaves li").each(function () {
+            var text = $(this).text().toLowerCase(); // Récupère le texte de chaque élément de la liste en minuscules
+            if (filterText.length >= 3 && regex.test(text)) {
+                // Vérifie si le texte de l'élément correspond à l'expression régulière après trois caractères
+                $(this).show(); // Affiche l'élément
+                // $(this).find('.collapse').collapse('show');
+                console.log($(this).show());
+            } else if (filterText.length === 0) {
+                // Si l'input est vide, affiche tous les éléments
+                $("#all_leaves li").show();
+                //$(this).find('.collapse').collapse('hide');
+                // $(this).find('.collapse').collapse('show');
+            } else {
+                $(this).hide(); // Cache les éléments qui ne correspondent pas ou si moins de trois caractères ont été saisis
+                console.log("data not found");
+            }
+        });
     }
+    
    
 }
 function searchFunction(value) {
@@ -180,7 +205,7 @@ function collapseData(value){
 /**GET DATA GENETIC RESSOURCE */
 function getDataGenetic(){
     $.ajax({
-        url: URI+'/api/dictionaries/3/values',
+        url: URI+'/api/dictionaries/2/values',
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
@@ -194,10 +219,10 @@ function getDataGenetic(){
                         options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
                         //console.log(options);
                     }
-                    $('#geneticRessource').html(options);
+                    $('.geneticRessource').html(options);
                         //console.log(item.name);
                 }else{
-                    $('#geneticRessource').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                    $('.geneticRessource').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
             }
           
@@ -210,7 +235,7 @@ function getDataGenetic(){
 /** GET DATA SPECULATION */
 function getDataSpeculation(){
     $.ajax({
-        url: URI+'/api/dictionaries/2/values',
+        url: URI+'/api/dictionaries/1/values',
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
@@ -222,13 +247,13 @@ function getDataSpeculation(){
                     var options = '';
                     var j = tab;
                     for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        options += '<option value="' + j[i].label + '">' + j[i].code.toUpperCase() + '</option>';
                         //console.log(options);
                     }
-                    $('#speculation').html(options);
+                    $('.speculation').html(options);
                         //console.log(item.name);
                 }else{
-                    $('#speculation').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                    $('.speculation').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
             }
         },
@@ -237,6 +262,101 @@ function getDataSpeculation(){
         }
     });
 }
+/** GET DATA POLLINISATION */
+function getDataPollinisation(){
+    $.ajax({
+        url: URI+'/api/dictionaries/6/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('POLLINISATION',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.pollinisation').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.pollinisation').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataFarmaType(){
+    $.ajax({
+        url: URI+'/api/dictionaries/5/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('Farm Type',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.farmType').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.farmType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataTypeActivity(){
+    $.ajax({
+        url: URI+'/api/dictionaries/4/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('Type activity',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.activityType').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.activityType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+/*** APPEL DES FONCTIONS */
+getDataGenetic();
+getDataSpeculation();
+getDataPollinisation();
+getDataFarmaType();
+getDataTypeActivity();
+//http://5.250.176.223:8080/api/dictionaries/7/values
 
 /** GET DATA SITE */
 function getDataSite(){
@@ -266,7 +386,7 @@ function getDataSite(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.geneticRessource}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>	  
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
@@ -341,7 +461,7 @@ function getDataParcels(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.actualDensity}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>	  
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
@@ -416,7 +536,7 @@ function getDataFarms(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.farmType}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
@@ -484,7 +604,7 @@ function getDataLine(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.name}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
@@ -547,7 +667,7 @@ function getDataTree(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.name}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
                                         <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
@@ -572,6 +692,7 @@ function getDataTree(){
                         options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
                     }
                     $('#treeId_fruit').html(options);
+                    $('#treeId_leave').html(options);
                 }else{
                     console.log('Le tableau est vide.');
                 }
@@ -601,7 +722,7 @@ function getDataFruit(){
                                             ${item.name.toUpperCase()}<br/>
                                             <small class="text-body-tertiary">${item.type}</small>
                                         </a>
-                                        <i class="fas fa-map-marker-alt map_icon" id="map_icon_${index}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" onclick="updateMap(3.887649919495665,11.505106234113658,'${item.name.toUpperCase()}')"></i>	  
+                                        <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}" title=""></i>	  
                                         <ul class="bg-body-tertiary collapse dropdown-desc cursor-default mb-3 sidebar-dropdown width-p" id="fruit_${index}" data-bs-parent="#fruit_${index}">
                                             <div class="card-body p-3">
                                                 <div class="row">
@@ -632,17 +753,63 @@ function getDataFruit(){
         }
     });
 }
+/** GET DATA FRUIT */
+function getDataLeave(){
+    //alert(237)
+    $.ajax({
+        url: URI+'/api/leaves',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('all leaves' ,data);
+            if (xhr.status == 200) {
+                tab = data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        var content =`<li class="sidebar-item">
+                                        <a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.shape.toUpperCase()}<br/>
+                                            <small class="text-body-tertiary">${item.type}</small>
+                                        </a>
+                                        <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}"></i>	  
+                                        <ul class="bg-body-tertiary collapse dropdown-desc cursor-default mb-3 sidebar-dropdown width-p" id="leave_${index}" data-bs-parent="#leave_${index}">
+                                            <div class="card-body p-3">
+                                                <div class="row">
+                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
+                                                        <div class="col-md-6 d-grid">
+                                                            <span class="dropdown-desc-text"><b>${item.size}</b> Largeur</span>
+                                                            <span class="dropdown-desc-text"><b>${item.weight}</b> Poids</span>
+                                                            <span class="dropdown-desc-text"><b>${item.color}</b> Couleur</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    </li>`;
+                        $('#all_leaves').append(content);
+                        // $("#site_name").text(item.name.toUpperCase());
+                        //console.log(item.name);
+                    })
+                }else{
+                    console.log('Le tableau est vide.');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
 
 /** APPEL DES FONCTIONS */
-getDataGenetic();
-getDataSpeculation();
 getDataSite();
 getDataParcels();
 getDataFarms();
 getDataLine();
 getDataTree();
 getDataFruit();
-
+getDataLeave();
 // Fonction pour convertir l'image en base64
 function getImageAsBase64(inputId, callback) {
     var input = document.getElementById(inputId);
@@ -895,7 +1062,7 @@ function sendDataParcelWithFormData(e,form){
                 $('.btn_submit').prop('disabled', false);
             } else {
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
                 $('.btn_submit').prop('disabled', false);
                 console.log('Erreur : ', status, error);
             }
@@ -978,7 +1145,7 @@ function sendDataFarmsWithFormData(e,form){
                 $('.btn_submit').prop('disabled', false);
             } else {
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
                 $('.btn_submit').prop('disabled', false);
                 console.log('Erreur : ', status, error);
             }
@@ -1158,7 +1325,7 @@ function sendDataFruitWithFormData(e,form){
     var form_ = $('#'+form)[0];
     var formData = new FormData(form_);
 
-    formData.append('picture', globalImageContent);
+    //formData.append('picture', globalImageContent);
 
     var formDataObj = {};
     formData.forEach(function(value, key){
@@ -1167,7 +1334,7 @@ function sendDataFruitWithFormData(e,form){
 
     var all_JSON = JSON.stringify(formDataObj);
     // Affichage du premier objet JSON mis à jour dans la console
-    console.log('pictureImage',globalImageContent);
+    //console.log('pictureImage',globalImageContent);
     console.log('ALL JSON',all_JSON);
 
     $.ajax({
@@ -1188,7 +1355,7 @@ function sendDataFruitWithFormData(e,form){
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
-                    //window.location.reload(true);
+                    window.location.reload(true);
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -1212,6 +1379,136 @@ function sendDataFruitWithFormData(e,form){
         }
     });
 }
+function sendDataLeaveWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    //formData.append('picture', globalImageContent);
+
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+
+    $.ajax({
+        url: URI+'/api/leaves',
+        type: "POST",
+        enctype: 'multipart/form-data',
+        contentType: 'application/json',
+        data: all_JSON,
+        dataType: "json",
+        // processData: false,
+        beforeSend: function() {
+            $('.btn_submit').prop('disabled', true);
+        },
+        success: function(data,status, xhr) {
+            console.log(data,status,xhr);
+            if (xhr.status == 200 || xhr.status == 201) {
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text(data.shape.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $("#"+form).get(0).reset();
+                setTimeout(function(){
+                    window.location.reload(true);
+                }, 3000)
+            }else{
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $('.btn_submit').prop('disabled', false);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', error);
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $('.btn_submit').prop('disabled', false);
+            } else {
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(xhr.message+ ' '+error);  
+                $('.btn_submit').prop('disabled', false);
+                console.log('Erreur : ', status, error);
+            }
+        }
+    });
+}
+function uploadImage(e,form) {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Accept", "*/*");
+
+
+    var fileInput = document.getElementById('picture'); // Récupérez votre élément d'input de type 'file'
+    
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+    formData.append("picture", fileInput.files[0]);
+    var formDataObj = {};
+
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: all_JSON,
+        redirect: 'follow'
+    };
+        console.log(`formData`, formData);
+        fetch(URI+"/api/fruits", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log('result',result))
+        .catch(error => console.log('error', error));
+}
+function uploadImageLeave(e,form) {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Accept", "*/*");
+    // var fileInput = document.getElementById('picture'); // Récupérez votre élément d'input de type 'file'
+    
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+    // formData.append("picture", fileInput.files[0]);
+    var formDataObj = {};
+
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: all_JSON,
+        redirect: 'follow'
+    };
+    
+    console.log(`formData`, formData);
+    fetch(URI+"/api/leaves", requestOptions)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur de réseau - ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('result',data)
+    })
+    .catch(error => {
+        console.error('Erreur lors de la requête Fetch:', error);
+    });
+}
+
 console.log(`window`, window.location);
 
 function authLogin(e,form){
@@ -1277,6 +1574,16 @@ function authLogout(event){
         // Code à exécuter si l'utilisateur clique sur "OK"
         localStorage.removeItem('auth');
         window.location.href="login.html";
+    }
+}
+function tooglePassword(input, elt) {
+    //alert(input);
+    $("." + elt).toggleClass("fa-eye fa-eye-slash");
+    var div = $("#" + input);
+    if (div.attr("type") == "password") {
+        div.attr("type", "text");
+    } else {
+        div.attr("type", "password");
     }
 }
 $(document).ready(function () {

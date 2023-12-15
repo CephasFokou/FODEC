@@ -1,148 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Polygone avec Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
-    <!-- Div pour afficher la carte -->
-    <div id="map" style="height: 400px; width: 100%;"></div>
+    <div id="map" style="height: 400px;"></div>
 
     <script>
-        var map;
+        var mymap = L.map('map').setView([51.5, -0.09], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
 
-        function initMaps() {
-            // Définition des coordonnées pour les coins de la zone rectangulaire
-            var leftTop = { lat: 40.712, lng: -74.006 }; // Exemple : Coin supérieur gauche
-            var rightTop = { lat: 40.712, lng: -73.97 }; // Exemple : Coin supérieur droit
-            var leftBottom = { lat: 40.695, lng: -74.006 }; // Exemple : Coin inférieur gauche
-            var rightBottom = { lat: 40.695, lng: -73.97 }; // Exemple : Coin inférieur droit
+        var polygon = L.polygon([], { color: 'red' }).addTo(mymap);
+        polygon.bindPopup("Mon polygone."); // Ajouter une popup au polygone
 
-            // Création d'une instance de carte centrée sur le centre de la zone rectangulaire
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {
-                lat: (leftTop.lat + rightBottom.lat) / 2, // Latitude moyenne
-                lng: (leftTop.lng + rightBottom.lng) / 2 // Longitude moyenne
-                },
-                zoom: 12, // Zoom par défaut
-                mapTypeId: google.maps.MapTypeId.SATELLITE
-            });
+        function updatePolygon() {
+            var bounds = mymap.getBounds(); // Obtenir les limites actuelles de la carte
+            var bottomLeft = bounds.getSouthWest();
+            var bottomRight = bounds.getSouthEast();
+            var topLeft = bounds.getNorthWest();
+            var topRight = bounds.getNorthEast();
 
-            google.maps.event.addListener(map, 'zoom_changed', function() {
-                var bounds = map.getBounds(); // Récupère les limites visibles de la carte
-                var ne = bounds.getNorthEast(); // Coin Nord-Est de la carte visible
-                var sw = bounds.getSouthWest(); // Coin Sud-Ouest de la carte visible
-            
-                // Calcul de la largeur et la hauteur visible en degrés de latitude et longitude
-                var latDiff = Math.abs(ne.lat() - sw.lat());
-                var lngDiff = Math.abs(ne.lng() - sw.lng());
-            
-                // Création d'un rectangle proportionnel à la zone visible
-                if (rectangle) {
-                  rectangle.setMap(null); // Supprime le rectangle actuel de la carte
-                }
-            
-                rectangle = new google.maps.Rectangle({
-                  bounds: bounds,
-                  strokeColor: '#FF0000',
-                  strokeOpacity: 0.8,
-                  strokeWeight: 2,
-                  fillColor: '#FF0000',
-                  fillOpacity: 0.35,
-                  map: map
-                });
-              });
+            var polygonPoints = [bottomLeft, bottomRight, topRight, topLeft]; // Les 4 coins de la carte
+
+            polygon.setLatLngs(polygonPoints); // Mettre à jour les points du polygone
         }
-        var map;
-        var triangle;
-        
-        var map;
-var triangle;
 
-var map;
-var triangle;
+        mymap.on('zoomend', function() {
+            updatePolygon(); // Mettre à jour le polygone lorsque le zoom change
+        });
 
-function initMap() {
-  // Création d'une instance de carte
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12 // Zoom par défaut
-  });
-
-  // Fonction pour créer et mettre à jour le polygone
-  function createTriangle(lat1, lng1, lat2, lng2, lat3, lng3) {
-    var triangleCoords = [
-      { lat: lat1, lng: lng1 }, // Premier point
-      { lat: lat2, lng: lng2 }, // Deuxième point
-      { lat: lat3, lng: lng3 }, // Troisième point
-      { lat: lat1, lng: lng1 }  // Pour fermer la forme
-    ];
-
-    // Supprime le polygone actuel s'il existe
-    if (triangle) {
-      triangle.setMap(null);
-    }
-
-    // Crée un nouveau polygone avec les coordonnées spécifiées
-    triangle = new google.maps.Polygon({
-      paths: triangleCoords,
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      map: map
-    });
-
-    // Centrer la carte sur le polygone
-    map.setCenter({ lat: lat1, lng: lng1 });
-  }
-
-  // Fonction pour mettre à jour le polygone en fonction du zoom
-  function updateTriangle() {
-    var bounds = map.getBounds(); // Récupère les limites visibles de la carte
-    var ne = bounds.getNorthEast(); // Coin Nord-Est de la carte visible
-    var sw = bounds.getSouthWest(); // Coin Sud-Ouest de la carte visible
-
-    createTriangle(
-      ne.lat(), sw.lng(), // Coin supérieur gauche
-      ne.lat() + 0.005, ne.lng() + 0.005, // Coin supérieur droit
-      sw.lat(), sw.lng() // Coin inférieur gauche
-    );
-  }
-
-  // Écouteur d'événement pour mettre à jour le polygone lors du changement de zoom
-  google.maps.event.addListener(map, 'zoom_changed', updateTriangle);
-
-  // Obtenir la position par défaut de la géolocalisation du navigateur
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      var userPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      // Créer le polygone initial avec la position de géolocalisation
-      createTriangle(
-        userPosition.lat, userPosition.lng, 
-        userPosition.lat + 0.005, userPosition.lng + 0.005, 
-        userPosition.lat - 0.005, userPosition.lng
-      );
-    }, function () {
-      // En cas d'erreur, afficher un message ou centrer la carte sur une position par défaut
-      console.log('Erreur : Impossible d\'obtenir la géolocalisation');
-      map.setCenter({ lat: 40.705, lng: -73.985 }); // Centre par défaut
-    });
-  } else {
-    // Si la géolocalisation n'est pas supportée, centrer la carte sur une position par défaut
-    console.log('La géolocalisation n\'est pas supportée par ce navigateur.');
-    map.setCenter({ lat: 40.705, lng: -73.985 }); // Centre par défaut
-  }
-}
-
-
-        
+        // Initialiser le polygone pour la première fois
+        updatePolygon();
     </script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMap&libraries=maps,marker&v=beta"></script>
-
 </body>
 </html>
