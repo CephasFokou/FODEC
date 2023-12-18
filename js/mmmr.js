@@ -389,23 +389,23 @@ function getDataSite(){
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
-                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageFarmSite}%</b> champs</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
                                                         </div>
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
                                                         </div>
                                                     </div>
                                                 </div>
