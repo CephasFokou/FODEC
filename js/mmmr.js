@@ -464,23 +464,23 @@ function getDataParcels(){
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.percentageFarmSite}%</b> champs</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageFarmSite}%</b> champs</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
                                                         </div>
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                            <span class="dropdown-desc-text"><b>${item.percentageMaleTreeMissing}%</b> arbre M manquant</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTreeMissing}%</b> arbre F manquant</span>
-                                                            <span class="dropdown-desc-text"><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                            <span class="dropdown-desc-text"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageMaleTreeMissing}%</b> arbre M manquant</span>
+                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeMissing}%</b> arbre F manquant</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageMaleLine}%</b> ligne male</span>
+                                                            <span class="px-2 bg- small"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -539,16 +539,16 @@ function getDataFarms(){
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.initialArea}%</b> champs</span>
-                                                            <span class="dropdown-desc-text"><b>${item.initialDensity}%</b> arbre male NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.lastArea}%</b> arbre male C</span>
-                                                            <span class="dropdown-desc-text"><b>${item.lastDensity}%</b> arbre femelle NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.floorType}%</b> arbre femelle C</span>
+                                                            <span class="px-2 bg- small"><b>${item.initialArea}%</b> champs</span>
+                                                            <span class="px-2 bg- small"><b>${item.initialDensity}%</b> arbre male NC</span>
+                                                            <span class="px-2 bg- small"><b>${item.lastArea}%</b> arbre male C</span>
+                                                            <span class="px-2 bg- small"><b>${item.lastDensity}%</b> arbre femelle NC</span>
+                                                            <span class="px-2 bg- small"><b>${item.floorType}%</b> arbre femelle C</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -607,8 +607,8 @@ function getDataLine(){
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
@@ -670,13 +670,13 @@ function getDataTree(){
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.parentMale}</b> Nombre parents male</span>
-                                                            <span class="dropdown-desc-text"><b>${item.parentMale}</b> Nombre parents femelle</span>
+                                                            <span class="px-2 bg- small"><b>${item.parentMale}</b> Nombre parents male</span>
+                                                            <span class="px-2 bg- small"><b>${item.parentMale}</b> Nombre parents femelle</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -723,15 +723,15 @@ function getDataFruit(){
                                             <small class="text-body-tertiary">${item.type}</small>
                                         </a>
                                         <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}" title=""></i>	  
-                                        <ul class="bg-body-tertiary collapse dropdown-desc cursor-default mb-3 sidebar-dropdown width-p" id="fruit_${index}" data-bs-parent="#fruit_${index}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="fruit_${index}" data-bs-parent="#fruit_${index}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.width}</b> Largeur</span>
-                                                            <span class="dropdown-desc-text"><b>${item.length}</b> Longueur</span>
-                                                            <span class="dropdown-desc-text"><b>${item.weight}</b> Poids</span>
-                                                            <span class="dropdown-desc-text"><b>${item.color}</b> Couleur</span>
+                                                            <span class="px-2 bg- small"><b>${item.width}</b> Largeur</span>
+                                                            <span class="px-2 bg- small"><b>${item.length}</b> Longueur</span>
+                                                            <span class="px-2 bg- small"><b>${item.weight}</b> Poids</span>
+                                                            <span class="px-2 bg- small"><b>${item.color}</b> Couleur</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -772,14 +772,14 @@ function getDataLeave(){
                                             <small class="text-body-tertiary">${item.type}</small>
                                         </a>
                                         <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}"></i>	  
-                                        <ul class="bg-body-tertiary collapse dropdown-desc cursor-default mb-3 sidebar-dropdown width-p" id="leave_${index}" data-bs-parent="#leave_${index}">
-                                            <div class="card-body p-3">
+                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="leave_${index}" data-bs-parent="#leave_${index}">
+                                            <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
                                                         <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.size}</b> Largeur</span>
-                                                            <span class="dropdown-desc-text"><b>${item.weight}</b> Poids</span>
-                                                            <span class="dropdown-desc-text"><b>${item.color}</b> Couleur</span>
+                                                            <span class="px-2 bg- small"><b>${item.size}</b> Largeur</span>
+                                                            <span class="px-2 bg- small"><b>${item.weight}</b> Poids</span>
+                                                            <span class="px-2 bg- small"><b>${item.color}</b> Couleur</span>
                                                         </div>
                                                     </div>
                                                 </div>

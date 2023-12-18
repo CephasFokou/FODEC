@@ -67,11 +67,30 @@ a.sidebar-link {
 }
 .show a.collapsed.sidebar-link:after {
     width: 80%;
-    margin-left: -90px;
     border-bottom: 0.1px #ddd solid;
+    margin-left: -90px;
     position: absolute;
     bottom: 0px;
     content: '';
+}
+
+#parcerelle a.collapsed.sidebar-link:after{
+    margin-left: -15px!important;
+}
+
+#lines a.collapsed.sidebar-link:after {
+    margin-left: -40px!important;
+}
+
+#trees a.collapsed.sidebar-link:after {
+    margin-left: -55px!important;
+}
+
+#fruits a.collapsed.sidebar-link:after {
+    margin-left: -20px!important;
+}
+#feuilles a.collapsed.sidebar-link:after {
+    margin-left: -55px!important;
 }
 
 .login-form-container {
