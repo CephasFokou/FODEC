@@ -109,3 +109,30 @@ ul.sidebar-nav > li.sidebar-item {
     line-height: 1;
     text-wrap: nowrap;
 }
+.fl-maj {
+    text-transform:lowercase!important;
+}
+
+.fl-maj:first-letter {
+    text-transform: capitalize;
+}
+
+.alert-message.fl-maj{
+    padding: 2px 2px;
+}
+
+@media (max-width: 767.98px) {
+
+    body .main.login{
+     background-position:unset!important;
+     background-size:cover!important;
+    }
+   body .login-form-container{
+    background:#f5f5f5c4!important;
+    right:0
+   }
+
+   .login-drone-image {
+    width: 70px;
+}
+}
