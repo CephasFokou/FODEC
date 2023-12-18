@@ -1,6 +1,7 @@
 var URI = "http://5.250.176.223:8080";
 var tab = [];
 let globalImageContent;
+var itemId = "";
 var getAuth = localStorage.getItem('auth');
 if(getAuth) {
 	var getUser_decode =  JSON.parse(getAuth); 
@@ -851,55 +852,6 @@ function processBase64Image(base64Image) {
     globalImageContent  = contentImage(base64Image);
 }
 
-function sendDataForm(e,form){
-    e.preventDefault();
-    var datas = $("#"+form).serializeArray();
-    // var jsonData = JSON.stringify(datas);
-    var formData = {};
-    $.each(datas, function(index, field) {
-        formData[field.name] = field.value;
-    });
-
-    // Conversion de l'objet en chaîne JSON
-    var jsonData = JSON.stringify(formData);
-
-    // Affichage des données JSON dans la console
-    console.log(jsonData);       
-
-    $.ajax({
-        url: URI+'/api/sites',
-        type: "POST",
-        contentType: 'application/json',
-        data: jsonData,
-        dataType: "json",
-
-        // contentType: 'application/json',
-        // contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        beforeSend: function() {
-            $('.btn_submit').prop('disabled', true);
-        },
-        success: function(data,status, xhr) {
-            console.log(data);
-            if (xhr.status == 200) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
-                $("#"+form).get(0).reset();
-                setTimeout(function(){
-                    window.location.reload(true);
-                }, 3000)
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
-                $('.btn_submit').prop('disabled', false);
-            }
-        },
-        error: function (status, erreur) {
-            $(".alert-success").removeClass('alert-success').addClass('alert-danger').show()
-            $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
-            $('.btn_submit').prop('disabled', false);
-        },
-    });
-}
 /** POST DATA SITE */
 function sendDataWithFormData(e,form){
     e.preventDefault();
@@ -932,10 +884,6 @@ function sendDataWithFormData(e,form){
         formDataObj[key] = value;
     });
     
-    //Conversion de l'objet JavaScript en chaîne JSON
-    //var jsonData = JSON.stringify(formDataObj);
-    // Convertir les données géographiques en JSON
-
     // Affichage des données JSON dans la console
     console.log("objet 1",formDataObj);
     console.log("objet 2",secondJSON);    
@@ -962,8 +910,16 @@ function sendDataWithFormData(e,form){
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
+                itemId = data.id;
+                // alert(siteId);
                 setTimeout(function(){
-                    window.location.reload(true);
+                    $('#addSite').modal('hide');
+                    $('#addItem').modal('show');
+                    $('#addItem').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#nameSiteAuto').text(data.name.toUpperCase());
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -983,9 +939,13 @@ function sendDataWithFormData(e,form){
                 $('.btn_submit').prop('disabled', false);
                 console.log('Erreur : ', status, error);
             }
+        },
+        complete: function () {
+            $('.btn_submit').prop('disabled', false);
         }
     });
 }
+
 /**POST DATA PARCELS */
 function sendDataParcelWithFormData(e,form){
     e.preventDefault();
@@ -1045,7 +1005,13 @@ function sendDataParcelWithFormData(e,form){
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
-                    window.location.reload(true);
+                    $('#addParcel').modal('hide');
+                    $('#addItem').modal('show');
+                    $('#addItem').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#nameSiteAuto').text(data.name.toUpperCase());
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -1437,78 +1403,67 @@ function sendDataLeaveWithFormData(e,form){
         }
     });
 }
-function uploadImage(e,form) {
+
+function sendImageFormData(e,form,typeItem,itemId) {
     e.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Accept", "*/*");
 
-
-    var fileInput = document.getElementById('picture'); // Récupérez votre élément d'input de type 'file'
-    
-    var form_ = $('#'+form)[0];
+    var form_ = $('#' + form)[0];
     var formData = new FormData(form_);
-    formData.append("picture", fileInput.files[0]);
-    var formDataObj = {};
 
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
+    var fileInput = document.getElementById('fileImageItem');
 
-    var all_JSON = JSON.stringify(formDataObj);
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: all_JSON,
-        redirect: 'follow'
-    };
-        console.log(`formData`, formData);
-        fetch(URI+"/api/fruits", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log('result',result))
-        .catch(error => console.log('error', error));
+    if (fileInput.files.length > 0) {
+        formData.append("file", fileInput.files[0]);
+
+        console.log('DATA FILE', formData);
+
+        $.ajax({
+            url: URI + typeItem + itemId+'/image',
+            type: "POST",
+            data: formData,
+            processData: false, // Ne pas traiter les données
+            contentType: false, // Ne pas définir de type de contenu
+            beforeSend: function () {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function (data, status, xhr) {
+                console.log(data);
+                if (xhr.status === 200 || xhr.status === 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show();
+                    $(".alert-message").text("IMAGE ENREGISTRÉE AVEC SUCCÈS !!!");
+                    $("#" + form).get(0).reset();
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 3000);
+                } else {
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show();
+                    $(".alert-message").text(data.message + ' ' + data.httpStatus);
+                }
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = 'Une erreur est survenue lors du traitement de votre requête';
+                if (xhr.status === 500) {
+                    console.log('Erreur 500 : ', error);
+                } else {
+                    console.log('Erreur : ', status, error);
+                }
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show();
+                $(".alert-message").text(errorMessage);
+            },
+            complete: function () {
+                $('.btn_submit').prop('disabled', false);
+            }
+        });
+    } else {
+        console.log('Aucun fichier sélectionné');
+    }
 }
-function uploadImageLeave(e,form) {
-    e.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Accept", "*/*");
-    // var fileInput = document.getElementById('picture'); // Récupérez votre élément d'input de type 'file'
-    
-    var form_ = $('#'+form)[0];
-    var formData = new FormData(form_);
-    // formData.append("picture", fileInput.files[0]);
-    var formDataObj = {};
-
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
-
-    var all_JSON = JSON.stringify(formDataObj);
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: all_JSON,
-        redirect: 'follow'
-    };
-    
-    console.log(`formData`, formData);
-    fetch(URI+"/api/leaves", requestOptions)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erreur de réseau - ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('result',data)
-    })
-    .catch(error => {
-        console.error('Erreur lors de la requête Fetch:', error);
-    });
+function submitFormImage(event){
+    event.preventDefault();
+    if(type == "site"){
+        sendImageFormData(event)
+    }
 }
-
 console.log(`window`, window.location);
 
 function authLogin(e,form){
@@ -1587,28 +1542,6 @@ function tooglePassword(input, elt) {
     }
 }
 $(document).ready(function () {
-    $.ajax({
-        url: $("#login-form").attr("action"),
-        type: "POST",
-        data: $("#login-form").serialize(),
-        dataType: "json",
-        beforeSend: function() {
-            $('.auth-form-btn').prop('disabled', true);
-        },
-        success: function (data) {
-            if (data.code == 200) {                
-                $("#login-form").get(0).reset();
-                $('.auth-form-btn').prop('disabled', true);
-            } else if(data.code == 204) {
-                $('.auth-form-btn').prop('disabled', false);
-            }else{
-                $('.auth-form-btn').prop('disabled', false);
-            }
-        },
-        error: function (statut, erreur) {
-            $('.auth-form-btn').prop('disabled', false);
-        },
-    });
     // $('.collapse').on('show.bs.collapse', function () {
     //     // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir
     //     $('.collapse').not($(this)).collapse('hide');

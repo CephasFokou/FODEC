@@ -1032,6 +1032,35 @@
 				</div>
 			</div>
 		</div>
+		<!-- ADD IMAGE ITEM -->
+		<div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'une image</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_image_item" method="post" action="#">
+							<div class="mb-3 col-md-12">
+								<label class="form-label" for="NbreLigneFemelle">Image</span></label>
+								<input type="file" class="form-control" id="fileImageItem" name="file" accept="image/*" required>
+							</div>
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
+							</div>
+							<!-- <div class="card-footer">
+								<button type="submit" class="btn_submit_image btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div> -->
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<script src="js/app.js"></script>
 		<script src="js/mmmr.js" async defer></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->
@@ -1179,7 +1208,7 @@
 						lat: (latLeftTop + latRightBottom) / 2,
 						lng: (lngLeftTop + lngRightBottom) / 2
 					}, // Centre de la carte
-					zoom: 10, // Zoom par défaut
+					zoom: 12, // Zoom par défaut
 					mapTypeId: google.maps.MapTypeId.HYBRID
 				});
 				console.log(`data`, latLeftTop+' * '+latRightBottom+' 	* '+lngLeftTop+' * '+lngRightBottom);
