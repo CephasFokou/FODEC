@@ -234,6 +234,47 @@
 									</div>
 									<div class="card-body">
 										<div class="content" id="map" style="height: 100vh;"></div>
+										<div class="content" id="list" style="height: 100vh;">
+											<h6 class="card-title text-muted">Liste des fruits de l'arbre ACCACIA</h6>
+											<table class="table d-table table-responsive">
+												<thead class="">
+													<tr id="TableLeaves">
+														<th>picture</th>
+														<th>name</th>
+														<th>type</th>
+														<th>length</th>
+														<th>width</th>
+														<th>weight</th>
+														<th>shape</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="d-flex justify-content-center align-items-center col-4">
+															<div class="card-image p-1 bg-body-tertiary rounded-top-5">
+																<img src="./img/standard-img.png" alt="img_fuit1" class="rounded img-fluid rounded-circle">
+															</div>
+														</td>
+														<td>string</td>
+														<td>fruitType</td>
+														<td>10</td>
+														<td>20</td>
+														<td>5</td>
+														<td>15</td>
+														<td>
+															<div class="action-icon">
+																<i class="fas fa-pencil edit_icon mx-1" id="edit_icon_" title="Cliquez pour editer" onclick="editSite()"></i>
+																<i class="fas fa-map-marked-alt mx-1  map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
+																onclick="updateMap()">
+																</i>	  
+																<i class="fas fa-trash-alt mx-1 delete_icon" id="delete_icon_" title="Cliquez pour supprimer" onclick="deleteSite()"></i>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>

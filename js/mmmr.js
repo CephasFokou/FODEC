@@ -358,82 +358,7 @@ getDataFarmaType();
 getDataTypeActivity();
 //http://5.250.176.223:8080/api/dictionaries/7/values
 
-/** GET DATA SITE */
-function getDataSite(){
-    $.ajax({
-        url: URI+'/api/sites',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all sites' ,data);
-            if (xhr.status == 200) {
-                tab = data.data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
 
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-                        
-                        console.log(rt_longitude);
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <span class="text-body-tertiary small">${item.geneticRessource}</span>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>	  
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
-                                            <div class="card-body p-3 bg-body-tertiary">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg- small"><b>${item.percentageFarmSite}%</b> champs</span>
-                                                            <span class="px-2 bg- small"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                            <span class="px-2 bg- small"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
-                                                        </div>
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                            <span class="px-2 bg- small"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
-                                                            <span class="px-2 bg- small"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
-                                                            <span class="px-2 bg- small"><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                            <span class="px-2 bg- small"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_sites').append(content);
-                        $("#site_name").text(item.name.toUpperCase());
-                    })
-                    //APPEL SITE SELECT BOX
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#siteId').html(options);
-                    ///console.log(options);
-
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
 /** GET DATA PARCELS */
 function getDataParcels(){
     $.ajax({
@@ -461,7 +386,7 @@ function getDataParcels(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.actualDensity}</span>
                                         </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>	  
                                         <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
@@ -508,73 +433,7 @@ function getDataParcels(){
     });
 }
 
-/** GET DATA PARCELS */
-function getDataFarms(){
-    //alert(237)
-    $.ajax({
-        url: URI+'/api/farms',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all farms' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
 
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#farms_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <span class="text-body-tertiary small">${item.farmType}</span>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
-                                            <div class="card-body p-3 bg-body-tertiary">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg- small"><b>${item.initialArea}%</b> champs</span>
-                                                            <span class="px-2 bg- small"><b>${item.initialDensity}%</b> arbre male NC</span>
-                                                            <span class="px-2 bg- small"><b>${item.lastArea}%</b> arbre male C</span>
-                                                            <span class="px-2 bg- small"><b>${item.lastDensity}%</b> arbre femelle NC</span>
-                                                            <span class="px-2 bg- small"><b>${item.floorType}%</b> arbre femelle C</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_farms').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#farmId_line').html(options);
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
 
 /** GET DATA LINE */
 function getDataLine(){
@@ -604,7 +463,7 @@ function getDataLine(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.name}</span>
                                         </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
+                                        <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>
                                         <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
@@ -727,7 +586,7 @@ function getDataFruit(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
-                                        <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}" title=""></i>	  
+                                        <i class="fas fa-sort-numeric-down action_icon map_icon" id="action_icon map_icon_${index}" title=""></i>	  
                                         
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">
@@ -790,7 +649,7 @@ function getDataLeave(){
                                             ${item.shape.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
-                                        <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}"></i>	  
+                                        <i class="fas fa-sort-numeric-down action_icon map_icon" id="action_icon map_icon_${index}"></i>	  
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">

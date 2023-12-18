@@ -47,15 +47,35 @@ input,select{
     margin: 0px 48px;
     display: inline-grid;
 }
-.map_icon {
+.action_icon {
     /* margin-left: 0; */
     margin-top: 0;
     position: absolute;
-    right: 20px;
     top: 10px;
     z-index: 222;
     color: #5db075;
     cursor: pointer;
+}
+
+.map_icon {
+    right: 21px;
+    top: 11px;
+}
+.edit_icon {
+    right: 40px;
+    top: 12px;
+    color: cadetblue;
+}
+.view_icon {
+    right: 60px;
+    top: 12px;
+    color: rgb(144, 144, 144, 1);
+}
+
+.delete_icon {
+    right: 5px;
+    top: 12px;
+    color: rgb(233, 62, 62);
 }
 
 .sidebar .sidebar-dropdown [aria-expanded="true"]:before{
