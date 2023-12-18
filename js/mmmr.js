@@ -384,7 +384,7 @@ function getDataSite(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.geneticRessource}</small>
+                                            <span class="text-body-tertiary small">${item.geneticRessource}</span>
                                         </a>
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -459,7 +459,7 @@ function getDataParcels(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#parcel_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.actualDensity}</small>
+                                            <span class="text-body-tertiary small">${item.actualDensity}</span>
                                         </a>
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -534,7 +534,7 @@ function getDataFarms(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#farms_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.farmType}</small>
+                                            <span class="text-body-tertiary small">${item.farmType}</span>
                                         </a>
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -602,7 +602,7 @@ function getDataLine(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#line_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.name}</small>
+                                            <span class="text-body-tertiary small">${item.name}</span>
                                         </a>
                                         <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -662,26 +662,31 @@ function getDataTree(){
                         var rb_longitude = item.geographicalPos.rightBottom.longitude;
                         var rt_latitude = item.geographicalPos.rightTop.latitude;
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
-                        var content =`<li class="sidebar-item">
+                        var content =`
+                                    <li class="sidebar-item">
                                         <a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.name}</small>
+                                            <span class="text-body-tertiary small">${item.name}</span>
                                         </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
-                                            <div class="card-body p-3 bg-body-tertiary">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg- small"><b>${item.parentMale}</b> Nombre parents male</span>
-                                                            <span class="px-2 bg- small"><b>${item.parentMale}</b> Nombre parents femelle</span>
-                                                        </div>
+                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="tree_${item.id}">
+                                            <div class="col-6 d-grid justify-content-center p-0">
+                                                <div class="card card-image">
+                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 lh-base p-0  text-capitalize text-muted">
+                                                <div class="d-grid">
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Nbr Parent M :</strong> </span>
+                                                        <span class="">${item.parentMale}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Nbr Parent F :</strong> </span>
+                                                        <span class="">${item.parentMale}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </ul>
+                                        </div>
                                     </li>`;
                         $('#all_trees').append(content);
                         // $("#site_name").text(item.name.toUpperCase());
@@ -720,23 +725,37 @@ function getDataFruit(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#fruit_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.type}</small>
+                                            <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
                                         <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}" title=""></i>	  
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="fruit_${index}" data-bs-parent="#fruit_${index}">
-                                            <div class="card-body p-3 bg-body-tertiary">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg- small"><b>${item.width}</b> Largeur</span>
-                                                            <span class="px-2 bg- small"><b>${item.length}</b> Longueur</span>
-                                                            <span class="px-2 bg- small"><b>${item.weight}</b> Poids</span>
-                                                            <span class="px-2 bg- small"><b>${item.color}</b> Couleur</span>
-                                                        </div>
+                                        
+                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
+                                            <div class="col-6 d-grid justify-content-center p-0">
+                                                <div class="card card-image">
+                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 lh-base p-0 small text-capitalize text-muted">
+                                                <div class="d-grid">
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Largeur : </strong> </span>
+                                                        <span class="">${item.width}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Longueur : </strong> </span>
+                                                        <span class="">${item.length}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Poids : </strong> </span>
+                                                        <span class="">${item.weight}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Couleur : </strong> </span>
+                                                        <span class=" mx-1"> <i class="fas fa-circle" style="color:${item.color}"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </ul>
+                                        </div>
                                     </li>`;
                         $('#all_fruits').append(content);
                         // $("#site_name").text(item.name.toUpperCase());
@@ -769,22 +788,33 @@ function getDataLeave(){
                         var content =`<li class="sidebar-item">
                                         <a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.shape.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.type}</small>
+                                            <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
                                         <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}"></i>	  
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="leave_${index}" data-bs-parent="#leave_${index}">
-                                            <div class="card-body p-3 bg-body-tertiary">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg- small"><b>${item.size}</b> Largeur</span>
-                                                            <span class="px-2 bg- small"><b>${item.weight}</b> Poids</span>
-                                                            <span class="px-2 bg- small"><b>${item.color}</b> Couleur</span>
-                                                        </div>
+                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
+                                            <div class="col-6 d-grid justify-content-center p-0">
+                                                <div class="card card-image">
+                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 lh-base p-0  small text-capitalize text-muted">
+                                                <div class="d-grid">
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Size : </strong> </span>
+                                                        <span class="">${item.size}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Poids : </strong> </span>
+                                                        <span class="">${item.weight}</span>
+                                                    </div>
+                                                    
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Couleur : </strong> </span>
+                                                        <span class=" mx-1"> <i class="fas fa-circle" style="color:${item.color}"></i></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </ul>
+                                        </div>
                                     </li>`;
                         $('#all_leaves').append(content);
                         // $("#site_name").text(item.name.toUpperCase());
