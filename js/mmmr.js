@@ -175,7 +175,16 @@ function collapseData(value){
 }
 
 
+function convertTimestampToDate(timestamp) {
+    // Créer un objet Date en utilisant le timestamp
+    const date = new Date(timestamp);
 
+    // Formater la date selon vos besoins
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric'};
+    const formattedDate = date.toLocaleDateString('fr-FR', options);
+
+    return formattedDate;
+}
 
 
 
