@@ -271,6 +271,38 @@
 			</div>
 		</div>
 
+
+		<!-- ALERT SUCCESS / FAILLED MODAL -->
+		<div class="modal fade modal-sm" id="alertModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title" id="alertModalTitle"></h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-center" id="alertModalContent"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- DELETE CONFIRM MODAL -->
+		<div class="modal fade modal-sm" id="confirmDelete" data-itemId="0" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h3 class="modal-title">Confirmer la suppression</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p class="">Voulez vous réellement supprimer cet élément ?</p>
+					</div>
+					<div class="modal-footer p-0">
+						<button type="button" class="btn btn-dark" data-bs-dismiss="modal">Annuler</button>
+						<button type="button" class="btn btn-danger" onclick="deleteItem()">Supprimer</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- ADD SITE -->
 		<div class="modal fade" id="addSite" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
