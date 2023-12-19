@@ -76,24 +76,6 @@
 							</ul>
 						</li>
 						<li class="sidebar-item">
-							<a data-bs-target="#parcerelle" data-bs-toggle="collapse" class="sidebar-link collapsed">
-								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions des Parcerelles</span>
-							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
-								<i class="fas fa-plus"></i>
-							</a>
-							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-								<li class="sidebar-item">
-									<span class="input-group input-group-navbar input-w-80" id="input_search_li_parcel">
-										<input type="text" id="filterInput2" class="form-control input-search" placeholder="Search parcel" onkeyup="filterData(this.value,'parcels')">
-									</span>
-								</li>
-								<div id="all_parcels" class="px-2 py-3">
-									<!-- GET SITE AFTER CHARGEMENT DATA API -->
-								</div>
-							</ul>
-						</li>
-						<li class="sidebar-item">
 							<a data-bs-target="#farms" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="command"></i> <span class="align-middle">Gestions des Champs</span>
 							</a>
@@ -107,6 +89,24 @@
 									</span>
 								</li>
 								<div id="all_farms" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#parcerelle" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions des Parcerelles</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_parcel">
+										<input type="text" id="filterInput2" class="form-control input-search" placeholder="Search parcel" onkeyup="filterData(this.value,'parcels')">
+									</span>
+								</li>
+								<div id="all_parcels" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
@@ -234,6 +234,47 @@
 									</div>
 									<div class="card-body">
 										<div class="content" id="map" style="height: 100vh;"></div>
+										<div class="content" id="list" style="height: 100vh;">
+											<h6 class="card-title text-muted">Liste des fruits de l'arbre ACCACIA</h6>
+											<table class="table d-table table-responsive">
+												<thead class="">
+													<tr id="TableLeaves">
+														<th>picture</th>
+														<th>name</th>
+														<th>type</th>
+														<th>length</th>
+														<th>width</th>
+														<th>weight</th>
+														<th>shape</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="d-flex justify-content-center align-items-center col-4">
+															<div class="card-image p-1 bg-body-tertiary rounded-top-5">
+																<img src="./img/standard-img.png" alt="img_fuit1" class="rounded img-fluid rounded-circle">
+															</div>
+														</td>
+														<td>string</td>
+														<td>fruitType</td>
+														<td>10</td>
+														<td>20</td>
+														<td>5</td>
+														<td>15</td>
+														<td>
+															<div class="action-icon">
+																<i class="fas fa-pencil edit_icon mx-1" id="edit_icon_" title="Cliquez pour editer" onclick="editSite()"></i>
+																<i class="fas fa-map-marked-alt mx-1  map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
+																onclick="updateMap()">
+																</i>	  
+																<i class="fas fa-trash-alt mx-1 delete_icon" id="delete_icon_" title="Cliquez pour supprimer" onclick="deleteSite()"></i>
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -1043,8 +1084,8 @@
 					<div class="modal-body m-3">
 						<form class="profile-form" id="add_image_item" method="post" action="#">
 							<div class="mb-3 col-md-12">
-								<label class="form-label" for="NbreLigneFemelle">Image</span></label>
-								<input type="file" class="form-control" id="fileImageItem" name="file" accept="image/*" required>
+								<label class="form-label" for="NbreLigneFemelle">Image <span id="nameItem"></span></label>
+								<input type="file" class="form-control" id="fileImageItem" name="file" accept="image/*" onchange="submitFormImage(event)" required>
 							</div>
 							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -1062,7 +1103,16 @@
 		</div>
 		
 		<script src="js/app.js"></script>
+		<script src="js/actionBtn.js"></script>
+		<script src="js/site.js"></script>
+		<script src="js/champ.js"></script>
+		<script src="js/parcelle.js"></script>
+		<script src="js/line.js"></script>
+		<script src="js/arbre.js"></script>
+		<script src="js/fruit.js"></script>
+		<script src="js/feuille.js"></script>
 		<script src="js/mmmr.js" async defer></script>
+		<script src="js/index.js"></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -1241,6 +1291,7 @@
 				});
 			
 				$("#site_name").text(name);
+				$(".sidebar").removeClass('collapsed');
 			}
 			
 			// Exemple d'appel de la fonction avec quatre objets

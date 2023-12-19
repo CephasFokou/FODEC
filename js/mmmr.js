@@ -1,13 +1,12 @@
-var URI = "http://5.250.176.223:8080";
-var tab = [];
-let globalImageContent;
+var typeForm = "";
 var itemId = "";
+
 var getAuth = localStorage.getItem('auth');
 if(getAuth) {
 	var getUser_decode =  JSON.parse(getAuth); 
 	var userId = getUser_decode.id;         
-	var role = getUser_decode.roles[0];        
-	console.log(`user`, userId);
+	var roleUser = getUser_decode.roles[0];        
+	console.log(`user`, userId + roleUser);
 }
 if(navigator.onLine) {
     console.log('Connexion internet active');
@@ -172,645 +171,12 @@ function searchFunction(value) {
         }
     });
 }
-// function searchFunction() {
-//     var input, filter, ul, li, a, i, txtValue;
-//     input = document.getElementById("filterInput");
-//     filter = input.value.toUpperCase();
-//     ul = document.getElementById("all_sites");
-//     li = ul.getElementsByTagName("li");
-
-//     // Loop through all list items, and hide those who don't match the search query
-//     for (i = 0; i < li.length; i++) {
-//         a = li[i].getElementsByTagName("a")[0];
-//         txtValue = a.textContent || a.innerText;
-//         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//             li[i].style.display = "";
-//         } else {
-//             li[i].style.display = "none";
-//         }
-//     }
-// }
 
 function collapseData(value){
     $('#site_'+value).toggle();
 }
 
-// fetch('sidebar.html')
-// 	.then(response => response.text())
-// 	.then(data => {
-// 		document.getElementById('sidebar-nav').innerHTML = data;
-// });
 
-
-
-/**GET DATA GENETIC RESSOURCE */
-function getDataGenetic(){
-    $.ajax({
-        url: URI+'/api/dictionaries/2/values',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('geneticRessource',data);
-            tab = data;
-            if (xhr.status == 200) {
-                if ($.isArray(tab) && tab.length > 0) {
-                    var options = '';
-                    var j = tab;
-                    for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
-                        //console.log(options);
-                    }
-                    $('.geneticRessource').html(options);
-                        //console.log(item.name);
-                }else{
-                    $('.geneticRessource').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-/** GET DATA SPECULATION */
-function getDataSpeculation(){
-    $.ajax({
-        url: URI+'/api/dictionaries/1/values',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('speculation',data);
-            // console.log('code',xhr.status);
-            tab = data;
-            if (xhr.status == 200) {
-                if ($.isArray(tab) && tab.length > 0) {
-                    var options = '';
-                    var j = tab;
-                    for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].label + '">' + j[i].code.toUpperCase() + '</option>';
-                        //console.log(options);
-                    }
-                    $('.speculation').html(options);
-                        //console.log(item.name);
-                }else{
-                    $('.speculation').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
-                }
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-/** GET DATA POLLINISATION */
-function getDataPollinisation(){
-    $.ajax({
-        url: URI+'/api/dictionaries/6/values',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('POLLINISATION',data);
-            // console.log('code',xhr.status);
-            tab = data;
-            if (xhr.status == 200) {
-                if ($.isArray(tab) && tab.length > 0) {
-                    var options = '';
-                    var j = tab;
-                    for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
-                        //console.log(options);
-                    }
-                    $('.pollinisation').html(options);
-                        //console.log(item.name);
-                }else{
-                    $('.pollinisation').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
-                }
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-function getDataFarmaType(){
-    $.ajax({
-        url: URI+'/api/dictionaries/5/values',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('Farm Type',data);
-            // console.log('code',xhr.status);
-            tab = data;
-            if (xhr.status == 200) {
-                if ($.isArray(tab) && tab.length > 0) {
-                    var options = '';
-                    var j = tab;
-                    for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
-                        //console.log(options);
-                    }
-                    $('.farmType').html(options);
-                        //console.log(item.name);
-                }else{
-                    $('.farmType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
-                }
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-function getDataTypeActivity(){
-    $.ajax({
-        url: URI+'/api/dictionaries/4/values',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('Type activity',data);
-            // console.log('code',xhr.status);
-            tab = data;
-            if (xhr.status == 200) {
-                if ($.isArray(tab) && tab.length > 0) {
-                    var options = '';
-                    var j = tab;
-                    for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
-                        //console.log(options);
-                    }
-                    $('.activityType').html(options);
-                        //console.log(item.name);
-                }else{
-                    $('.activityType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
-                }
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-/*** APPEL DES FONCTIONS */
-getDataGenetic();
-getDataSpeculation();
-getDataPollinisation();
-getDataFarmaType();
-getDataTypeActivity();
-//http://5.250.176.223:8080/api/dictionaries/7/values
-
-/** GET DATA SITE */
-function getDataSite(){
-    $.ajax({
-        url: URI+'/api/sites',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all sites' ,data);
-            if (xhr.status == 200) {
-                tab = data.data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
-
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-                        
-                        console.log(rt_longitude);
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.geneticRessource}</small>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg-"><b>${item.percentageFarmSite}%</b> champs</span>
-                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                            <span class="px-2 bg-"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
-                                                        </div>
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageMaleTreeMissing}%</b> arbre male manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.numberFemaleTreeMissing}%</b> arbre femelle manquant</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                            <span class="px-2 bg-"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_sites').append(content);
-                        $("#site_name").text(item.name.toUpperCase());
-                    })
-                    //APPEL SITE SELECT BOX
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#siteId').html(options);
-                    ///console.log(options);
-
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-/** GET DATA PARCELS */
-function getDataParcels(){
-    $.ajax({
-        url: URI+'/api/parcels',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all parcels' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
-
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-                        console.log("parcels", lb_latitude)
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#parcel_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.actualDensity}</small>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>	  
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.percentageFarmSite}%</b> champs</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberMaleTreeNotNormal}%</b> arbre male NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberMaleTreeNormal}%</b> arbre male C</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTreeNotNormal}%</b> arbre femelle NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTreeNormal}%</b> arbre femelle C</span>
-                                                        </div>
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTree}%</b> arbre manquant</span>
-                                                            <span class="dropdown-desc-text"><b>${item.percentageMaleTreeMissing}%</b> arbre M manquant</span>
-                                                            <span class="dropdown-desc-text"><b>${item.numberFemaleTreeMissing}%</b> arbre F manquant</span>
-                                                            <span class="dropdown-desc-text"><b>${item.percentageMaleLine}%</b> ligne male</span>
-                                                            <span class="dropdown-desc-text"><b>${item.percentageFemaleLine}%</b> ligne femelle</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_parcels').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#parcelId').html(options);
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-
-/** GET DATA PARCELS */
-function getDataFarms(){
-    //alert(237)
-    $.ajax({
-        url: URI+'/api/farms',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all farms' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
-
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#farms_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.farmType}</small>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.initialArea}%</b> champs</span>
-                                                            <span class="dropdown-desc-text"><b>${item.initialDensity}%</b> arbre male NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.lastArea}%</b> arbre male C</span>
-                                                            <span class="dropdown-desc-text"><b>${item.lastDensity}%</b> arbre femelle NC</span>
-                                                            <span class="dropdown-desc-text"><b>${item.floorType}%</b> arbre femelle C</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_farms').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#farmId_line').html(options);
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-
-/** GET DATA LINE */
-function getDataLine(){
-    //alert(237)
-    $.ajax({
-        url: URI+'/api/lines',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all Line' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                                                var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
-
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#line_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.name}</small>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="line_${item.id}" data-bs-parent="#line_${item.id}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                          
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_lines').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#lineId_tree').html(options);
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-
-/** GET DATA TREE */
-function getDataTree(){
-    //alert(237)
-    $.ajax({
-        url: URI+'/api/trees',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all Line' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
-                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
-                        var lt_latitude = item.geographicalPos.leftTop.latitude;
-                        var lt_longitude = item.geographicalPos.leftTop.longitude;
-
-                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
-                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
-                        var rt_latitude = item.geographicalPos.rightTop.latitude;
-                        var rt_longitude = item.geographicalPos.rightTop.longitude;
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.name}</small>
-                                        </a>
-                                        <i class="fas fa-map-marked-alt map_icon" id="map_icon_${item.id}" title="CLIQUER DESSUS POUR AFFICHER LA MAP" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>
-                                        <ul class="bg-body-tertiary collapse cursor-default mb-3 sidebar-dropdown width-p" id="tree_${item.id}" data-bs-parent="#tree_${item.id}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.parentMale}</b> Nombre parents male</span>
-                                                            <span class="dropdown-desc-text"><b>${item.parentMale}</b> Nombre parents femelle</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_trees').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                    var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
-                    }
-                    $('#treeId_fruit').html(options);
-                    $('#treeId_leave').html(options);
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-/** GET DATA FRUIT */
-function getDataFruit(){
-    //alert(237)
-    $.ajax({
-        url: URI+'/api/fruits',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all fruit' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#fruit_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.type}</small>
-                                        </a>
-                                        <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}" title=""></i>	  
-                                        <ul class="bg-body-tertiary collapse dropdown-desc cursor-default mb-3 sidebar-dropdown width-p" id="fruit_${index}" data-bs-parent="#fruit_${index}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.width}</b> Largeur</span>
-                                                            <span class="dropdown-desc-text"><b>${item.length}</b> Longueur</span>
-                                                            <span class="dropdown-desc-text"><b>${item.weight}</b> Poids</span>
-                                                            <span class="dropdown-desc-text"><b>${item.color}</b> Couleur</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_fruits').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-/** GET DATA FRUIT */
-function getDataLeave(){
-    //alert(237)
-    $.ajax({
-        url: URI+'/api/leaves',
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-            console.log('all leaves' ,data);
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.shape.toUpperCase()}<br/>
-                                            <small class="text-body-tertiary">${item.type}</small>
-                                        </a>
-                                        <i class="fas fa-sort-numeric-down map_icon" id="map_icon_${index}"></i>	  
-                                        <ul class="bg-body-tertiary collapse dropdown-desc cursor-default mb-3 sidebar-dropdown width-p" id="leave_${index}" data-bs-parent="#leave_${index}">
-                                            <div class="card-body p-3">
-                                                <div class="row">
-                                                    <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
-                                                        <div class="col-md-6 d-grid">
-                                                            <span class="dropdown-desc-text"><b>${item.size}</b> Largeur</span>
-                                                            <span class="dropdown-desc-text"><b>${item.weight}</b> Poids</span>
-                                                            <span class="dropdown-desc-text"><b>${item.color}</b> Couleur</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ul>
-                                    </li>`;
-                        $('#all_leaves').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
-                    })
-                }else{
-                    console.log('Le tableau est vide.');
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-        }
-    });
-}
-
-/** APPEL DES FONCTIONS */
-getDataSite();
-getDataParcels();
-getDataFarms();
-getDataLine();
-getDataTree();
-getDataFruit();
-getDataLeave();
 // Fonction pour convertir l'image en base64
 function getImageAsBase64(inputId, callback) {
     var input = document.getElementById(inputId);
@@ -910,17 +276,9 @@ function sendDataWithFormData(e,form){
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
-                itemId = data.id;
-                // alert(siteId);
-                setTimeout(function(){
-                    $('#addSite').modal('hide');
-                    $('#addItem').modal('show');
-                    $('#addItem').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                    $('#nameSiteAuto').text(data.name.toUpperCase());
-                }, 3000)
+                setTimeout(function () {
+                    window.location.reload(true);
+                }, 2000);
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
                 $(".alert-message").text(data.message+ ' '+data.httpStatus);  
@@ -1259,8 +617,16 @@ function sendDataTreeWithFormData(e,form){
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
+                itemId = data.id;
+                typeForm = "tree";
                 setTimeout(function(){
-                    window.location.reload(true);
+                    $('#addTree').modal('hide');
+                    $('#addItem').modal('show');
+                    $('#addItem').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#nameItem').text(data.name.toUpperCase());
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -1320,8 +686,16 @@ function sendDataFruitWithFormData(e,form){
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
+                itemId = data.id;
+                typeForm = "fruit";
                 setTimeout(function(){
-                    window.location.reload(true);
+                    $('#addTree').modal('hide');
+                    $('#addFruit').modal('show');
+                    $('#addFruit').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#nameItem').text(data.name.toUpperCase());
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -1376,10 +750,18 @@ function sendDataLeaveWithFormData(e,form){
             console.log(data,status,xhr);
             if (xhr.status == 200 || xhr.status == 201) {
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.shape.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $(".alert-message").text(data.shape+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
+                itemId = data.id;
+                typeForm = "leave";
                 setTimeout(function(){
-                    window.location.reload(true);
+                    $('#addTree').modal('hide');
+                    $('#addLeave').modal('show');
+                    $('#addLeave').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#nameItem').text(data.name.toUpperCase());
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -1404,21 +786,30 @@ function sendDataLeaveWithFormData(e,form){
     });
 }
 
-function sendImageFormData(e,form,typeItem,itemId) {
-    e.preventDefault();
-
-    var form_ = $('#' + form)[0];
+var urlEnd ="";
+function submitFormImage(event){
+    event.preventDefault();
+    var form_ = $('#add_image_item')[0];
     var formData = new FormData(form_);
 
     var fileInput = document.getElementById('fileImageItem');
+    formData.append("file", fileInput.files[0]);
 
+    console.log('DATA FILE', formData);
     if (fileInput.files.length > 0) {
-        formData.append("file", fileInput.files[0]);
-
-        console.log('DATA FILE', formData);
-
+        alert(typeForm+' '+itemId)
+        if(typeForm == "tree"){
+            urlEnd = URI+'/api/trees/'+itemId+'/image';
+        }else if(typeForm == "fruit"){
+            urlEnd = URI+'/api/fruits/'+itemId+'/image';
+        }else if(typeForm == "leave"){
+            urlEnd = URI+'/api/leaves/'+itemId+'/image';
+        }else{
+            alert("URL UNDEFINED")
+            window.location.reload(true);
+        }
         $.ajax({
-            url: URI + typeItem + itemId+'/image',
+            url: urlEnd,
             type: "POST",
             data: formData,
             processData: false, // Ne pas traiter les données
@@ -1431,7 +822,6 @@ function sendImageFormData(e,form,typeItem,itemId) {
                 if (xhr.status === 200 || xhr.status === 201) {
                     $(".alert").removeClass('alert-danger').addClass('alert-success').show();
                     $(".alert-message").text("IMAGE ENREGISTRÉE AVEC SUCCÈS !!!");
-                    $("#" + form).get(0).reset();
                     setTimeout(function () {
                         window.location.reload(true);
                     }, 3000);
@@ -1454,18 +844,11 @@ function sendImageFormData(e,form,typeItem,itemId) {
                 $('.btn_submit').prop('disabled', false);
             }
         });
-    } else {
+    }else {
         console.log('Aucun fichier sélectionné');
-    }
-}
-function submitFormImage(event){
-    event.preventDefault();
-    if(type == "site"){
-        sendImageFormData(event)
-    }
+    } 
 }
 console.log(`window`, window.location);
-
 function authLogin(e,form){
     e.preventDefault();
     var form_ = $('#'+form)[0];

@@ -32,8 +32,8 @@
 	<div class="main d-flex justify-content-center w-100 login">
 		<main class="login-container">
 			<div class="row">
-				<div class="align-items-center col-6 d-flex h-100 justify-content-center m-0 p-0 login-form-container">
-					<div class="d-table-cell align-middle w-50">
+				<div class="align-items-center col-sm-12 col-xl-6 col-md-6 d-flex h-100 justify-content-center m-0 p-0 login-form-container">
+					<div class="d-table-cell align-middle col-sm-12 col-xl-6 col-md-6">
 <body data-theme="light" data-layout="fluid" data-sidebar-position="left" data-sidebar-behavior="sticky">
 	<div class="main d-flex justify-content-center w-100">
 		<div class="preloader-wrap">
@@ -74,6 +74,13 @@
 									</div>
 									<form id="authLogin" onsubmit="authLogin(event,'authLogin')" method="post">
 										<div class="mb-3">
+											<label class="form-label">Type d'activité</label>
+											<select name="typeActivity" class="form-control" id="typeActivity">
+												<option value=" Base génétique"> Base génétique</option>
+												<option value="Champ sémencier">Champ sémencier</option>
+											</select>
+										</div>
+										<div class="mb-3">
 											<label class="form-label">Username</label>
 											<input class="form-control form-control-lg fs-6" type="text" name="username"
 												placeholder="Username" />
@@ -97,12 +104,11 @@
 													for="customControlInline">Remember me</label>
 											</div>
 										</div>
-										<div class="mb-3 alert alert-success text-center alert-dismissible"
-											role="alert" style="display: none;text-transform: uppercase;">
-											<button type="button" class="btn-close" data-bs-dismiss="alert"
+										<div class="alert alert-dismissible alert-success align-items-center mb-3 position-relative text-center text-lg-start text-sm"
+											role="alert" style="display:none;">
+											<button type="button" class="btn-close fs-sm p-1 pt-1 px-2 text-sm" data-bs-dismiss="alert"
 												aria-label="Close"></button>
-											<div class="alert-message">
-
+											<div class="alert-message px-2 text-info-emphasis fl-maj">
 											</div>
 										</div>
 										<div class="d-grid gap-2 mt-3">
@@ -123,6 +129,7 @@
 	</div>
 
 	<script src="js/app.js"></script>
+	<script src="js/index.js"></script>
 	<script src="js/mmmr.js"></script>
 
 </body>
