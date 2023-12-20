@@ -9,6 +9,8 @@ getDataSpeculation();
 getDataPollinisation();
 getDataFarmaType();
 getDataTypeActivity();
+getDataRole();
+
 //http://5.250.176.223:8080/api/dictionaries/7/values
 
 
@@ -20,7 +22,7 @@ getDataLine();
 getDataTree();
 getDataFruit();
 getDataLeave();
-
+getDataUsers();
 /**GET DATA GENETIC RESSOURCE */
 function getDataGenetic(){
     $.ajax({
@@ -161,6 +163,35 @@ function getDataTypeActivity(){
                         //console.log(item.name);
                 }else{
                     $('.activityType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataRole(){
+    $.ajax({
+        url: URI+'/api/roles',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('ROLE USER',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].name + '">' + j[i].name.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.roleUser').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.roleUser').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
             }
         },

@@ -159,6 +159,20 @@ ul.sidebar-nav > li.sidebar-item {
 .alert-message.fl-maj{
     padding: 2px 2px;
 }
+#map{
+    z-index : 222;
+}
+.content-details-fruit {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    transition: right 0.3s ease;
+    border: 1px solid red;
+    z-index : 333;
+}
+.content-details-fruit.active {
+    right: 0; /* Affichage du contenu à droite */
+}
 
 @media (max-width: 767.98px) {
 

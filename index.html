@@ -162,6 +162,68 @@
 								</li>
 								<div id="all_fruits" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+									<li class="sidebar-item">
+                                        <a data-bs-target="#fruit_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
+                                            <span class="text-body-tertiary small">${item.type}</span>
+                                        </a>
+                                        <i class="fas fa-sort-numeric-down action_icon map_icon" id="action_icon map_icon_${index}" title=""></i>	  
+                                        
+                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
+                                            <div class="col-6 d-grid justify-content-center p-0">
+                                                <div class="card card-image">
+                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 lh-base p-0 small text-capitalize text-muted">
+                                                <div class="d-grid">
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Largeur : </strong> </span>
+                                                        <span class="">${item.width}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Longueur : </strong> </span>
+                                                        <span class="">${item.length}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Poids : </strong> </span>
+                                                        <span class="">${item.weight}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Couleur : </strong> </span>
+                                                        <span class=" mx-1"> <i class="fas fa-circle" style="color:${item.color}"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+										<div class="content-details-fruit border-1 border-bottom mx-4 row">
+                                            <div class="col-6 d-grid justify-content-center p-0">
+                                                <div class="card card-image">
+                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 lh-base p-0 small text-capitalize text-muted">
+                                                <div class="d-grid">
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Largeur : </strong> </span>
+                                                        <span class="">${item.width}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Longueur : </strong> </span>
+                                                        <span class="">${item.length}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Poids : </strong> </span>
+                                                        <span class="">${item.weight}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Couleur : </strong> </span>
+                                                        <span class=" mx-1"> <i class="fas fa-circle" style="color:${item.color}"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
 								</div>
 							</ul>
 						</li>
@@ -179,6 +241,24 @@
 									</span>
 								</li>
 								<div id="all_leaves" class="px-2 py-3">
+									<!-- GET SITE AFTER CHARGEMENT DATA API -->
+								</div>
+							</ul>
+						</li>
+						<li class="sidebar-item">
+							<a data-bs-target="#users" data-bs-toggle="collapse" class="sidebar-link collapsed">
+								<i class="align-middle" data-feather="users"></i> <span class="align-middle">Gestions des utilisateurs</span>
+							</a>
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addUser">
+								<i class="fas fa-plus"></i>
+							</a>
+							<ul id="users" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+								<li class="sidebar-item">
+									<span class="input-group input-group-navbar input-w-80" id="input_search_li_leave_user">
+										<input type="text" id="filterInput_user" class="form-control input-search" placeholder="Search User" onkeyup="filterData(this.value,'users')">
+									</span>
+								</li>
+								<div id="all_users" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
 							</ul>
@@ -271,6 +351,38 @@
 			</div>
 		</div>
 
+
+		<!-- ALERT SUCCESS / FAILLED MODAL -->
+		<div class="modal fade modal-sm" id="alertModal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title" id="alertModalTitle"></h3>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-center" id="alertModalContent"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- DELETE CONFIRM MODAL -->
+		<div class="modal fade modal-sm" id="confirmDelete" data-itemId="0" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header p-2">
+						<h3 class="modal-title">Confirmer la suppression</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p class="">Voulez vous réellement supprimer cet élément ?</p>
+					</div>
+					<div class="modal-footer p-0">
+						<button type="button" class="btn btn-dark" data-bs-dismiss="modal">Annuler</button>
+						<button type="button" class="btn btn-danger" onclick="deleteItem()">Supprimer</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- ADD SITE -->
 		<div class="modal fade" id="addSite" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
@@ -1049,6 +1161,88 @@
 				</div>
 			</div>
 		</div>
+				<!-- ADD LEAVE -->
+				<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h3 class="modal-title">Enregistrement d'un Utilisateur</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body m-3">
+								<form class="profile-form" id="add_user" method="post" action="#" onsubmit="sendDataFormDataSimple(event,'add_user')">
+									<div class="accordion" id="accordionUser">
+										<div class="card">
+											<div class="card-header" id="heading_10">
+												<h5 class="card-title my-2">
+													<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_user" aria-expanded="true" aria-controls="collapse_user">
+														Informations sur l'Utilisateur
+													</a>
+												</h5>
+											</div>
+											<div id="collapse_user" class="collapse show" aria-labelledby="heading_8" data-bs-parent="#accordionUser">
+												<div class="card-body">
+													<div class="row">
+														<div class="mb-3 col-md-6">
+															<label class="form-label" for="username">Username</label>
+															<input type="text" class="form-control" id="username" name="username"  placeholder="MMMR" required>
+														</div>
+														<div class="mb-3 col-md-6">
+															<label class="form-label" for="email">Email</label>
+															<input type="text" class="form-control" id="email" name="email"  placeholder="mmmr@gmail.com" required>
+														</div>
+														<div class="mb-3 col-md-6">
+															<label class="form-label" for="password">Password</label>
+															<input type="password" class="form-control" id="password" name="password"  placeholder="1" required >
+															<span toggle="#password-field2" onclick="return tooglePassword('password','created-password')" 
+															class="fas fa-fw fa-eye field-icon created-password cursor-pointer text-color-logo" style="margin-top:-20px;"></span>
+														</div>
+														<div class="mb-3 col-md-6">
+															<label class="form-label" for="roleUser">Role</label>
+															<select name="role" class="form-control roleUser" id="roleUser">
+
+															</select>														
+														</div>
+														<div class="mb-3 col-md-6">
+															<label class="form-label" for="altitude">Nom</label>
+															<input type="text" class="form-control" id="lastname" name="lastname" placeholder="MMMR" required>
+														</div>
+														<div class="mb-3 col-md-6">
+															<label class="form-label" for="altitude">Prenom</label>
+															<input type="text" class="form-control" id="firstname" name="firstname" placeholder="MMMR" >
+														</div>
+														<div class="mb-3 col-md-12">
+															<label class="form-label" for="altitude">Numero Telephone</label>
+															<input type="number" class="form-control" id="phonenumber" name="phonenumber" placeholder="658746224" >
+														</div>
+														
+														<!-- <div class="mb-3 col-md-12">
+															<label class="form-label" for="altitude">Image Fruit</label>
+															<input type="file" class="form-control" name="picture" id="picture">
+														</div> -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+										<div class="alert-message">
+											
+										</div>
+									</div>
+									<div class="card-footer">
+										<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+							</div>
+						</div>
+					</div>
+				</div>
 		<!-- ADD IMAGE ITEM -->
 		<div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
@@ -1087,6 +1281,7 @@
 		<script src="js/arbre.js"></script>
 		<script src="js/fruit.js"></script>
 		<script src="js/feuille.js"></script>
+		<script src="js/users.js"></script>
 		<script src="js/mmmr.js" async defer></script>
 		<script src="js/index.js"></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->

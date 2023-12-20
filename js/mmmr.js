@@ -149,6 +149,24 @@ function filterData(value,type) {
                 console.log("data not found");
             }
         });
+    }else if(type =="users") {
+        $("#all_users li").each(function () {
+            var text = $(this).text().toLowerCase(); // Récupère le texte de chaque élément de la liste en minuscules
+            if (filterText.length >= 3 && regex.test(text)) {
+                // Vérifie si le texte de l'élément correspond à l'expression régulière après trois caractères
+                $(this).show(); // Affiche l'élément
+                // $(this).find('.collapse').collapse('show');
+                console.log($(this).show());
+            } else if (filterText.length === 0) {
+                // Si l'input est vide, affiche tous les éléments
+                $("#all_users li").show();
+                //$(this).find('.collapse').collapse('hide');
+                // $(this).find('.collapse').collapse('show');
+            } else {
+                $(this).hide(); // Cache les éléments qui ne correspondent pas ou si moins de trois caractères ont été saisis
+                console.log("data not found");
+            }
+        });
     }
     
    
@@ -187,12 +205,6 @@ function convertTimestampToDate(timestamp) {
 
     return formattedDate;
 }
-
-
-
-
-
-
 
 // Fonction pour convertir l'image en base64
 function getImageAsBase64(inputId, callback) {
@@ -864,6 +876,68 @@ function submitFormImage(event){
     }else {
         console.log('Aucun fichier sélectionné');
     } 
+}
+/**POST DATA USERS */
+function sendDataFormDataSimple(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    //formData.append('picture', globalImageContent);
+
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+    // Affichage du premier objet JSON mis à jour dans la console
+    //console.log('pictureImage',globalImageContent);
+    console.log('ALL JSON',all_JSON);
+
+    $.ajax({
+        url: URI+'/api/auth/signup',
+        type: "POST",
+        enctype: 'multipart/form-data',
+        contentType: 'application/json',
+        data: all_JSON,
+        dataType: "json",
+        // processData: false,
+        beforeSend: function() {
+            $('.btn_submit').prop('disabled', true);
+        },
+        success: function(data,status, xhr) {
+            console.log(data,status,xhr);
+            if (xhr.status == 200 || xhr.status == 201) {
+                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                $(".alert-message").text(data.username.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $("#"+form).get(0).reset();
+                itemId = data.id;
+                typeForm = "users";
+                setTimeout(function(){
+                    window.location.reload(true);
+                }, 3000)
+            }else{
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $('.btn_submit').prop('disabled', false);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', error);
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $('.btn_submit').prop('disabled', false);
+            } else {
+                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                $(".alert-message").text(xhr.message+ ' '+error);  
+                $('.btn_submit').prop('disabled', false);
+                console.log('Erreur : ', status, error);
+            }
+        }
+    });
 }
 console.log(`window`, window.location);
 function authLogin(e,form){

@@ -8,8 +8,14 @@ function viewList(parent, child, parentId){
     $("#tableTitle1").text(child);
     $("#tableTitle2").text(parent);
     $("#site_name").text(parent);
-    getDataParcelsSite(parentId)
+    if (child == "parcels") {
+        getDataParcelsSite(parentId);
+    } else if(child == "users"){
+        getDataUserById(parentId);
+    }else if (child == "farms") {
+        getDataFarmByParcel(parentId);
 
+    }
 }
 
 function resetContent(){
@@ -54,12 +60,77 @@ function displayTabBody(tabBody) {
 
 function editItem(item) {
     console.log(item);
-    $()
     
 }
 
-function deleteItem(item) {
-    console.log(itemId);
-
+function confirmDeleteItem(item, itemId) {
+    $("#confirmDelete").attr("itemId", itemId);
+    $("#confirmDelete").attr("item", item)
+    showModal("confirmDelete");
+    
 }
 
+function deleteItem(){
+    let itemId = $("#confirmDelete").attr("itemId");
+    let item = $("#confirmDelete").attr("item");
+    // Loading()
+    $.ajax({
+        url: URI+'/api/'+item+'/'+itemId,
+        method: 'DELETE',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('all sites' ,data);
+            if (xhr.status == 200) {
+                $("#row_"+itemId).remove();
+                closeModal("confirmDelete");
+                showAlertSuccess();
+                // StopLoading();
+            } else {
+                showAlertFailed();
+                closeModal("confirmDelete");
+                // StopLoading();
+            }
+        }
+    });
+}
+
+
+// Fonction pour afficher le modal
+function showModal(modalId) {
+    $(`#${modalId}`).modal('show');
+}
+
+// Fonction pour fermer le modal
+function closeModal(modalId) {
+    $(`#${modalId}`).modal('hide');
+}
+
+// Fonction pour afficher un contenu spécifique dans le modal
+function setContentInModal(modalId, content) {
+    $(`#${modalId} .modal-body`).html(content);
+}
+
+function showAlertModal(title, content, iconClass) {
+    // Remplacer le contenu et l'icône
+    $('#alertModalTitle').text(title);
+    $('#alertModalContent').html(`<i class="${iconClass} fa-3x"></i><p>${content}</p>`);
+
+    // Afficher le modal
+    $('#alertModal').modal('show');
+}
+
+// Fonction pour afficher le modal de succès
+function showAlertSuccess() {
+    const title = 'Succès';
+    const content = 'L\'opération a été effectuée avec succès.';
+    const iconClass = 'fa-3x fa-5x  my-1 fas fa-check-circle text-success';
+    showAlertModal(title, content, iconClass);
+}
+
+// Fonction pour afficher le modal d'échec
+function showAlertFailed() {
+    const title = 'Échec';
+    const content = 'Une erreur est survenue lors de l\'opération.';
+    const iconClass = 'fa-3x fa-5x my-1 fas fa-exclamation-circle text-danger';
+    showAlertModal(title, content, iconClass);
+}
