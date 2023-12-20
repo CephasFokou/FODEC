@@ -68,7 +68,7 @@ function getDataSite(){
                     for (var i = 0; i < tab.length; i++) {
                         options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
                     }
-                    $('#siteId').html(options);
+                    $('.siteId').html(options);
                     ///console.log(options);
 
                 }else{

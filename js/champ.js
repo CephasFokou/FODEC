@@ -53,7 +53,7 @@ function getDataFarms(){
                     for (var i = 0; i < tab.length; i++) {
                         options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
                     }
-                    $('#farmId_line').html(options);
+                    $('.farmId').html(options);
                 }else{
                     console.log('Le tableau est vide.');
                 }

@@ -527,8 +527,8 @@
 													<input type="text" class="form-control" id="name" name="name" placeholder="Parcerelle Mpos" required>
 												</div>
 												<div class="mb-3 col-md-6">
-													<label class="form-label" for="speculation">Choisir le site</label>
-													<select name="siteId" class="form-control" id="siteId">
+													<label class="form-label" for="speculation">Choisir le champ</label>
+													<select name="farmId" class="form-control farmId" id="farmId">
 														
 													</select>
 												</div>
@@ -566,7 +566,7 @@
 											</div>
 											<div class="row">
 												<div class="mb-3 col-md-6">
-													<label class="form-label" for="farmType">Choisir le type de ferme</label>
+													<label class="form-label" for="farmType">Choisir le type de champ</label>
 													<select name="farmType" class="form-control farmType" id="farmType_parcel">
 														
 													</select>
@@ -676,8 +676,8 @@
 													<input type="text" class="form-control" id="name_farms" name="name" placeholder="Champs 1" required>
 												</div>
 												<div class="mb-3 col-md-6">
-													<label class="form-label" for="parcelId">Choisir la parcerelle</label>
-													<select name="parcelId" class="form-control" id="parcelId">
+													<label class="form-label" for="speculation">Choisir le site</label>
+													<select name="siteId" class="form-control siteId" id="siteId">
 														
 													</select>
 												</div>
@@ -701,9 +701,15 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="mb-3 col-md-12">
-													<label class="form-label" for="farmType">Choisir le type de ferme</label>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="farmType">Choisir le type de champ</label>
 													<select name="farmType" class="form-control farmType" id="farmType">
+														
+													</select>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="floorType">Choisir le type de Flore</label>
+													<select name="floorType" class="form-control floorType" id="floorType">
 														
 													</select>
 												</div>
@@ -807,10 +813,11 @@
 													<input type="text" class="form-control" id="name_line" name="name" placeholder="Line 1" required>
 												</div>
 												<div class="mb-3 col-md-6">
-													<label class="form-label" for="farmId">Choisir le champs</label>
-													<select name="farmId" class="form-control" id="farmId_line">
+													<label class="form-label" for="parcelId">Choisir la parcerelle</label>
+													<select name="parcelId" class="form-control" id="parcelId">
 														
 													</select>
+													
 												</div>
 											</div>
 										</div>
@@ -885,6 +892,12 @@
 			</div>
 		</div>
 		<!-- ADD TREES (ARBRES) -->
+		<!-- <div class="mb-3 col-md-6">
+			<label class="form-label" for="farmId">Choisir le champs</label>
+			<select name="farmId" class="form-control" id="farmId_line">
+				
+			</select>
+		</div> -->
 		<div class="modal fade" id="addTree" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -1027,7 +1040,7 @@
 													<input type="text" class="form-control" id="name_fruit" name="name" placeholder="Fruit 237" required>
 												</div>
 												<div class="mb-3 col-md-6">
-													<label class="form-label" for="farmId">Choisir l'arbre</label>
+													<label class="form-label" for="treeId_fruit">Choisir l'arbre</label>
 													<select name="treeId" class="form-control select2" data-toggle="select2" id="treeId_fruit">
 														
 													</select>

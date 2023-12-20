@@ -9,6 +9,7 @@ getDataSpeculation();
 getDataPollinisation();
 getDataFarmaType();
 getDataTypeActivity();
+getDataFloorType();
 getDataRole();
 
 //http://5.250.176.223:8080/api/dictionaries/7/values
@@ -163,6 +164,35 @@ function getDataTypeActivity(){
                         //console.log(item.name);
                 }else{
                     $('.activityType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataFloorType(){
+    $.ajax({
+        url: URI+'/api/dictionaries/7/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('ROLE USER',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.floorType').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.floorType').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
             }
         },

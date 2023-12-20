@@ -392,13 +392,7 @@ function sendDataParcelWithFormData(e,form){
                 $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 setTimeout(function(){
-                    $('#addParcel').modal('hide');
-                    $('#addItem').modal('show');
-                    $('#addItem').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                    $('#nameSiteAuto').text(data.name.toUpperCase());
+                    window.location.reload(true);
                 }, 3000)
             }else{
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -718,9 +712,9 @@ function sendDataFruitWithFormData(e,form){
                 itemId = data.id;
                 typeForm = "fruit";
                 setTimeout(function(){
-                    $('#addTree').modal('hide');
-                    $('#addFruit').modal('show');
-                    $('#addFruit').modal({
+                    $('#addFruit').modal('hide');
+                    $('#addItem').modal('show');
+                    $('#addItem').modal({
                         backdrop: 'static',
                         keyboard: false
                     });
@@ -784,9 +778,9 @@ function sendDataLeaveWithFormData(e,form){
                 itemId = data.id;
                 typeForm = "leave";
                 setTimeout(function(){
-                    $('#addTree').modal('hide');
-                    $('#addLeave').modal('show');
-                    $('#addLeave').modal({
+                    $('#addLeave').modal('hide');
+                    $('#addItem').modal('show');
+                    $('#addItem').modal({
                         backdrop: 'static',
                         keyboard: false
                     });
