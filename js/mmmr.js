@@ -1000,9 +1000,9 @@ function authLogout(event){
         window.location.href="login.html";
     }
 }
-// GET LIST LINE BY PARCELS
+// GET AUTH CHECK USER
 function getExitAuth(userId){
-    tabBody = [];
+    //alert(userId)
     $.ajax({
         url: URI+'/api/users/'+userId,
         method: 'GET',
@@ -1011,8 +1011,8 @@ function getExitAuth(userId){
 
             if (xhr.status == 200 || xhr.status == 201) {
                 if(data){
-                    console.log(`Auth exit in BD`, data);
-                    alert(data);
+                    console.log(`Auth exit in BD`);
+                    //alert(data);
                 }else{
                     console.log(`Auth not exit in BD`);
                     window.location.href="login.html";
