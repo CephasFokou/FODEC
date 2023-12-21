@@ -162,68 +162,7 @@
 								</li>
 								<div id="all_fruits" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
-									<li class="sidebar-item">
-                                        <a data-bs-target="#fruit_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <span class="text-body-tertiary small">${item.type}</span>
-                                        </a>
-                                        <i class="fas fa-sort-numeric-down action_icon map_icon" id="action_icon map_icon_${index}" title=""></i>	  
-                                        
-                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
-                                            <div class="col-6 d-grid justify-content-center p-0">
-                                                <div class="card card-image">
-                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
-                                                </div>
-                                            </div>
-                                            <div class="col-6 lh-base p-0 small text-capitalize text-muted">
-                                                <div class="d-grid">
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Largeur : </strong> </span>
-                                                        <span class="">${item.width}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Longueur : </strong> </span>
-                                                        <span class="">${item.length}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Poids : </strong> </span>
-                                                        <span class="">${item.weight}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Couleur : </strong> </span>
-                                                        <span class=" mx-1"> <i class="fas fa-circle" style="color:${item.color}"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-										<div class="content-details-fruit border-1 border-bottom mx-4 row">
-                                            <div class="col-6 d-grid justify-content-center p-0">
-                                                <div class="card card-image">
-                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
-                                                </div>
-                                            </div>
-                                            <div class="col-6 lh-base p-0 small text-capitalize text-muted">
-                                                <div class="d-grid">
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Largeur : </strong> </span>
-                                                        <span class="">${item.width}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Longueur : </strong> </span>
-                                                        <span class="">${item.length}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Poids : </strong> </span>
-                                                        <span class="">${item.weight}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class=""><strong>Couleur : </strong> </span>
-                                                        <span class=" mx-1"> <i class="fas fa-circle" style="color:${item.color}"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+									
 								</div>
 							</ul>
 						</li>
@@ -1183,7 +1122,7 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body m-3">
-								<form class="profile-form" id="add_user" method="post" action="#" onsubmit="sendDataFormDataSimple(event,'add_user')">
+								<form class="profile-form" id="add_user" method="post" action="#" onsubmit="sendDataFormDataSignup(event,'add_user')">
 									<div class="accordion" id="accordionUser">
 										<div class="card">
 											<div class="card-header" id="heading_10">
@@ -1212,7 +1151,7 @@
 														</div>
 														<div class="mb-3 col-md-6">
 															<label class="form-label" for="roleUser">Role</label>
-															<select name="role" class="form-control roleUser" id="roleUser">
+															<select name="role[]" class="form-control roleUser" id="roleUser">
 
 															</select>														
 														</div>

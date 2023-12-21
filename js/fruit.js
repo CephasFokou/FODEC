@@ -21,7 +21,7 @@ function getDataFruit(){
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
-                                                    <img src="./img/standard-img.png" alt="" class="image-fuild">
+                                                    <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-abre image-fuild">
                                                 </div>
                                             </div>
                                             <div class="col-6 lh-base p-0 small text-capitalize text-muted">

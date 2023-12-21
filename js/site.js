@@ -31,7 +31,7 @@ function getDataSite(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.geneticRessource}</span>
                                         </a>
-                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('site ${item.name}', 'parcels', ${item.id})"></i>
+                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('${item.name}', 'champs', ${item.id})"></i>
                                         <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="editSite(${item.id})"></i>
                                         <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -84,14 +84,14 @@ function getDataSite(){
 }
 
 // GET LIST PARCELLES SITES
-function getDataParcelsSite(siteId){
+function getDataFarmsSite(siteId){
     tabBody = [];
     $.ajax({
-        url: URI+'/api/parcels/site/'+siteId,
+        url: URI+'/api/farms/site/'+siteId,
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
-
+            console.log(`data farm by idSite`, data);
             if (xhr.status == 200) {
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
@@ -108,9 +108,9 @@ function getDataParcelsSite(siteId){
                         
                         console.log('testLong==' +rt_longitude);
                         // Ajouter les données de chaque élément à la liste tabBody
-                        tabBody.push([item.id, item.name, item.speculation, item.geneticRessource, item.farmType, item.soil, item.pollinisation, convertTimestampToDate(item.creationDate)]);
+                        tabBody.push([item.id, item.name, item.initialArea, item.lastArea, item.initialDensity, item.lastDensity, item.farmType, convertTimestampToDate(item.creationDate)]);
                     });
-                    tabHeaders = ["#ID", "name", "speculation", "geneticRessource", "farmType", "soil", "pollinisation", "creationDate"];
+                    tabHeaders = ["#ID", "name", "Zone Initiale", "Zone Actuelle", "Densité Initiale", "Densité Actuelle", "Type de ferme", "creationDate"];
                     displayTabHeader(tabHeaders);
                     displayTabBody(tabBody, tabHeaders);
                     console.log(tabBody);

@@ -25,7 +25,7 @@ function getDataParcels(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.actualDensity}</span>
                                         </a>
-                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister" onclick="viewList('Champ ${item.name}', 'farms', ${item.id})"></i>
+                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister" onclick="viewList('${item.name}', 'line', ${item.id})"></i>
                                         <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="editSite(${item.id})"></i>
                                         <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -75,17 +75,18 @@ function getDataParcels(){
     });
 }
 
-// GET LIST PARCELLES SITES
-function getDataFarmByParcel(parcelId){
+// GET LIST LINE BY PARCELS
+function getDataLineByParcel(parcelId){
     tabBody = [];
     $.ajax({
-        url: URI+'/api/farms/parcel/'+parcelId,
+        url: URI+'/api/lines/parcel/'+parcelId,
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
 
             if (xhr.status == 200) {
                 tab = data;
+                //alert(tab);
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var lb_latitude = item.geographicalPos.leftBottom.latitude;
@@ -100,15 +101,23 @@ function getDataFarmByParcel(parcelId){
                         
                         console.log('testLong==' +rt_longitude);
                         // Ajouter les données de chaque élément à la liste tabBody
-                        tabBody.push([item.id, item.name, item.initialArea, item.lastArea, item.initialDensity, item.lastDensity, item.farmType, convertTimestampToDate(item.creationDate)]);
+                        tabBody.push([
+                            item.id,
+                            // '<img src="' + URI + '/api/images/' + item.image + '">',
+                            item.name,
+                            convertTimestampToDate(item.creationDate)
+                        ]);                   
                     });
-                    tabHeaders = ["#ID", "name", "Zone Initiale", "Zone Actuelle", "Densité Initiale", "Densité Actuelle", "Type de ferme", "creationDate"];
+                        
+                    tabHeaders = ["#ID", "Name","creationDate"];
                     displayTabHeader(tabHeaders);
                     displayTabBody(tabBody, tabHeaders);
                     console.log(tabBody);
                     
                 }else{
-                    console.log('Le tableau est vide.');
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour la parcel ' + parcelId);
                 }
             }
           

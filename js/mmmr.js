@@ -6,7 +6,8 @@ if(getAuth) {
 	var getUser_decode =  JSON.parse(getAuth); 
 	var userId = getUser_decode.id;         
 	var roleUser = getUser_decode.roles[0];        
-	console.log(`user`, userId + roleUser);
+	console.log(`user`, userId+ ' vs '+ roleUser);
+    getExitAuth(userId)
 }
 if(navigator.onLine) {
     console.log('Connexion internet active');
@@ -872,7 +873,7 @@ function submitFormImage(event){
     } 
 }
 /**POST DATA USERS */
-function sendDataFormDataSimple(e,form){
+function sendDataFormDataSignup(e,form){
     e.preventDefault();
     var form_ = $('#'+form)[0];
     var formData = new FormData(form_);
@@ -904,7 +905,7 @@ function sendDataFormDataSimple(e,form){
             console.log(data,status,xhr);
             if (xhr.status == 200 || xhr.status == 201) {
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.username.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                $(".alert-message").text("USER ENREGISTRE AVEC SUCCES !!!");             
                 $("#"+form).get(0).reset();
                 itemId = data.id;
                 typeForm = "users";
@@ -918,17 +919,17 @@ function sendDataFormDataSimple(e,form){
             }
 
         },
-        error: function(xhr, status, error) {
+        error: function(xhr, status, error,data) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', data);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
                 $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
                 $('.btn_submit').prop('disabled', false);
             } else {
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(data+ ' '+error);  
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
+                console.log('Erreur : ', data, error);
             }
         }
     });
@@ -998,6 +999,34 @@ function authLogout(event){
         localStorage.removeItem('auth');
         window.location.href="login.html";
     }
+}
+// GET LIST LINE BY PARCELS
+function getExitAuth(userId){
+    tabBody = [];
+    $.ajax({
+        url: URI+'/api/users/'+userId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+
+            if (xhr.status == 200 || xhr.status == 201) {
+                if(data){
+                    console.log(`Auth exit in BD`, data);
+                    alert(data);
+                }else{
+                    console.log(`Auth not exit in BD`);
+                    window.location.href="login.html";
+                }
+            }else{
+                window.location.href="login.html";
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+            window.location.href="login.html";
+        }
+    });
 }
 function tooglePassword(input, elt) {
     //alert(input);

@@ -2,19 +2,23 @@
 
 function viewList(parent, child, parentId){
     console.log(parentId);
+    //alert(child)
     $("#map").hide();
     $("#resetMainBtn").show();
     $("#list").show();
     $("#tableTitle1").text(child);
     $("#tableTitle2").text(parent);
     $("#site_name").text(parent);
-    if (child == "parcels") {
-        getDataParcelsSite(parentId);
+    if (child == "champs") {
+        getDataFarmsSite(parentId);
     } else if(child == "users"){
         getDataUserById(parentId);
-    }else if (child == "farms") {
-        getDataFarmByParcel(parentId);
-
+    }else if (child == "parcels") {
+        getDataParcelByFarm(parentId);
+    }else if (child == "line") {
+        getDataLineByParcel(parentId);
+    }else if (child == "arbres") {
+        getDataTreeByLine(parentId);
     }
 }
 

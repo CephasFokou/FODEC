@@ -173,6 +173,11 @@ ul.sidebar-nav > li.sidebar-item {
 .content-details-fruit.active {
     right: 0; /* Affichage du contenu à droite */
 }
+.img-abre{
+    width: 100px;
+    height: 70px;
+    border-radius: 5px;
+}
 
 @media (max-width: 767.98px) {
 
