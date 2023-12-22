@@ -1,176 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Filtrage des données</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+  <title>Formulaire Todo List Dynamique avec Laravel</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- <input type="text" id="filterInput" placeholder="Entrez votre filtre ici">
-    
-    <ul class="list-unstyled">
-        <li class="sidebar-item">
-            <a data-bs-target="#site-1" data-bs-toggle="collapse" class="sidebar-link collapsed">Site Two</a>
-            <ul id="site-1" class="sidebar-dropdown list-unstyled collapse">
-                <li class="sidebar-item">
-                    <a data-bs-target="#multi-3-1" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 1</a>
-                    <ul id="multi-3-1" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" data-bs-target="#">Choice</a>
-                            <a class="sidebar-link" data-bs-target="#">237</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a data-bs-target="#multi-3-2" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 2</a>
-                    <ul id="multi-3-2" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" data-bs-target="#">Idzadazd</a>
-                            <a class="sidebar-link" data-bs-target="#">ddddd</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a data-bs-target="#multi-3-3" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 3</a>
-                    <ul id="multi-3-3" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" data-bs-target="#">testjnjnd</a>
-                            <a class="sidebar-link" data-bs-target="#">dddddd</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" data-bs-target="#">Item 4</a>
-                </li>
-            </ul>
-        </li>
-        <li class="sidebar-item">
-            <a data-bs-target="#site-2" data-bs-toggle="collapse" class="sidebar-link collapsed">Site Three</a>
-            <ul id="site-2" class="sidebar-dropdown list-unstyled collapse">
-                <li class="sidebar-item">
-                    <a data-bs-target="#multi-2-1" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 1</a>
-                    <ul id="multi-2-1" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" data-bs-target="#">Choice</a>
-                            <a class="sidebar-link" data-bs-target="#">237</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a data-bs-target="#multi-2-2" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 2</a>
-                    <ul id="multi-2-2" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" data-bs-target="#">Idzadazd</a>
-                            <a class="sidebar-link" data-bs-target="#">ddddd</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a data-bs-target="#multi-2-3" data-bs-toggle="collapse" class="sidebar-link collapsed">Item 3</a>
-                    <ul id="multi-2-3" class="sidebar-dropdown list-unstyled collapse">
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" data-bs-target="#">Testjnjnd</a>
-                            <a class="sidebar-link" data-bs-target="#">Dddddd</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" data-bs-target="#">Item 4</a>
-                </li>
-            </ul>
-        </li>
-    </ul>  -->
-    <!-- Votre liste d'emplacements -->
-    <ul id="locations">
-        <li onclick="updateMap(48.8566,2.3522)" data-lat="48.8566" data-lng="2.3522">Paris</li>
-        <li onclick="updateMap(3.887649919495665,11.505106234113658)" data-lat="3.887649919495665" data-lng="11.505106234113658">MEDICS</li>
-        <!-- Ajoutez d'autres éléments d'emplacement ici -->
-    </ul>
-    
-    <!-- Div pour afficher la carte -->
-    <!-- Bouton pour actualiser l'emplacement -->
-    <button id="refreshButton">Actualiser</button>
+  <div class="container mt-4">
+    <form id="todoForm">
+      <div id="todos">
+        <div class="form-group">
+          <input type="text" class="form-control mb-2" name="tasks[]" placeholder="Tâche 1">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control mb-2" name="tasks[]" placeholder="Tâche 2">
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" id="ajouterFormulaire">Ajouter un nouveau formulaire</button>
+      <button type="submit" class="btn btn-success">Enregistrer</button>
+    </form>
+  </div>
 
-    <div id="map" style="height: 400px; width: 100%;"></div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var maxForms = 15; // Nombre maximum de formulaires
 
-    <div id="map" style="height: 400px; width: 100%;"></div>
-  
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Données des localisations (nom, latitude, longitude)
-        var locations = [
-        { name: 'MEDICS CARE', lat: 3.887649919495665, lng: 11.505106234113658 },
-        { name: 'Londres', lat: 51.5074, lng: -0.1278 },
-        // Ajoutez d'autres localisations ici
-        ];
+      $('#ajouterFormulaire').click(function() {
+        var formCount = $('#todos').find('.form-group').length;
 
-        var map;
+        if (formCount < maxForms) {
+          var newForm = '<div class="form-group">';
+          newForm += '<input type="text" class="form-control mb-2" name="tasks[]" placeholder="Tâche ' + (formCount + 1) + '">';
+          newForm += '</div>';
 
-        // Fonction pour initialiser la carte avec le pays où vous vous trouvez
-        function initMaps() {
-            // Récupère la position géographique actuelle de l'utilisateur (par défaut)
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var userLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-                };
-
-                map = new google.maps.Map(document.getElementById('map'), {
-                center: userLocation,
-                zoom: 16 // Zoom ajusté pour afficher le pays
-                });
-            }, function() {
-                // En cas d'erreur de géolocalisation, affiche une carte par défaut centrée sur zéro
-                map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 0, lng: 0 },
-                zoom: 16 // Zoom plus large pour une vue plus étendue
-                });
-            });
+          $('#todos').append(newForm);
+        } else {
+          alert("Vous avez atteint le nombre maximal de formulaires !");
         }
+      });
 
-        // Fonction pour mettre à jour la carte avec de nouvelles coordonnées
-        function updateMap(latitude, longitude) {
-            var location = {
-                lat: latitude,
-                lng: longitude
-            };
+      $('#todoForm').submit(function(e) {
+        e.preventDefault();
+        var formData = $(this).serialize();
 
-            // Centre la carte sur le nouvel emplacement
-            map.setCenter(location);
-
-            // Crée un marqueur pour l'emplacement sélectionné
-            var marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-        }
-
-        // Écouteur de clic sur le bouton d'actualisation
-        document.getElementById('refreshButton').addEventListener('click', function() {
-            // Exemple de coordonnées (latitude et longitude)
-            var newLatitude = 3.887649919495665; // Exemple : Latitude pour Paris
-            var newLongitude = 11.505106234113658; // Exemple : Longitude pour Paris
-
-            // Actualise la carte avec les nouvelles coordonnées
-            updateMap(newLatitude, newLongitude);
+        $.ajax({
+          url: '/enregistrer-todos', // Endpoint Laravel pour l'enregistrement
+          method: 'POST',
+          data: formData,
+          success: function(response) {
+            console.log(response); // Traitement réussi côté serveur
+            // Vous pouvez ajouter ici une logique pour gérer la réponse du serveur
+          },
+          error: function(error) {
+            console.log(error); // Gestion des erreurs
+          }
         });
-
-
-
-        $(document).ready(function(){
-            $('#filterInput').on('keyup', function(){
-                var searchText = $(this).val().toLowerCase();
-                $('.sidebar-item').each(function(){
-                    var itemText = $(this).text().toLowerCase();
-                    if(itemText.includes(searchText)) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-            });
-        });
-    </script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta"></script>
+      });
+    });
+  </script>
 </body>
 </html>

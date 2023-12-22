@@ -90,3 +90,42 @@ function getDataUserById(userId){
         }
     });
 }
+// GET LIST ALL USERS
+function allUsers(){
+    tabBody = [];
+    $.ajax({
+        url: URI+'/api/users/all',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+
+            if (xhr.status == 200) {
+                var tab ;
+                tab = data;
+                console.log(`all data users`, tab);
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                                                // Ajouter les données de chaque élément à la liste tabBody
+                        tabBody.push([item.id, item.username, item.lastname, item.firstname, item.roles[0].name, item.email, item.phonenumber, convertTimestampToDate(item.creationDate)]);
+                  
+                    });
+                        
+                    tabHeaders = ["#ID", "Username", "Nom", "Prenom", "Role", "Email", "Phone Number", "creationDate"];
+                    displayTabHeader(tabHeaders);
+                    displayTabBody(tabBody, tabHeaders);
+                    console.log(tabBody);
+                    
+                }else{
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour tous les users');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+

@@ -317,15 +317,16 @@ function sendDataWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         },
         complete: function () {
@@ -404,15 +405,16 @@ function sendDataParcelWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
@@ -487,15 +489,16 @@ function sendDataFarmsWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
@@ -570,15 +573,16 @@ function sendDataLineWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
@@ -661,15 +665,16 @@ function sendDataTreeWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
@@ -730,15 +735,16 @@ function sendDataFruitWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
@@ -796,15 +802,16 @@ function sendDataLeaveWithFormData(e,form){
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
@@ -854,15 +861,19 @@ function submitFormImage(event){
                     $(".alert-message").text(data.message + ' ' + data.httpStatus);
                 }
             },
-            error: function (xhr, status, error) {
-                var errorMessage = 'Une erreur est survenue lors du traitement de votre requête';
-                if (xhr.status === 500) {
-                    console.log('Erreur 500 : ', error);
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
                 } else {
-                    console.log('Erreur : ', status, error);
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
                 }
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show();
-                $(".alert-message").text(errorMessage);
             },
             complete: function () {
                 $('.btn_submit').prop('disabled', false);
@@ -873,125 +884,69 @@ function submitFormImage(event){
     } 
 }
 /**POST DATA USERS */
-function sendDataFormDataSignup(e,form){
+function sendDataFormDataSignup(e, form) {
     e.preventDefault();
-    var form_ = $('#'+form)[0];
-    var formData = new FormData(form_);
-
-    //formData.append('picture', globalImageContent);
-
+    //alert(237)
+    var formElement = $('#' + form)[0];
+    var formData = new FormData(formElement);
+    var rolesArray = [$('#roleUser').val() || "ROLE_USER"];
+    // Ajout du champ 'role' aux données du formulaire
+    rolesArray.forEach(function(value) {
+        formData.append('roles[]', value);
+    });
     var formDataObj = {};
     formData.forEach(function(value, key){
         formDataObj[key] = value;
     });
 
     var all_JSON = JSON.stringify(formDataObj);
-    // Affichage du premier objet JSON mis à jour dans la console
-    //console.log('pictureImage',globalImageContent);
-    console.log('ALL JSON',all_JSON);
-
+    console.log(`all JSON`, all_JSON);
     $.ajax({
-        url: URI+'/api/auth/signup',
-        type: "POST",
+        url: URI + '/api/auth/signup', // Remplacez URI par votre URL
+        type: 'POST',
+        data: all_JSON,
         enctype: 'multipart/form-data',
         contentType: 'application/json',
-        data: all_JSON,
         dataType: "json",
-        // processData: false,
         beforeSend: function() {
             $('.btn_submit').prop('disabled', true);
         },
-        success: function(data,status, xhr) {
-            console.log(data,status,xhr);
+        success: function(data, status, xhr) {
+            console.log(data, status, xhr);
             if (xhr.status == 200 || xhr.status == 201) {
                 $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text("USER ENREGISTRE AVEC SUCCES !!!");             
-                $("#"+form).get(0).reset();
+                $(".alert-message").text("USER ENREGISTRE AVEC SUCCES !!!");
+                $("#" + form).get(0).reset();
                 itemId = data.id;
                 typeForm = "users";
-                setTimeout(function(){
+                setTimeout(function() {
                     window.location.reload(true);
                 }, 3000)
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
-                $('.btn_submit').prop('disabled', false);
-            }
-
-        },
-        error: function(xhr, status, error,data) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', data);
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue aucours du traitement de votre requete');  
-                $('.btn_submit').prop('disabled', false);
             } else {
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data+ ' '+error);  
-                $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', data, error);
-            }
-        }
-    });
-}
-console.log(`window`, window.location);
-function authLogin(e,form){
-    e.preventDefault();
-    var form_ = $('#'+form)[0];
-    var formData = new FormData(form_);
-
-    var formDataObj = {};
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
-
-    var all_JSON = JSON.stringify(formDataObj);
-    // Affichage du premier objet JSON mis à jour dans la console
-    console.log('ALL JSON',all_JSON);
-    $.ajax({
-        url: URI+'/api/auth/signin',
-        type: "POST",
-        enctype: 'multipart/form-data',
-        contentType: 'application/json',
-        data: all_JSON,
-        dataType: "json",
-        // processData: false,
-        beforeSend: function() {
-            $('.btn_submit').prop('disabled', true);
-        },
-        success: function(data,status, xhr) {
-            if (xhr.status == 200 || xhr.status == 201) {
-                console.log(data);
-                localStorage.setItem('auth', JSON.stringify(data));
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text("CONNEXION EFFECTUEE AVEC SUCCES !!!");             
-                $("#"+form).get(0).reset();
-                setTimeout(function(){
-                    $(".alert-message").text("Vous serez rediriger vers une autre page !!!").fadeIn(1000);
-                    window.location.href="index.html";
-                 }, 3000)
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                $(".alert-message").text(data.message + ' ' + data.httpStatus);
                 $('.btn_submit').prop('disabled', false);
             }
-
         },
         error: function(xhr, status, error) {
             if (xhr.status == 500) {
-                console.log('Erreur 500 : ', error);
+                console.log('Erreur 500 : ', xhr.responseText);
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('USERNAME OU PASSWORD INCORRECT');  
+                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
                 $('.btn_submit').prop('disabled', false);
             } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
                 $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(xhr.message+ ' '+error);  
+                $(".alert-message").text(errorMessage);
                 $('.btn_submit').prop('disabled', false);
-                console.log('Erreur : ', status, error);
             }
         }
     });
 }
+
+console.log(`window`, window.location);
+
 function authLogout(event){
     event.preventDefault();
     if (confirm('Voulez-vous vraiment vous deconnectez ?')) {

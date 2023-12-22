@@ -6,8 +6,9 @@ function viewList(parent, child, parentId){
     $("#map").hide();
     $("#resetMainBtn").show();
     $("#list").show();
-    $("#tableTitle1").text(child);
-    $("#tableTitle2").text(parent);
+    $("#tableTitle1").text(child).show();
+    $("#tableTitle2").text(parent).show();
+    $("#ofListe").show();
     $("#site_name").text(parent);
     if (child == "champs") {
         getDataFarmsSite(parentId);
@@ -21,7 +22,15 @@ function viewList(parent, child, parentId){
         getDataTreeByLine(parentId);
     }
 }
-
+function viewAllUsers(child){
+    $("#map").hide();
+    $("#resetMainBtn").show();
+    $("#list").show();
+    $("#tableTitle1").text(child);
+    $("#tableTitle2").hide();
+    $("#ofListe").hide();
+    allUsers();
+}
 function resetContent(){
     $("#map").show();
     $("#list").hide();

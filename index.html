@@ -200,6 +200,9 @@
 								<div id="all_users" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-flex justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allUsersBtn" onclick="viewAllUsers('Users')">All Users</button>
+								</li>
 							</ul>
 						</li>
 					</ul>
@@ -257,7 +260,7 @@
 										</div>
 										<div class="content" id="map" style="height: 100vh;"></div>
 										<div class="content" id="list" style="height: 100vh; display: none;">
-											<h6 class="card-title text-muted">Liste des <span class="text-uppercase text-black-50" id="tableTitle1"></span> de <span class="text-uppercase text-color-chart" id="tableTitle2"></span></h6>
+											<h6 class="card-title text-muted">Liste des <span class="text-uppercase text-black-50" id="tableTitle1"></span> <span id="ofListe">de</span> <span class="text-uppercase text-color-chart" id="tableTitle2"></span></h6>
 											<table class="table d-table table-responsive">
 												<thead class="">
 													<tr id="TableHeader">
@@ -831,12 +834,6 @@
 			</div>
 		</div>
 		<!-- ADD TREES (ARBRES) -->
-		<!-- <div class="mb-3 col-md-6">
-			<label class="form-label" for="farmId">Choisir le champs</label>
-			<select name="farmId" class="form-control" id="farmId_line">
-				
-			</select>
-		</div> -->
 		<div class="modal fade" id="addTree" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
@@ -1113,88 +1110,88 @@
 				</div>
 			</div>
 		</div>
-				<!-- ADD LEAVE -->
-				<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h3 class="modal-title">Enregistrement d'un Utilisateur</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body m-3">
-								<form class="profile-form" id="add_user" method="post" action="#" onsubmit="sendDataFormDataSignup(event,'add_user')">
-									<div class="accordion" id="accordionUser">
-										<div class="card">
-											<div class="card-header" id="heading_10">
-												<h5 class="card-title my-2">
-													<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_user" aria-expanded="true" aria-controls="collapse_user">
-														Informations sur l'Utilisateur
-													</a>
-												</h5>
-											</div>
-											<div id="collapse_user" class="collapse show" aria-labelledby="heading_8" data-bs-parent="#accordionUser">
-												<div class="card-body">
-													<div class="row">
-														<div class="mb-3 col-md-6">
-															<label class="form-label" for="username">Username</label>
-															<input type="text" class="form-control" id="username" name="username"  placeholder="MMMR" required>
-														</div>
-														<div class="mb-3 col-md-6">
-															<label class="form-label" for="email">Email</label>
-															<input type="text" class="form-control" id="email" name="email"  placeholder="mmmr@gmail.com" required>
-														</div>
-														<div class="mb-3 col-md-6">
-															<label class="form-label" for="password">Password</label>
-															<input type="password" class="form-control" id="password" name="password"  placeholder="1" required >
-															<span toggle="#password-field2" onclick="return tooglePassword('password','created-password')" 
-															class="fas fa-fw fa-eye field-icon created-password cursor-pointer text-color-logo" style="margin-top:-20px;"></span>
-														</div>
-														<div class="mb-3 col-md-6">
-															<label class="form-label" for="roleUser">Role</label>
-															<select name="role[]" class="form-control roleUser" id="roleUser">
-
-															</select>														
-														</div>
-														<div class="mb-3 col-md-6">
-															<label class="form-label" for="altitude">Nom</label>
-															<input type="text" class="form-control" id="lastname" name="lastname" placeholder="MMMR" required>
-														</div>
-														<div class="mb-3 col-md-6">
-															<label class="form-label" for="altitude">Prenom</label>
-															<input type="text" class="form-control" id="firstname" name="firstname" placeholder="MMMR" >
-														</div>
-														<div class="mb-3 col-md-12">
-															<label class="form-label" for="altitude">Numero Telephone</label>
-															<input type="number" class="form-control" id="phonenumber" name="phonenumber" placeholder="658746224" >
-														</div>
-														
-														<!-- <div class="mb-3 col-md-12">
-															<label class="form-label" for="altitude">Image Fruit</label>
-															<input type="file" class="form-control" name="picture" id="picture">
-														</div> -->
-													</div>
+		<!-- ADD ADMIN -->
+		<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="modal-title">Enregistrement d'un Utilisateur</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body m-3">
+						<form class="profile-form" id="add_user" method="post" action="#" onsubmit="sendDataFormDataSignup(event,'add_user')">
+							<div class="accordion" id="accordionUser">
+								<div class="card">
+									<div class="card-header" id="heading_10">
+										<h5 class="card-title my-2">
+											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_user" aria-expanded="true" aria-controls="collapse_user">
+												Informations sur l'Utilisateur
+											</a>
+										</h5>
+									</div>
+									<div id="collapse_user" class="collapse show" aria-labelledby="heading_8" data-bs-parent="#accordionUser">
+										<div class="card-body">
+											<div class="row">
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="username">Username</label>
+													<input type="text" class="form-control" id="username" name="username"  placeholder="MMMR" required>
 												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="email">Email</label>
+													<input type="text" class="form-control" id="email" name="email"  placeholder="mmmr@gmail.com" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="password">Password</label>
+													<input type="password" class="form-control" id="password" name="password"  placeholder="1" required >
+													<span toggle="#password-field2" onclick="return tooglePassword('password','created-password')" 
+													class="fas fa-fw fa-eye field-icon created-password cursor-pointer text-color-logo" style="margin-top:-20px;"></span>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="roleUser">Role</label>
+													<select class="form-control roleUser" id="roleUser">
+
+													</select>														
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="altitude">Nom</label>
+													<input type="text" class="form-control" id="lastname" name="lastname" placeholder="MMMR" required>
+												</div>
+												<div class="mb-3 col-md-6">
+													<label class="form-label" for="altitude">Prenom</label>
+													<input type="text" class="form-control" id="firstname" name="firstname" placeholder="MMMR" >
+												</div>
+												<div class="mb-3 col-md-12">
+													<label class="form-label" for="altitude">Numero Telephone</label>
+													<input type="number" class="form-control" id="phonenumber" name="phonenumber" placeholder="658746224" >
+												</div>
+												
+												<!-- <div class="mb-3 col-md-12">
+													<label class="form-label" for="altitude">Image Fruit</label>
+													<input type="file" class="form-control" name="picture" id="picture">
+												</div> -->
 											</div>
 										</div>
 									</div>
-									<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
-										<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-										<div class="alert-message">
-											
-										</div>
-									</div>
-									<div class="card-footer">
-										<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
-									</div>
-								</form>
+								</div>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-								<!-- <button type="button" class="btn btn-success">Save changes</button> -->
+							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								<div class="alert-message">
+									
+								</div>
 							</div>
-						</div>
+							<div class="card-footer">
+								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
+			</div>
+		</div>
 		<!-- ADD IMAGE ITEM -->
 		<div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">

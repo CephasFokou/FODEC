@@ -178,7 +178,7 @@ function getDataFloorType(){
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
-            console.log('ROLE USER',data);
+            console.log('FLOOR TYPE',data);
             // console.log('code',xhr.status);
             tab = data;
             if (xhr.status == 200) {

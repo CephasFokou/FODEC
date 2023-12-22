@@ -107,12 +107,16 @@ function getDataTreeByLine(lineId){
                     console.log(tabBody)
                     
                 }else{
-                    console.log('Le tableau est vide.');
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour le champ ' + lineId);
                 }
             }
           
         },
         error: function(xhr, status, error) {
+            displayTabHeader([]);
+            displayTabBody(["URL API NOT FOUND"],[])
             console.error(status + ' : ' + error);
         }
     });
