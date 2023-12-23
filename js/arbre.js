@@ -30,7 +30,7 @@ function getDataTree(){
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="tree_${item.id}">
                                             <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
-                                                    <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-abre image-fuild">
+                                                    <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-tree image-fuild">
                                                 </div>
                                             </div>
                                             <div class="col-6 lh-base p-0  text-capitalize text-muted">

@@ -93,7 +93,7 @@ function getDataTreeByLine(lineId){
                         // Ajouter les données de chaque élément à la liste tabBody
                         tabBody.push([
                             item.id,
-                            '<img src="' + URI + '/api/images/' + item.image + '">',
+                            '<img class="img-tree" src="' + URI + '/api/images/' + item.image + '">',
                             item.name,
                             item.parentMale,
                             item.parentFemale,
