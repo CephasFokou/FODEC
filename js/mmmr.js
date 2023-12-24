@@ -889,15 +889,18 @@ function sendDataFormDataSignup(e, form) {
     //alert(237)
     var formElement = $('#' + form)[0];
     var formData = new FormData(formElement);
-    var rolesArray = [$('#roleUser').val() || "ROLE_USER"];
+    var rolesArray = $('#roleUser').val();
     // Ajout du champ 'role' aux données du formulaire
-    rolesArray.forEach(function(value) {
-        formData.append('roles[]', value);
-    });
+    // formData.append('roles', rolesArray);
     var formDataObj = {};
     formData.forEach(function(value, key){
         formDataObj[key] = value;
     });
+
+    var resultObject = {
+        role: [rolesArray]
+      };
+      Object.assign(formDataObj, resultObject);
 
     var all_JSON = JSON.stringify(formDataObj);
     console.log(`all JSON`, all_JSON);

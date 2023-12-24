@@ -93,16 +93,19 @@ function deleteItem(){
         dataType: 'json',
         success: function(data,status, xhr) {
             console.log('all sites' ,data);
-            if (xhr.status == 200) {
                 $("#row_"+itemId).remove();
                 closeModal("confirmDelete");
                 showAlertSuccess();
                 // StopLoading();
-            } else {
-                showAlertFailed();
-                closeModal("confirmDelete");
-                // StopLoading();
-            }
+            
+        }, 
+        error: function(err) {
+            showAlertFailed();
+            closeModal("confirmDelete");
+            setTimeout(function() {
+                window.location.reload(true);
+            }, 2000)
+            console.log(err);
         }
     });
 }
