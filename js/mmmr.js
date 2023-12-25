@@ -172,6 +172,34 @@ function filterData(value,type) {
     
    
 }
+// GET AUTH CHECK USER
+function getExitAuth(userId){
+    //alert(userId)
+    $.ajax({
+        url: URI+'/api/users/'+userId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+
+            if (xhr.status == 200 || xhr.status == 201) {
+                if(data){
+                    console.log(`Auth exit in BD`);
+                    //alert(data);
+                }else{
+                    console.log(`Auth not exit in BD`);
+                    window.location.href="login.html";
+                }
+            }else{
+                window.location.href="login.html";
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+            window.location.href="login.html";
+        }
+    });
+}
 function searchFunction(value) {
     var input, filter, ul, li, a, i, txtValue;
     input = value.toUpperCase();
@@ -828,7 +856,7 @@ function submitFormImage(event){
 
     console.log('DATA FILE', formData);
     if (fileInput.files.length > 0) {
-        alert(typeForm+' '+itemId)
+        //alert(typeForm+' '+itemId)
         if(typeForm == "tree"){
             urlEnd = URI+'/api/trees/'+itemId+'/image';
         }else if(typeForm == "fruit"){
@@ -958,34 +986,7 @@ function authLogout(event){
         window.location.href="login.html";
     }
 }
-// GET AUTH CHECK USER
-function getExitAuth(userId){
-    //alert(userId)
-    $.ajax({
-        url: URI+'/api/users/'+userId,
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
 
-            if (xhr.status == 200 || xhr.status == 201) {
-                if(data){
-                    console.log(`Auth exit in BD`);
-                    //alert(data);
-                }else{
-                    console.log(`Auth not exit in BD`);
-                    window.location.href="login.html";
-                }
-            }else{
-                window.location.href="login.html";
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            console.error(status + ' : ' + error);
-            window.location.href="login.html";
-        }
-    });
-}
 function tooglePassword(input, elt) {
     //alert(input);
     $("." + elt).toggleClass("fa-eye fa-eye-slash");

@@ -212,7 +212,7 @@ function getDataRole(){
                     var options = '';
                     var j = tab;
                     for (var i = 0; i < j.length; i++) {
-                        options += '<option value="' + j[i].name + '">' + j[i].name.toUpperCase() + '</option>';
+                        options += '<option value="' + j[i].name + '" data-badge="">' + j[i].name.toUpperCase() + '</option>';
                         //console.log(options);
                     }
                     $('.roleUser').html(options);

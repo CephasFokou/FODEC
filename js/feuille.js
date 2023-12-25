@@ -20,7 +20,7 @@ function getDataLeave(){
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
-                                                    <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-abre image-fuild">
+                                                    <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-tree image-fuild">
                                                 </div>
                                             </div>
                                             <div class="col-6 lh-base p-0  small text-capitalize text-muted">
@@ -53,6 +53,55 @@ function getDataLeave(){
           
         },
         error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+
+// GET LIST ALL LEAVES
+function allLeaves(){
+    tabBody = [];
+    $.ajax({
+        url: URI+'/api/leaves/all',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+
+            if (xhr.status == 200) {
+                var tab ;
+                tab = data;
+                console.log(`all data leaves`, tab);
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                       // Ajouter les données de chaque élément à la liste tabBody
+                       tabBody.push([
+                            item.id,
+                            '<img src="' + URI + '/api/images/' + item.image + '">',
+                            item.shape,
+                            item.type,
+                            item.size,
+                            item.weight,
+                            '<span class=" mx-1"> <i class="fas fa-circle" style="color:'+item.color+'"></i></span>',
+                            convertTimestampToDate(item.creationDate)
+                        ]);                                            
+                    });
+                        
+                    tabHeaders = ["#ID", "Image", "shape", "type", "Size","weight", "Color", "creationDate"];
+                    displayTabHeader(tabHeaders);
+                    displayTabBody(tabBody, tabHeaders);
+                    console.log(tabBody);
+                    
+                }else{
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour tous les feuilles');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            displayTabHeader([]);
+            displayTabBody(["URL API  NOT FOUND"],[]);
             console.error(status + ' : ' + error);
         }
     });

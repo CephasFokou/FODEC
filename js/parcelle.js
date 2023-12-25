@@ -20,18 +20,22 @@ function getDataParcels(){
                         var rt_latitude = item.geographicalPos.rightTop.latitude;
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
                         console.log("parcels", lb_latitude)
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#parcel_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <span class="text-body-tertiary small">${item.actualDensity}</span>
-                                        </a>
-                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister" onclick="viewList('${item.name}', 'line', ${item.id})"></i>
-                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="editSite(${item.id})"></i>
-                                        <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
-                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>	  
-                                        <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>	  
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
+                        var content =`<li class="sidebar-item"> `;
+                            content +=      `<a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                                ${item.name.toUpperCase()}<br/>
+                                                <span class="text-body-tertiary small">${item.geneticRessource}</span>
+                                            </a>`;
+                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister de toutes des ligne de la parcerelle" onclick="viewList('${item.name}', 'lines', ${item.id})"></i>`;
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                                content +=  `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer"></i>`;
+                            }
+                            content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
+                                                onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                            </i>`;	  
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                                content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
+                            }
+                            content += `<ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="parcel_${item.id}" data-bs-parent="#parcel_${item.id}">
                                             <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
@@ -123,6 +127,49 @@ function getDataLineByParcel(parcelId){
           
         },
         error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+
+// GET LIST ALL PARCELS
+function allParcels(){
+    tabBody = [];
+    $.ajax({
+        url: URI+'/api/parcels/all',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+
+            if (xhr.status == 200) {
+                var tab ;
+                tab = data;
+                console.log(`all data parcels`, tab);
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                       // Ajouter les données de chaque élément à la liste tabBody
+                       tabBody.push([
+                            item.id, item.name, item.speculation, item.geneticRessource,item.farm, item.farmType, item.soil, item.pollinisation, convertTimestampToDate(item.creationDate)
+                        ]);
+                                            
+                    });
+                        
+                    tabHeaders = ["#ID", "name", "speculation", "geneticRessource","Farm", "farmType", "soil", "pollinisation", "creationDate"];
+                    displayTabHeader(tabHeaders);
+                    displayTabBody(tabBody, tabHeaders);
+                    console.log(tabBody);
+                    
+                }else{
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour tous les Parcerelles');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            displayTabHeader([]);
+            displayTabBody(["URL API  NOT FOUND"],[]);
             console.error(status + ' : ' + error);
         }
     });

@@ -178,6 +178,9 @@ ul.sidebar-nav > li.sidebar-item {
     height: 70px;
     border-radius: 5px;
 }
+.sort_icon {
+    right: 45px;
+}
 
 @media (max-width: 767.98px) {
 
