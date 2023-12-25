@@ -18,8 +18,12 @@ function viewList(parent, child, parentId){
         getDataParcelByFarm(parentId);
     }else if (child == "line") {
         getDataLineByParcel(parentId);
-    }else if (child == "arbres") {
+    }
+    else if (child == "arbres") {
         getDataTreeByLine(parentId);
+    }
+    else if (child == "fruits") {
+        getDataFruitsByTrees(parentId);
     }
 }
 function viewAllUsers(child){
