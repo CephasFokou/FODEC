@@ -13,7 +13,7 @@ function getProprio(){
                     $.each(tab, function(index, item) {
                         console.log('.....----////');
                         // Vérifie si le rôle "ROLE_ADMIN" est présent dans les rôles de l'utilisateur
-                        if (item.roles.some(role => role.name === "ROLE_ADMIN")) {
+                        if (item.roles.some(role => role.name === "PROPRIETAIRE")) {
                             options += '<option value="' + item.id + '">' + item.firstname + ' ' + item.lastname + '</option>';
                         }
                     })
