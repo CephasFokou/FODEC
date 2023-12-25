@@ -1,4 +1,13 @@
+// FUNCTION LOADER SERVICE
+function showLoader() {
+    var loader = document.getElementById("loader");
+    loader.style.display = "flex";
+}
 
+function hideLoader() {
+    var loader = document.getElementById("loader");
+    loader.style.display = "none";
+}
 
 /*** APPEL DES FONCTIONS */
 getDataGenetic();
@@ -21,6 +30,8 @@ getDataTree();
 getDataFruit();
 getDataLeave();
 getDataUsers();
+getProprio();
+
 /**GET DATA GENETIC RESSOURCE */
 function getDataGenetic(){
     $.ajax({

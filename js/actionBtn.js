@@ -126,8 +126,10 @@ function closeModal(modalId) {
 }
 
 // Fonction pour afficher un contenu spécifique dans le modal
-function setContentInModal(modalId, content) {
+function setContentInModal(modalId, content, position) {
     $(`#${modalId} .modal-body`).html(content);
+    $('.modal').addClass(position);
+    showModal(modalId);
 }
 
 function showAlertModal(title, content, iconClass) {

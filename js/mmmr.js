@@ -290,7 +290,7 @@ function sendDataWithFormData(e,form){
 
     // Affichage du premier objet JSON mis à jour dans la console
     console.log('ALL JSON',all_JSON);
-
+    showLoader();
     $.ajax({
         url: URI+'/api/sites',
         type: "POST",
@@ -301,25 +301,21 @@ function sendDataWithFormData(e,form){
             $('.btn_submit').prop('disabled', true);
         },
         success: function(data,status, xhr) {
-            console.log(data);
-            if (xhr.status == 200 || xhr.status == 201) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+            // console.log(data);
+                hideLoader();
                 $("#"+form).get(0).reset();
-                setTimeout(function () {
+                closeModal("add_site");
+                showAlertSuccess();
+                setTimeout(function(){
                     window.location.reload(true);
                 }, 2000);
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
-                $('.btn_submit').prop('disabled', false);
-            }
+             
         },
         error: function(xhr, status, error) {
+            hideLoader();
             if (xhr.status == 500) {
                 console.log('Erreur 500 : ', xhr.responseText);
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                showAlertFailed();
                 $('.btn_submit').prop('disabled', false);
             } else {
                 console.log('Erreur : ', xhr.responseText, error);

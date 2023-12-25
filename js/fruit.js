@@ -16,7 +16,9 @@ function getDataFruit(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
-                                        <i class="fas fa-sort-numeric-down action_icon map_icon" id="action_icon map_icon_${index}" title=""></i>	  
+                                        <i class="fas fa-eye action_icon map_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.TreeId})"></i>
+                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="editFruit(${item.id})"></i>	  
+                                        <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('fruits', ${item.id})"></i>	 	  
                                         
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">
@@ -62,47 +64,3 @@ function getDataFruit(){
     });
 }
 
-function getDataFruitsByTrees(TreeId){
-    tabBody = [];
-    $.ajax({
-        url: URI+'/api/fruits/trees/'+TreeId,
-        method: 'GET',
-        dataType: 'json',
-        success: function(data,status, xhr) {
-
-            if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
-                        
-                        // Ajouter les données de chaque élément à la liste tabBody
-                        tabBody.push([
-                            item.id,
-                            '<img class="img-tree" src="' + URI + '/api/images/' + item.image + '">',
-                            item.name,
-                            item.type,
-                            item.width,
-                            item.weight,
-                            item.shape
-                        ]);                    
-                    });
-                    tabHeaders = ["#ID", "Image","Name","type","width","weight","shape"];
-                    displayTabHeader(tabHeaders);
-                    displayTabBody(tabBody, tabHeaders);
-                    console.log(tabBody)
-                    
-                }else{
-                    displayTabHeader([]);
-                    displayTabBody(["DATA NOT FOUND"],[]);
-                    console.log('Le tableau est vide pour le champ ' + lineId);
-                }
-            }
-          
-        },
-        error: function(xhr, status, error) {
-            displayTabHeader([]);
-            displayTabBody(["URL API NOT FOUND"],[])
-            console.error(status + ' : ' + error);
-        }
-    });
-}
