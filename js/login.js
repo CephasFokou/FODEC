@@ -67,3 +67,14 @@ function authLogin(e,form){
     });
 }
 //alert(237)
+
+function tooglePassword(input, elt) {
+    //alert(input);
+    $("." + elt).toggleClass("fa-eye fa-eye-slash");
+    var div = $("#" + input);
+    if (div.attr("type") == "password") {
+        div.attr("type", "text");
+    } else {
+        div.attr("type", "password");
+    }
+}
