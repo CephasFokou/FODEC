@@ -49,6 +49,10 @@
                 <div class="ms-cube3 ms-cube"></div>
             </div>
         </div>
+
+		<div id="loader" style="display: none;">
+			<div class="loader"></div>
+		</div>
 		<div class="wrapper">
 			<nav id="sidebar" class="sidebar">
 				<div class="sidebar-content js-simplebar">
@@ -73,6 +77,9 @@
 								<div id="all_sites" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allSiteBtn" onclick="viewAll('Sites')">All Sites</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -91,6 +98,9 @@
 								<div id="all_farms" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allFarmBtn" onclick="viewAll('Farms')">All Farms</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -109,6 +119,9 @@
 								<div id="all_parcels" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allParcelBtn" onclick="viewAll('Parcels')">All Parcels</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -127,6 +140,9 @@
 								<div id="all_lines" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allLineBtn" onclick="viewAll('Lines')">All Lines</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -145,6 +161,9 @@
 								<div id="all_trees" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allTreeBtn" onclick="viewAll('Trees')">All Trees</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -164,6 +183,9 @@
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 									
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allFruitBtn" onclick="viewAll('Fruits')">All Fruits</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -182,6 +204,9 @@
 								<div id="all_leaves" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
+								<li class="d-none justify-content-center align-items-center">
+									<button type="button" class="btn btn-success rounded-5" id="allLeavesBtn" onclick="viewAll('Leaves')">All Leaves</button>
+								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item" id="li_users">
@@ -200,7 +225,7 @@
 								<div id="all_users" class="px-2 py-3">
 									<!-- GET SITE AFTER CHARGEMENT DATA API -->
 								</div>
-								<li class="d-flex justify-content-center align-items-center">
+								<li class="d-none justify-content-center align-items-center">
 									<button type="button" class="btn btn-success rounded-5" id="allUsersBtn" onclick="viewAll('Users')">All Users</button>
 								</li>
 							</ul>
@@ -369,7 +394,9 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NbreLigneFemelle">Propriétaire</label>
-													<input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1" required>
+													<select name="userId" class="form-control proprietaire" id="userId" required>
+														
+													</select>
 												</div>
 											</div>
 										</div>
@@ -425,20 +452,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -498,7 +522,7 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
-													<select name="geneticRessource" class="form-control geneticRessource" id="geneticRessource">
+													<select name="geneticRessource" class="form-control geneticRessource" >
 														
 													</select>
 												</div>
@@ -574,20 +598,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -712,20 +733,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -817,20 +835,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -933,20 +948,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -1015,20 +1027,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -1094,20 +1103,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -1176,20 +1182,17 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<!-- <button type="button" class="btn btn-success">Save changes</button> -->
 					</div>
 				</div>
 			</div>
@@ -1208,15 +1211,12 @@
 								<label class="form-label" for="NbreLigneFemelle">Image <span id="nameItem"></span></label>
 								<input type="file" class="form-control" id="fileImageItem" name="file" accept="image/*" onchange="submitFormImage(event)" required>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<!-- <div class="card-footer">
-								<button type="submit" class="btn_submit_image btn btn-primary form-control btn_submit">Enregistrer</button>
-							</div> -->
 						</form>
 					</div>
 				</div>
@@ -1258,7 +1258,7 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
-													<select name="geneticRessource" class="form-control geneticRessource" id="geneticRessource">
+													<select name="geneticRessource" class="form-control geneticRessource">
 														
 													</select>
 												</div>
@@ -1320,38 +1320,36 @@
 									</div>
 								</div>
 							</div>
-							<div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
+							<div class="mb-3 alert alert-success text-center alert-dismissible opacity-75" role="alert" style="display: none;">
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 								<div class="alert-message">
 									
 								</div>
 							</div>
-							<div class="card-footer">
-								<button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
+							<div class="modal-footer">
+								<button type="button" class="btn" data-bs-dismiss="modal">Annuler</button>
+								<button type="submit" class="btn_submit btn btn-primary btn_submit">Enregistrer</button>
 							</div>
 						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 					</div>
 				</div>
 			</div>
 		</div> -->
-		<script src="js/app.js"></script>
-		<script src="js/var.js"></script>
-		<script src="js/actionBtn.js"></script>
-		<script src="js/site.js"></script>
-		<script src="js/champ.js"></script>
-		<script src="js/parcelle.js"></script>
-		<script src="js/line.js"></script>
-		<script src="js/arbre.js"></script>
-		<script src="js/fruit.js"></script>
-		<script src="js/feuille.js"></script>
-		<script src="js/users.js"></script>
-		<script src="js/mmmr.js" async defer></script>
-		<script src="js/index.js"></script>
 		<!-- <script src="js/jquery.min.js" async defer></script> -->
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- <script src="js/bootstrap.min.js"></script> -->
+		<script src="js/app.js" async defer></script>
+		<script src="js/var.js" async defer></script>
+		<script src="js/actionBtn.js" async defer></script>
+		<script src="js/site.js" async defer></script>
+		<script src="js/champ.js" async defer></script>
+		<script src="js/parcelle.js" async defer></script>
+		<script src="js/line.js" async defer></script>
+		<script src="js/arbre.js" async defer></script>
+		<script src="js/fruit.js" async defer></script>
+		<script src="js/feuille.js" async defer></script>
+		<script src="js/users.js" async defer></script>
+		<script src="js/mmmr.js" async defer></script>
+		<script src="js/index.js" async defer></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 				$(".d-table").DataTable({
@@ -1375,7 +1373,8 @@
 				var getUser_decode =  JSON.parse(getAuth); 
 				var username = getUser_decode.username;         
 				var userId = getUser_decode.id;         
-				var roleUser = getUser_decode.roles[0];        
+				var roleUser = getUser_decode.roles[0];  
+				//alert(roleUser)      
 				var user_username = document.getElementById('user_username');
 				var user_id = document.getElementById('userId');
 				var user_role = document.getElementById('user_role');

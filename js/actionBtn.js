@@ -18,8 +18,12 @@ function viewList(parent, child, parentId){
         getDataParcelByFarm(parentId);
     }else if (child == "lines") {
         getDataLineByParcel(parentId);
-    }else if (child == "arbres") {
+    }
+    else if (child == "arbres") {
         getDataTreeByLine(parentId);
+    }
+    else if (child == "fruits") {
+        getDataFruitsByTrees(parentId);
     }
 }
 function viewAll(child){
@@ -143,8 +147,10 @@ function closeModal(modalId) {
 }
 
 // Fonction pour afficher un contenu spécifique dans le modal
-function setContentInModal(modalId, content) {
+function setContentInModal(modalId, content, position) {
     $(`#${modalId} .modal-body`).html(content);
+    $('.modal').addClass(position);
+    showModal(modalId);
 }
 
 function showAlertModal(title, content, iconClass) {

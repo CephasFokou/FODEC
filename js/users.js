@@ -1,12 +1,42 @@
 
 /** GET DATA Users */
+function getProprio(){
+    var options = '';
+    $.ajax({
+        url: URI+'/api/users/all',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            if (xhr.status == 200) {
+                tab = data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        console.log('.....----////');
+                        // Vérifie si le rôle "ROLE_ADMIN" est présent dans les rôles de l'utilisateur
+                        if (item.roles.some(role => role.name === "PROPRIETAIRE")) {
+                            options += '<option value="' + item.id + '">' + item.firstname + ' ' + item.lastname + '</option>';
+                        }
+                    })
+                    $('.proprietaire').html(options);
+                }else{
+                    console.log('Le tableau est vide.');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+
+/** GET DATA Users */
 function getDataUsers(){
     $.ajax({
         url: URI+'/api/users',
         method: 'GET',
         dataType: 'json',
         success: function(data,status, xhr) {
-            console.log('all Users' ,data);
             if (xhr.status == 200) {
                 tab = data.data;
                 if ($.isArray(tab) && tab.length > 0) {
