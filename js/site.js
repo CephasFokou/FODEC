@@ -25,18 +25,22 @@ function getDataSite(){
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
                         
                         console.log(rt_longitude);
-                        var content =`<li class="sidebar-item" data-id="${item.id}">
-                                        <a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                        var content =`<li class="sidebar-item" data-id="${item.id}">`;
+                        content += `<a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.geneticRessource}</span>
-                                        </a>
-                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('${item.name}', 'champs', ${item.id})"></i>
-                                        <i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer"></i>
-                                        <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
+                                        </a>`;
+                        content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('${item.name}', 'champs', ${item.id})"></i>`;
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                            content +=      `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer"></i>`;
+                        }
+                        content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                        </i>	  
-                                        <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        </i>`;	  
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                            content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
+                        }
+                        content +=     `<ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">
@@ -207,9 +211,9 @@ function openModalSite(siteId) {
     // Construire l'ID du modal correspondant
     var modalId = '#editSiteModal' + siteId;
     var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    alert(siteId);
+    //alert(siteId);
     $(modalId).appendTo('body');
-    $(modalId).modal('show');
+    $(modalId).modal('hide');
 }
 
 // GET LIST PARCELLES SITES
@@ -245,7 +249,9 @@ function getDataFarmsSite(siteId){
                     console.log(tabBody);
                     
                 }else{
-                    console.log('Le tableau est vide.');
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour le site ' + siteId);
                 }
             }
           
@@ -255,7 +261,47 @@ function getDataFarmsSite(siteId){
         }
     });
 }
+// GET LIST ALL SITES
+function allSites(){
+    tabBody = [];
+    $.ajax({
+        url: URI+'/api/sites/all',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
 
+            if (xhr.status == 200) {
+                var tab ;
+                tab = data;
+                console.log(`all data sites`, tab);
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                       // Ajouter les données de chaque élément à la liste tabBody
+                       tabBody.push([
+                        item.id, item.name, item.speculation, item.geneticRessource,item.user, convertTimestampToDate(item.creationDate)
+                    ]);
+                    });
+                        
+                    tabHeaders = ["#ID", "name", "speculation", "geneticRessource","User","creationDate"];
+                    displayTabHeader(tabHeaders);
+                    displayTabBody(tabBody, tabHeaders);
+                    console.log(tabBody);
+                    
+                }else{
+                    displayTabHeader([]);
+                    displayTabBody(["DATA NOT FOUND"],[]);
+                    console.log('Le tableau est vide pour tous les sites');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            displayTabHeader([]);
+            displayTabBody(["URL API  NOT FOUND"],[]);
+            console.error(status + ' : ' + error);
+        }
+    });
+}
 
 $(document).ready(function() {
     $('#all_sites').on('click', '.edit_icon', function() {

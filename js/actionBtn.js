@@ -16,7 +16,7 @@ function viewList(parent, child, parentId){
         getDataUserById(parentId);
     }else if (child == "parcels") {
         getDataParcelByFarm(parentId);
-    }else if (child == "line") {
+    }else if (child == "lines") {
         getDataLineByParcel(parentId);
     }
     else if (child == "arbres") {
@@ -26,14 +26,35 @@ function viewList(parent, child, parentId){
         getDataFruitsByTrees(parentId);
     }
 }
-function viewAllUsers(child){
+function viewAll(child){
     $("#map").hide();
     $("#resetMainBtn").show();
     $("#list").show();
     $("#tableTitle1").text(child);
     $("#tableTitle2").hide();
     $("#ofListe").hide();
-    allUsers();
+    //alert(child)
+    if(child == "Users"){
+        allUsers();
+    }else if(child == "Leaves"){
+        allLeaves();
+    }else if(child == "Fruits"){
+        allFruits();
+    }else if(child == "Trees"){
+        allTrees();
+    }else if(child == "Lines"){
+        allLines();
+    }else if(child == "Parcels"){
+        allParcels();
+    }else if(child == "Farms"){
+        allFarms();
+    }else if(child == "Sites"){
+        allSites();
+    }else{
+        alert("Child not found")
+        window.location.reload(true);
+    }
+    
 }
 function resetContent(){
     $("#map").show();
