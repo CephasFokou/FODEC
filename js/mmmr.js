@@ -983,16 +983,6 @@ function authLogout(event){
     }
 }
 
-function tooglePassword(input, elt) {
-    //alert(input);
-    $("." + elt).toggleClass("fa-eye fa-eye-slash");
-    var div = $("#" + input);
-    if (div.attr("type") == "password") {
-        div.attr("type", "text");
-    } else {
-        div.attr("type", "password");
-    }
-}
 $(document).ready(function () {
     // $('.collapse').on('show.bs.collapse', function () {
     //     // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir
