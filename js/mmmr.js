@@ -276,92 +276,6 @@ function processBase64Image(base64Image) {
     globalImageContent  = contentImage(base64Image);
 }
 
-/** POST DATA SITE */
-function sendDataWithFormData(e,form){
-    e.preventDefault();
-    var form_ = $('#'+form)[0];
-    var formData = new FormData(form_);
-
-    // Ajout de données supplémentaires à l'objet FormData existant
-    var secondJSON = {
-        geographicalPos: {
-            leftBottom: { 
-                latitude: $('#lb_latitude').val() == null ? 0 : $('#lb_latitude').val(),
-                longitude: $('#lb_longitude').val() == null ? 0 : $('#lb_longitude').val()
-            },
-            leftTop: { 
-                latitude: $('#lt_latitude').val() == null ? 0 : $('#lt_latitude').val(), 
-                longitude: $('#lt_longitude').val() == null ? 0 : $('#lt_longitude').val() 
-            },
-            rightBottom: { 
-                latitude: $('#rb_latitude').val() == null ? 0 : $('#rb_latitude').val(), 
-                longitude: $('#rb_longitude').val() == null ? 0 : $('#rb_longitude').val() 
-            },
-            rightTop: { 
-                latitude: $('#rt_latitude').val() == null ? 0 : $('#rt_latitude').val(), 
-                longitude: $('#rt_longitude').val() == null ? 0 : $('#rt_longitude').val()
-            }
-        }
-    };
-    var formDataObj = {};
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
-    
-    // Affichage des données JSON dans la console
-    console.log("objet 1",formDataObj);
-    console.log("objet 2",secondJSON);    
-    
-    // Ajout des propriétés du deuxième objet au premier objet
-    Object.assign(formDataObj, secondJSON);
-    var all_JSON = JSON.stringify(formDataObj);
-
-    // Affichage du premier objet JSON mis à jour dans la console
-    console.log('ALL JSON',all_JSON);
-
-    $.ajax({
-        url: URI+'/api/sites',
-        type: "POST",
-        contentType: 'application/json',
-        data: all_JSON,
-        dataType: "json",
-        beforeSend: function() {
-            $('.btn_submit').prop('disabled', true);
-        },
-        success: function(data,status, xhr) {
-            console.log(data);
-            if (xhr.status == 200 || xhr.status == 201) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
-                $("#"+form).get(0).reset();
-                setTimeout(function () {
-                    window.location.reload(true);
-                }, 2000);
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
-                $('.btn_submit').prop('disabled', false);
-            }
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', xhr.responseText);
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
-                $('.btn_submit').prop('disabled', false);
-            } else {
-                console.log('Erreur : ', xhr.responseText, error);
-                var errorMessage = JSON.parse(xhr.responseText).message;
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(errorMessage);
-                $('.btn_submit').prop('disabled', false);
-            }
-        },
-        complete: function () {
-            $('.btn_submit').prop('disabled', false);
-        }
-    });
-}
 
 /**POST DATA PARCELS */
 function sendDataParcelWithFormData(e,form){
@@ -987,16 +901,7 @@ function authLogout(event){
     }
 }
 
-function tooglePassword(input, elt) {
-    //alert(input);
-    $("." + elt).toggleClass("fa-eye fa-eye-slash");
-    var div = $("#" + input);
-    if (div.attr("type") == "password") {
-        div.attr("type", "text");
-    } else {
-        div.attr("type", "password");
-    }
-}
+
 $(document).ready(function () {
     // $('.collapse').on('show.bs.collapse', function () {
     //     // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir

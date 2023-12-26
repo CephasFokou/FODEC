@@ -32,7 +32,7 @@ function getDataSite(){
                                         </a>`;
                         content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('${item.name}', 'champs', ${item.id})"></i>`;
                         if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
-                            content +=      `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer"></i>`;
+                            content +=      `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer" onclick="openModalSite('${item.id}')"></i>`;
                         }
                         content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
@@ -62,122 +62,7 @@ function getDataSite(){
                                                 </div>
                                             </div>
                                         </ul>
-                                    </li>
-                                    <div class="modal fade" id="editSiteModal${item.id}" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h3 class="modal-title">Edition d'un site</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body m-3">
-                                                    <form class="profile-form" id="add_site" method="post" action="#" onsubmit="sendDataWithFormData(event,'add_site')">
-                                                        <div class="accordion" id="accordionExample">
-                                                            <div class="card">
-                                                                <div class="card-header" id="heading_1">
-                                                                    <h5 class="card-title my-2">
-                                                                        <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_2" aria-expanded="true" aria-controls="collapse_2">
-                                                                            Informations du Site
-                                                                        </a>
-                                                                    </h5>
-                                                                </div>
-                                                                <div id="collapse_2" class="collapse show" aria-labelledby="heading_1" data-bs-parent="#accordionExample">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="NomSite">Nom du site</label>
-                                                                                <input type="text" class="form-control" id="name" name="name" placeholder="Site Mpos" required>
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="speculation">Speculation</label>
-                                                                                <select name="speculation" class="form-control speculation" id="speculation">
-                                                                                    
-                                                                                </select>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
-                                                                                <select name="geneticRessource" class="form-control geneticRessource" id="geneticRessource">
-                                                                                    
-                                                                                </select>
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="NbreLigneFemelle">Propriétaire</label>
-                                                                                <input type="text" class="form-control" id="userId" name="userId" value="1" placeholder="1" required>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="card">
-                                                                <div class="card-header" id="heading_2">
-                                                                    <h5 class="card-title my-2">
-                                                                        <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse_2" aria-expanded="true" aria-controls="collapse_2">
-                                                                            Informations geographiques
-                                                                        </a>
-                                                                    </h5>
-                                                                </div>
-                                                                <div id="collapse_2" class="collapse" aria-labelledby="heading_2" data-bs-parent="#accordionExample">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="lb_latitude">leftBottom Latitude</label>
-                                                                                <input type="text" class="form-control" id="lb_latitude"  placeholder="1" >
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="lb_longitude">leftBottom Longitude</label>
-                                                                                <input type="text" class="form-control" id="lb_longitude" placeholder="1" >
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="lt_latitude">leftTop Latitude</label>
-                                                                                <input type="text" class="form-control" id="lt_latitude" placeholder="1" >
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="lt_longitude">leftTop Longitude</label>
-                                                                                <input type="text" class="form-control" id="lt_longitude" placeholder="1" >
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row">
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="rb_latitude">rightBottom Latitude</label>
-                                                                                <input type="text" class="form-control" id="rb_latitude" placeholder="1" >
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="rb_longitude">rightBottom Longitude</label>
-                                                                                <input type="text" class="form-control" id="rb_longitude"  placeholder="1" >
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="rt_latitude">rightTop Latitude</label>
-                                                                                <input type="text" class="form-control" id="rt_latitude" placeholder="1" >
-                                                                            </div>
-                                                                            <div class="mb-3 col-md-6">
-                                                                                <label class="form-label" for="rt_longitude">rightTop Longitude</label>
-                                                                                <input type="text" class="form-control" id="rt_longitude" placeholder="1" >
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 alert alert-success text-center alert-dismissible" role="alert" style="display: none;text-transform: uppercase;">
-                                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                            <div class="alert-message">
-                                                                
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <button type="submit" class="btn_submit btn btn-primary form-control btn_submit">Enregistrer</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    `;
+                                    </li>`;
                         $('#all_sites').append(content);
                         $("#site_name").text(item.name.toUpperCase());
                     })
@@ -200,6 +85,142 @@ function getDataSite(){
         }
     });
 }
+
+/** POST DATA SITE */
+function sendDataWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    // Ajout de données supplémentaires à l'objet FormData existant
+    var secondJSON = {
+        geographicalPos: {
+            leftBottom: { 
+                latitude: $('#lb_latitude').val() == null ? 0 : $('#lb_latitude').val(),
+                longitude: $('#lb_longitude').val() == null ? 0 : $('#lb_longitude').val()
+            },
+            leftTop: { 
+                latitude: $('#lt_latitude').val() == null ? 0 : $('#lt_latitude').val(), 
+                longitude: $('#lt_longitude').val() == null ? 0 : $('#lt_longitude').val() 
+            },
+            rightBottom: { 
+                latitude: $('#rb_latitude').val() == null ? 0 : $('#rb_latitude').val(), 
+                longitude: $('#rb_longitude').val() == null ? 0 : $('#rb_longitude').val() 
+            },
+            rightTop: { 
+                latitude: $('#rt_latitude').val() == null ? 0 : $('#rt_latitude').val(), 
+                longitude: $('#rt_longitude').val() == null ? 0 : $('#rt_longitude').val()
+            }
+        }
+    };
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+    
+    // Affichage des données JSON dans la console
+    console.log("objet 1",formDataObj);
+    console.log("objet 2",secondJSON);    
+    
+    // Ajout des propriétés du deuxième objet au premier objet
+    Object.assign(formDataObj, secondJSON);
+    var all_JSON = JSON.stringify(formDataObj);
+
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+    var mode = $('#'+form).attr('data-mode');
+
+    if(mode == "add"){
+        $.ajax({
+            url: URI+'/api/sites',
+            type: "POST",
+            contentType: 'application/json',
+            data: all_JSON,
+            dataType: "json",
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data,status, xhr) {
+                console.log(data);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                    $("#"+form).get(0).reset();
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 2000);
+                }else{
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                    $('.btn_submit').prop('disabled', false);
+                }
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            },
+            complete: function () {
+                $('.btn_submit').prop('disabled', false);
+            }
+        });
+    }else if(mode == "edit"){
+        var id_site_edit = $('#'+form).attr('data-id');
+        //alert(id_site_edit)
+        $.ajax({
+            url: URI+'/api/sites/'+id_site_edit,
+            type: "PUT",
+            contentType: 'application/json',
+            data: all_JSON,
+            dataType: "json",
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data,status, xhr) {
+                console.log(data);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text(data.name.toUpperCase()+ " MODIFIE AVEC SUCCES !!!");             
+                    $("#"+form).get(0).reset();
+                    setTimeout(function () {
+                        window.location.reload(true);
+                    }, 2000);
+                }else{
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                    $('.btn_submit').prop('disabled', false);
+                }
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            },
+            complete: function () {
+                $('.btn_submit').prop('disabled', false);
+            }
+        });
+    }
+
+}
 // function openModalSiteEdit() {
 //     // Gestionnaire d'événements pour l'icône d'édition avec délégation d'événements
 //     $('#all_sites').on('click', '.edit_icon', function() {
@@ -208,14 +229,69 @@ function getDataSite(){
 //     });
 // }
 function openModalSite(siteId) {
-    // Construire l'ID du modal correspondant
-    var modalId = '#editSiteModal' + siteId;
-    var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
     //alert(siteId);
-    $(modalId).appendTo('body');
-    $(modalId).modal('hide');
-}
+    getDataSiteById(siteId);
+    $('#addSite').appendTo('body');
+    $('#addSite').modal('show');
 
+}
+function openAddSiteModal(){
+    //alert(237)
+    $("#add_site").get(0).reset();
+    //$('#add_site').trigger('reset');
+    $('#addSite').modal('show');
+    $('#titleSite').text("Enregistrement d'un site ");
+    $('#add_site').attr('data-mode', 'add');
+    //alert(userId)
+    $('#userId').val(userId);
+    
+}
+function getDataSiteById(siteId){
+    $.ajax({
+        url: URI+'/api/sites/'+siteId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data site by`, data);
+                var lb_latitude = data.geographicalPos.leftBottom.latitude;
+                var lb_longitude = data.geographicalPos.leftBottom.longitude;
+                var lt_latitude = data.geographicalPos.leftTop.latitude;
+                var lt_longitude = data.geographicalPos.leftTop.longitude;
+
+                var rb_latitude = data.geographicalPos.rightBottom.latitude;
+                var rb_longitude = data.geographicalPos.rightBottom.longitude;
+                var rt_latitude = data.geographicalPos.rightTop.latitude;
+                var rt_longitude = data.geographicalPos.rightTop.longitude;
+                var name = data.name;
+                var geneticRessource = data.geneticRessource;
+                var speculation  = data.speculation;
+
+                //alert(siteId)
+                $('#titleSite').text('Edition du site '+name)
+                $('#add_site').attr('data-mode', 'edit');
+                $('#add_site').attr('data-id', data.id);
+                $('#nameSite').val(name);
+                $('#geneticRessource').val(geneticRessource);
+                $('#speculation').val(speculation);
+                $('#lb_latitude').val(lb_latitude);
+                $('#lb_longitude').val(lb_longitude);
+                $('#lt_latitude').val(lt_latitude);
+                $('#lt_longitude').val(lt_longitude);
+                $('#rb_latitude').val(rb_latitude);
+                $('#rb_longitude').val(rb_longitude);
+                $('#rt_latitude').val(rt_latitude);
+                $('#rt_longitude').val(rt_longitude);
+                //$('#name').val(name);
+                
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' URL NOT FOUND : ' + error);
+        }
+    });
+}
 // GET LIST PARCELLES SITES
 function getDataFarmsSite(siteId){
     tabBody = [];

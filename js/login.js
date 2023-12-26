@@ -1,3 +1,13 @@
+function tooglePassword(input, elt) {
+    //alert(input);
+    $("." + elt).toggleClass("fa-eye fa-eye-slash");
+    var div = $("#" + input);
+    if (div.attr("type") == "password") {
+        div.attr("type", "text");
+    } else {
+        div.attr("type", "password");
+    }
+}
 function authLogin(e,form){
     e.preventDefault();
     var form_ = $('#'+form)[0];
