@@ -11,7 +11,7 @@ function getProprio(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
-                        console.log('.....----////');
+                        //console.log('.....----////');
                         // Vérifie si le rôle "ROLE_ADMIN" est présent dans les rôles de l'utilisateur
                         if (item.roles.some(role => role.name === "PROPRIETAIRE")) {
                             options += '<option value="' + item.id + '">' + item.firstname + ' ' + item.lastname + '</option>';
@@ -39,6 +39,7 @@ function getDataUsers(){
         success: function(data,status, xhr) {
             if (xhr.status == 200) {
                 tab = data.data;
+                console.log('all users' ,data);
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item">
@@ -47,7 +48,7 @@ function getDataUsers(){
                                             <span class="text-body-tertiary small">${item.roles[0].name}</span>
                                         </a>
                                         <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister Info Users" onclick="viewList('User ${item.lastname}', 'users', ${item.id})"></i>
-                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" style="right: 35px !important" title="Cliquez pour editer" onclick="editSite(${item.id})"></i>	  
+                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" style="right: 35px !important" title="Cliquez pour editer" onclick="openModalUser(${item.id})"></i>	  
                                         <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('users', ${item.id})"></i>
                                         <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3 bg-body-tertiary">
@@ -86,8 +87,173 @@ function getDataUsers(){
     });
 }
 
+function openModalUser(userId) {
+    //alert(parcelId);
+    getDataUserEditById(userId);
+    //$('#addFarms').appendTo('body');
+    $('#addUser').modal('show');
 
-// GET LIST PARCELLES SITES
+}
+function openAddUserModal(){
+    //alert(237)
+    $("#add_user").get(0).reset();
+    //$('#add_site').trigger('reset');
+    $('#addUser').modal('show');
+    $('#titleUser').text("Enregistrement d'un utilisateur");
+    $('#add_user').attr('data-mode', 'add');
+    //alert(userId)
+    //$('#userId').val(userId);
+    
+}
+function getDataUserEditById(userId){
+    $.ajax({
+        url: URI+'/api/users/'+userId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data User by`, data);
+             
+                var lastname = data.lastname;
+                var firstname = data.firstname;
+                var username = data.username;
+                var email = data.email;
+                var role = data.roles[0].name;
+                var phonenumber = data.phonenumber;
+                var name =  lastname+' '+firstname;
+                //alert(farm)
+                $('#titleUser').text("Edition de l'utilisateur "+name)
+                $('#add_user').attr('data-mode', 'edit');
+                $('#add_user').attr('data-id', data.id);
+                $('#lastname').val(lastname);
+                //$('#treeId_leave').val(tree);
+                $('#firstname').val(firstname);
+                $('#username').val(username);
+                $('#roleUser').val(role);
+                $('#email').val(email);
+                $('#phonenumber').val(phonenumber);
+                
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' URL NOT FOUND : ' + error);
+        }
+    });
+}
+
+    /**POST DATA USERS */
+function sendDataFormDataSignup(e, form) {
+    e.preventDefault();
+    //alert(237)
+    var formElement = $('#' + form)[0];
+    var formData = new FormData(formElement);
+    var rolesArray = $('#roleUser').val();
+    // Ajout du champ 'role' aux données du formulaire
+    // formData.append('roles', rolesArray);
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var resultObject = {
+        role: [rolesArray]
+      };
+      Object.assign(formDataObj, resultObject);
+
+    var all_JSON = JSON.stringify(formDataObj);
+    console.log(`all JSON`, all_JSON);
+    var mode = $('#'+form).attr('data-mode');
+    if (mode == "add") {
+        $.ajax({
+            url: URI + '/api/auth/signup', // Remplacez URI par votre URL
+            type: 'POST',
+            data: all_JSON,
+            enctype: 'multipart/form-data',
+            contentType: 'application/json',
+            dataType: "json",
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data, status, xhr) {
+                console.log(data, status, xhr);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text("USER ENREGISTRE AVEC SUCCES !!!");
+                    $("#" + form).get(0).reset();
+                    itemId = data.id;
+                    typeForm = "users";
+                    setTimeout(function() {
+                        window.location.reload(true);
+                    }, 3000)
+                } else {
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message + ' ' + data.httpStatus);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            }
+        });
+    }else if(mode == "edit"){
+        let userId = $('#'+form).attr('data-id');
+        $.ajax({
+            url: URI + '/api/users/'+userId, // Remplacez URI par votre URL
+            type: 'PUT',
+            data: all_JSON,
+            enctype: 'multipart/form-data',
+            contentType: 'application/json',
+            dataType: "json",
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data, status, xhr) {
+                console.log(data, status, xhr);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text("USER MODIFIE AVEC SUCCES !!!");
+                    $("#" + form).get(0).reset();
+                    itemId = data.id;
+                    typeForm = "users";
+                    setTimeout(function() {
+                        //window.location.reload(true);
+                    }, 3000)
+                } else {
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message + ' ' + data.httpStatus);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            }
+        });
+    }
+}
+// GET LIST USER BY ID
 function getDataUserById(userId){
     tabBody = [];
     $.ajax({
@@ -120,6 +286,8 @@ function getDataUserById(userId){
         }
     });
 }
+
+
 // GET LIST ALL USERS
 function allUsers(){
     tabBody = [];

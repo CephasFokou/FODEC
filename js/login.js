@@ -8,6 +8,9 @@ function tooglePassword(input, elt) {
         div.attr("type", "password");
     }
 }
+if(getAuth){
+    window.location.href='index.html';
+}
 function authLogin(e,form){
     e.preventDefault();
     var form_ = $('#'+form)[0];
@@ -65,16 +68,4 @@ function authLogin(e,form){
             }
         }
     });
-}
-//alert(237)
-
-function tooglePassword(input, elt) {
-    //alert(input);
-    $("." + elt).toggleClass("fa-eye fa-eye-slash");
-    var div = $("#" + input);
-    if (div.attr("type") == "password") {
-        div.attr("type", "text");
-    } else {
-        div.attr("type", "password");
-    }
 }

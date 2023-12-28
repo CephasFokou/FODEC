@@ -1,5 +1,4 @@
 
-var getAuth = localStorage.getItem('auth');
 if(getAuth) {
 	var getUser_decode =  JSON.parse(getAuth); 
 	var userId = getUser_decode.id;         
@@ -198,28 +197,6 @@ function getExitAuth(userId){
         }
     });
 }
-function searchFunction(value) {
-    var input, filter, ul, li, a, i, txtValue;
-    input = value.toUpperCase();
-    ul = $('#all_sites');
-    li = ul.find('li');
-
-    // Loop through all list items, and hide those who don't match the search query
-    li.each(function() {
-        a = $(this).find('a').first();
-        txtValue = a.text().toUpperCase();
-        if (txtValue.indexOf(input) > -1) {
-            $(this).show();
-            $(this).find('.collapse').collapse('hide');
-        } else {
-            $(this).hide();
-        }
-    });
-}
-
-function collapseData(value){
-    $('#site_'+value).toggle();
-}
 
 
 function convertTimestampToDate(timestamp) {
@@ -274,148 +251,7 @@ function processBase64Image(base64Image) {
     globalImageContent  = contentImage(base64Image);
 }
 
-
-
-
-
-
 //getImageAsBase64('picture', processBase64Image);
-/**POST DATRA FRUIT */
-function sendDataFruitWithFormData(e,form){
-    e.preventDefault();
-    var form_ = $('#'+form)[0];
-    var formData = new FormData(form_);
-
-    //formData.append('picture', globalImageContent);
-
-    var formDataObj = {};
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
-
-    var all_JSON = JSON.stringify(formDataObj);
-    // Affichage du premier objet JSON mis à jour dans la console
-    //console.log('pictureImage',globalImageContent);
-    console.log('ALL JSON',all_JSON);
-
-    $.ajax({
-        url: URI+'/api/fruits',
-        type: "POST",
-        enctype: 'multipart/form-data',
-        contentType: 'application/json',
-        data: all_JSON,
-        dataType: "json",
-        // processData: false,
-        beforeSend: function() {
-            $('.btn_submit').prop('disabled', true);
-        },
-        success: function(data,status, xhr) {
-            console.log(data,status,xhr);
-            if (xhr.status == 200 || xhr.status == 201) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
-                $("#"+form).get(0).reset();
-                itemId = data.id;
-                typeForm = "fruit";
-                setTimeout(function(){
-                    $('#addFruit').modal('hide');
-                    $('#addItem').modal('show');
-                    $('#addItem').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                    $('#nameItem').text(data.name.toUpperCase());
-                }, 3000)
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
-                $('.btn_submit').prop('disabled', false);
-            }
-
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', xhr.responseText);
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
-                $('.btn_submit').prop('disabled', false);
-            } else {
-                console.log('Erreur : ', xhr.responseText, error);
-                var errorMessage = JSON.parse(xhr.responseText).message;
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(errorMessage);
-                $('.btn_submit').prop('disabled', false);
-            }
-        }
-    });
-}
-function sendDataLeaveWithFormData(e,form){
-    e.preventDefault();
-    var form_ = $('#'+form)[0];
-    var formData = new FormData(form_);
-
-    //formData.append('picture', globalImageContent);
-
-    var formDataObj = {};
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
-
-    var all_JSON = JSON.stringify(formDataObj);
-    // Affichage du premier objet JSON mis à jour dans la console
-    console.log('ALL JSON',all_JSON);
-
-    $.ajax({
-        url: URI+'/api/leaves',
-        type: "POST",
-        enctype: 'multipart/form-data',
-        contentType: 'application/json',
-        data: all_JSON,
-        dataType: "json",
-        // processData: false,
-        beforeSend: function() {
-            $('.btn_submit').prop('disabled', true);
-        },
-        success: function(data,status, xhr) {
-            console.log(data,status,xhr);
-            if (xhr.status == 200 || xhr.status == 201) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text(data.shape+ " ENREGISTRE AVEC SUCCES !!!");             
-                $("#"+form).get(0).reset();
-                itemId = data.id;
-                typeForm = "leave";
-                setTimeout(function(){
-                    $('#addLeave').modal('hide');
-                    $('#addItem').modal('show');
-                    $('#addItem').modal({
-                        backdrop: 'static',
-                        keyboard: false
-                    });
-                    $('#nameItem').text(data.name.toUpperCase());
-                }, 3000)
-            }else{
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message+ ' '+data.httpStatus);  
-                $('.btn_submit').prop('disabled', false);
-            }
-
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', xhr.responseText);
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
-                $('.btn_submit').prop('disabled', false);
-            } else {
-                console.log('Erreur : ', xhr.responseText, error);
-                var errorMessage = JSON.parse(xhr.responseText).message;
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(errorMessage);
-                $('.btn_submit').prop('disabled', false);
-            }
-        }
-    });
-}
 
 var urlEnd ="";
 function submitFormImage(event){
@@ -483,70 +319,6 @@ function submitFormImage(event){
         console.log('Aucun fichier sélectionné');
     } 
 }
-/**POST DATA USERS */
-function sendDataFormDataSignup(e, form) {
-    e.preventDefault();
-    //alert(237)
-    var formElement = $('#' + form)[0];
-    var formData = new FormData(formElement);
-    var rolesArray = $('#roleUser').val();
-    // Ajout du champ 'role' aux données du formulaire
-    // formData.append('roles', rolesArray);
-    var formDataObj = {};
-    formData.forEach(function(value, key){
-        formDataObj[key] = value;
-    });
-
-    var resultObject = {
-        role: [rolesArray]
-      };
-      Object.assign(formDataObj, resultObject);
-
-    var all_JSON = JSON.stringify(formDataObj);
-    console.log(`all JSON`, all_JSON);
-    $.ajax({
-        url: URI + '/api/auth/signup', // Remplacez URI par votre URL
-        type: 'POST',
-        data: all_JSON,
-        enctype: 'multipart/form-data',
-        contentType: 'application/json',
-        dataType: "json",
-        beforeSend: function() {
-            $('.btn_submit').prop('disabled', true);
-        },
-        success: function(data, status, xhr) {
-            console.log(data, status, xhr);
-            if (xhr.status == 200 || xhr.status == 201) {
-                $(".alert").removeClass('alert-danger').addClass('alert-success').show()
-                $(".alert-message").text("USER ENREGISTRE AVEC SUCCES !!!");
-                $("#" + form).get(0).reset();
-                itemId = data.id;
-                typeForm = "users";
-                setTimeout(function() {
-                    window.location.reload(true);
-                }, 3000)
-            } else {
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(data.message + ' ' + data.httpStatus);
-                $('.btn_submit').prop('disabled', false);
-            }
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', xhr.responseText);
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
-                $('.btn_submit').prop('disabled', false);
-            } else {
-                console.log('Erreur : ', xhr.responseText, error);
-                var errorMessage = JSON.parse(xhr.responseText).message;
-                $(".alert").removeClass('alert-success').addClass('alert-danger').show()
-                $(".alert-message").text(errorMessage);
-                $('.btn_submit').prop('disabled', false);
-            }
-        }
-    });
-}
 
 console.log(`window`, window.location);
 
@@ -558,7 +330,16 @@ function authLogout(event){
         window.location.href="login.html";
     }
 }
-
+function tooglePassword(input, elt) {
+    //alert(input);
+    $("." + elt).toggleClass("fa-eye fa-eye-slash");
+    var div = $("#" + input);
+    if (div.attr("type") == "password") {
+        div.attr("type", "text");
+    } else {
+        div.attr("type", "password");
+    }
+}
 $(document).ready(function () {
     // $('.collapse').on('show.bs.collapse', function () {
     //     // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir

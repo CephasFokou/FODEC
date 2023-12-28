@@ -4,3 +4,4 @@ var tab = [];
 let globalImageContent;
 var typeForm = "";
 var itemId = "";
+var getAuth = localStorage.getItem('auth');

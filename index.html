@@ -170,7 +170,7 @@
 							<a data-bs-target="#fruits" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="compass"></i> <span class="align-middle">Gestions des Fruits</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addFruit">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddFruitModal()" data-bs-toggle="modal" data-bs-target="#addFruit">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="fruits" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -192,7 +192,7 @@
 							<a data-bs-target="#feuilles" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="slack"></i> <span class="align-middle">Gestions des feuilles</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addLeave">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddLeaveModal()" data-bs-toggle="modal" data-bs-target="#addLeave">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="feuilles" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -213,7 +213,7 @@
 							<a data-bs-target="#users" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="users"></i> <span class="align-middle">Gestions des utilisateurs</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addUser">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddUserModal()" data-bs-toggle="modal" data-bs-target="#addUser">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="users" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -968,11 +968,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'un Fruit</h5>
+						<h3 class="modal-title" id="titleFruit">Enregistrement d'un Fruit</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_fruit" method="post" action="#" onsubmit="sendDataFruitWithFormData(event,'add_fruit')">
+						<form class="profile-form" id="add_fruit" method="post" action="#" data-mode="add" data-id="0" onsubmit="sendDataFruitWithFormData(event,'add_fruit')">
 							<div class="accordion" id="accordionExampleFruit">
 								<div class="card">
 									<div class="card-header" id="heading_9">
@@ -1047,11 +1047,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'une feuille</h5>
+						<h3 class="modal-title" id="titleLeave">Enregistrement d'une feuille</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_leave" method="post" action="#" onsubmit="sendDataLeaveWithFormData(event,'add_leave')">
+						<form class="profile-form" id="add_leave" method="post" action="#" data-mode="add" data-id="0" onsubmit="sendDataLeaveWithFormData(event,'add_leave')">
 							<div class="accordion" id="accordionExampleLeave">
 								<div class="card">
 									<div class="card-header" id="heading_10">
@@ -1078,7 +1078,7 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="width_fruit">Taille</label>
-													<input type="text" class="form-control" id="size" name="size"  placeholder="1" >
+													<input type="text" class="form-control" id="size_leave" name="size"  placeholder="1" >
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="length_fruit">Poids</label>
@@ -1123,11 +1123,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'un Utilisateur</h5>
+						<h3 class="modal-title" id="titleUser">Enregistrement d'un Utilisateur</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_user" method="post" action="#" onsubmit="sendDataFormDataSignup(event,'add_user')">
+						<form class="profile-form" id="add_user" method="post" data-mode="add" data-id="0" action="#" onsubmit="sendDataFormDataSignup(event,'add_user')">
 							<div class="accordion" id="accordionUser">
 								<div class="card">
 									<div class="card-header" id="heading_10">

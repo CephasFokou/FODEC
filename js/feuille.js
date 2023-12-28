@@ -17,7 +17,7 @@ function getDataLeave(){
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
                                         <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>
-                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>
+                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i>
                                         	  
                                         <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
@@ -60,7 +60,182 @@ function getDataLeave(){
         }
     });
 }
+function openModalLeave(leaveId) {
+    //alert(parcelId);
+    getDataLeaveById(leaveId);
+    //$('#addFarms').appendTo('body');
+    $('#addLeave').modal('show');
 
+}
+function openAddLeaveModal(){
+    //alert(237)
+    $("#add_leave").get(0).reset();
+    //$('#add_site').trigger('reset');
+    $('#addLeave').modal('show');
+    $('#titleLeave').text("Enregistrement d'une feuille");
+    $('#add_leave').attr('data-mode', 'add');
+    //alert(userId)
+    //$('#userId').val(userId);
+    
+}
+function getDataLeaveById(leaveId){
+    $.ajax({
+        url: URI+'/api/leaves/'+leaveId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data Fruit by`, data);
+             
+                var shape = data.shape;
+                var tree = data.treeId;
+                var size = data.size;
+                var weight = data.weight;
+                var type = data.type;
+                var color = data.color;
+               
+                //alert(farm)
+                $('#titleLeave').text("Edition de la feuille "+shape)
+                $('#add_leave').attr('data-mode', 'edit');
+                $('#add_leave').attr('data-id', data.id);
+                $('#shape').val(shape);
+                //$('#treeId_leave').val(tree);
+                $('#size_leave').val(size);
+                $('#weight_leave').val(weight);
+
+                $('#color_leave').val(color);
+                $('#typeLeave').val(type);
+                
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' URL NOT FOUND : ' + error);
+        }
+    });
+}
+/**POST DATA LEAVE */
+function sendDataLeaveWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    //formData.append('picture', globalImageContent);
+
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    var all_JSON = JSON.stringify(formDataObj);
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+    var mode = $('#'+form).attr('data-mode');
+    if (mode == "add") {    
+        $.ajax({
+            url: URI+'/api/leaves',
+            type: "POST",
+            enctype: 'multipart/form-data',
+            contentType: 'application/json',
+            data: all_JSON,
+            dataType: "json",
+            // processData: false,
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data,status, xhr) {
+                console.log(data,status,xhr);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text(data.shape+ " ENREGISTRE AVEC SUCCES !!!");             
+                    $("#"+form).get(0).reset();
+                    itemId = data.id;
+                    typeForm = "leave";
+                    setTimeout(function(){
+                        $('#addLeave').modal('hide');
+                        $('#addItem').modal('show');
+                        $('#addItem').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#nameItem').text(data.name.toUpperCase());
+                    }, 3000)
+                }else{
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                    $('.btn_submit').prop('disabled', false);
+                }
+
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            }
+        });
+    }else if(mode == "edit"){
+        var leaveId = $('#'+form).attr('data-id');
+        $.ajax({
+            url: URI+'/api/leaves/'+leaveId,
+            type: "PUT",
+            enctype: 'multipart/form-data',
+            contentType: 'application/json',
+            data: all_JSON,
+            dataType: "json",
+            // processData: false,
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data,status, xhr) {
+                console.log(data,status,xhr);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text(data.shape+ " MODIFIE AVEC SUCCES !!!");             
+                    $("#"+form).get(0).reset();
+                    itemId = data.id;
+                    typeForm = "leave";
+                    setTimeout(function(){
+                        $('#addLeave').modal('hide');
+                        $('#addItem').modal('show');
+                        $('#addItem').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#nameItem').text(data.name.toUpperCase());
+                    }, 3000)
+                }else{
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                    $('.btn_submit').prop('disabled', false);
+                }
+
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            }
+        });
+    }
+}
 // GET LIST ALL LEAVES
 function allLeaves(){
     tabBody = [];

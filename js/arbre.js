@@ -86,7 +86,7 @@ function openAddTreeModal(){
     $("#add_tree").get(0).reset();
     //$('#add_site').trigger('reset');
     $('#addTree').modal('show');
-    $('#titleTree').text("Enregistrement d'una arbre");
+    $('#titleTree').text("Enregistrement d'un arbre");
     $('#add_tree').attr('data-mode', 'add');
     //alert(userId)
     //$('#userId').val(userId);
