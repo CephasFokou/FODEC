@@ -86,7 +86,7 @@
 							<a data-bs-target="#farms" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="command"></i> <span class="align-middle">Gestions des Champs</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addFarms">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddFarmModal()" data-bs-toggle="modal" data-bs-target="#addFarms">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="farms" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -107,7 +107,7 @@
 							<a data-bs-target="#parcerelle" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="git-branch"></i> <span class="align-middle">Gestions des Parcerelles</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addParcerelle">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddParcelModal()" data-bs-toggle="modal" data-bs-target="#addParcerelle">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="parcerelle" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -128,7 +128,7 @@
 							<a data-bs-target="#lines" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Gestions des lignes</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addLine">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddLineModal()" data-bs-toggle="modal" data-bs-target="#addLine">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="lines" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -149,7 +149,7 @@
 							<a data-bs-target="#trees" data-bs-toggle="collapse" class="sidebar-link collapsed">
 								<i class="align-middle" data-feather="git-pull-request"></i> <span class="align-middle">Gestions des Arbres</span>
 							</a>
-							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#addTree">
+							<a class='badge badge-sidebar-primary cursor-pointer' href="javascript:void(0)" onclick="openAddTreeModal()" data-bs-toggle="modal" data-bs-target="#addTree">
 								<i class="fas fa-plus"></i>
 							</a>
 							<ul id="trees" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -473,11 +473,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'une parcerelle</h5>
+						<h3 class="modal-title" id="titleParcel">Enregistrement d'une parcerelle</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_parcerelle" method="post" action="#" onsubmit="sendDataParcelWithFormData(event,'add_parcerelle')">
+						<form class="profile-form" id="add_parcerelle" method="post" action="#" data-id="0" data-mode="add" onsubmit="sendDataParcelWithFormData(event,'add_parcerelle')">
 							<div class="accordion" id="accordionExampleTwo">
 								<div class="card">
 									<div class="card-header" id="heading_3">
@@ -492,11 +492,11 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NomSite">Nom de la parcerelle</label>
-													<input type="text" class="form-control" id="name" name="name" placeholder="Parcerelle Mpos" required>
+													<input type="text" class="form-control" id="nameParcel" name="name" placeholder="Parcerelle Mpos" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="speculation">Choisir le champ</label>
-													<select name="farmId" class="form-control farmId" id="farmId">
+													<select name="farmId" class="form-control farmId" id="farmIdParcel">
 														
 													</select>
 												</div>
@@ -504,44 +504,44 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="initialDensity">Densité Initiale</label>
-													<input type="text" class="form-control" id="initialDensity" name="initialDensity" placeholder="Densité Initiale" required>
+													<input type="text" class="form-control" id="initialDensityParcel" name="initialDensity" placeholder="Densité Initiale" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="actualDensity">Densité Actuelle</label>
-													<input type="text" class="form-control" id="actualDensity" name="actualDensity" placeholder="Densité Actuelle" required>
+													<input type="text" class="form-control" id="actualDensityParcel" name="actualDensity" placeholder="Densité Actuelle" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="initialArea">Zone Initiale</label>
-													<input type="text" class="form-control" id="initialArea" name="initialArea" placeholder="Zone Initiale" required>
+													<input type="text" class="form-control" id="initialAreaParcel" name="initialArea" placeholder="Zone Initiale" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="actualArea">Zone Actuelle</label>
-													<input type="text" class="form-control" id="actualArea" name="actualArea" placeholder="Zone Actuelle" required>
+													<input type="text" class="form-control" id="actualAreaParcel" name="actualArea" placeholder="Zone Actuelle" required>
 												</div>
 											</div>
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NbreLigneMale">Génétique Ressource</label>
-													<select name="geneticRessource" class="form-control geneticRessource" >
+													<select name="geneticRessource" id="geneticRessourceParcel" class="form-control geneticRessource" >
 														
 													</select>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="speculation">Speculation</label>
-													<select name="speculation" class="form-control speculation" id="speculation">
+													<select name="speculation" class="form-control speculation" id="speculationParcel">
 													</select>
 												</div>
 											</div>
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="farmType">Choisir le type de champ</label>
-													<select name="farmType" class="form-control farmType" id="farmType_parcel">
+													<select name="farmType" class="form-control farmType" id="farmTypeParcel">
 														
 													</select>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="pollinisation">pollinisation</label>
-													<select name="pollinisation" class="form-control pollinisation" id="pollinisation">
+													<select name="pollinisation" class="form-control pollinisation" id="pollinisationParcel">
 													</select>
 												</div>
 											</div>
@@ -619,11 +619,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'un champs</h5>
+						<h3 class="modal-title" id="titleFarm">Enregistrement d'un champs</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_farms" method="post" action="#" onsubmit="sendDataFarmsWithFormData(event,'add_farms')">
+						<form class="profile-form" id="add_farms" method="post" action="#" data-id="0" data-mode="add" onsubmit="sendDataFarmsWithFormData(event,'add_farms')">
 							<div class="accordion" id="accordionExampleFarms">
 								<div class="card">
 									<div class="card-header" id="heading_4">
@@ -642,7 +642,7 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="speculation">Choisir le site</label>
-													<select name="siteId" class="form-control siteId" id="siteId">
+													<select name="siteId" class="form-control siteId" id="siteIdFarm">
 														
 													</select>
 												</div>
@@ -654,7 +654,7 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="actualDensity">Densité Actuelle</label>
-													<input type="text" class="form-control" id="actualDensity_farms" name="lastDensity" placeholder="Densité Finale" required>
+													<input type="text" class="form-control" id="lastDensity_farms" name="lastDensity" placeholder="Densité Finale" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="initialArea">Zone Initiale</label>
@@ -662,7 +662,7 @@
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="actualArea">Zone Actuelle</label>
-													<input type="text" class="form-control" id="actualArea_farms" name="lastArea" placeholder="Zone Finale" required>
+													<input type="text" class="form-control" id="lastArea_farms" name="lastArea" placeholder="Zone Finale" required>
 												</div>
 											</div>
 											<div class="row">
@@ -753,11 +753,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'une ligne</h5>
+						<h3 class="modal-title" id="titleLine">Enregistrement d'une ligne</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_line" method="post" action="#" onsubmit="sendDataLineWithFormData(event,'add_line')">
+						<form class="profile-form" id="add_line" method="post" action="#" data-mode="add" data-id="0" onsubmit="sendDataLineWithFormData(event,'add_line')">
 							<div class="accordion" id="accordionExampleLine">
 								<div class="card">
 									<div class="card-header" id="heading_5">
@@ -772,7 +772,7 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NomSite">Nom de la ligne</label>
-													<input type="text" class="form-control" id="name_line" name="name" placeholder="Line 1" required>
+													<input type="text" class="form-control" id="nameLine" name="name" placeholder="Line 1" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="parcelId">Choisir la parcerelle</label>
@@ -855,11 +855,11 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h3 class="modal-title">Enregistrement d'un arbre</h5>
+						<h3 class="modal-title" id="titleTree">Enregistrement d'un arbre</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body m-3">
-						<form class="profile-form" id="add_tree" method="post" action="#" onsubmit="sendDataTreeWithFormData(event,'add_tree')">
+						<form class="profile-form" id="add_tree" method="post" action="#" data-mode="add" data-id="0" onsubmit="sendDataTreeWithFormData(event,'add_tree')">
 							<div class="accordion" id="accordionExampleTree">
 								<div class="card">
 									<div class="card-header" id="heading_7">
@@ -874,7 +874,7 @@
 											<div class="row">
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="NomSite">Nom de l'arbre</label>
-													<input type="text" class="form-control" id="name_line" name="name" placeholder="Arbre 237" required>
+													<input type="text" class="form-control" id="nameTree" name="name" placeholder="Arbre 237" required>
 												</div>
 												<div class="mb-3 col-md-6">
 													<label class="form-label" for="farmId">Choisir la ligne</label>
@@ -1335,21 +1335,22 @@
 				</div>
 			</div>
 		</div> -->
-		<!-- <script src="js/jquery.min.js" async defer></script> -->
 		<!-- <script src="js/bootstrap.min.js"></script> -->
-		<script src="js/app.js" async defer></script>
-		<script src="js/var.js" async defer></script>
-		<script src="js/actionBtn.js" async defer></script>
-		<script src="js/site.js" async defer></script>
-		<script src="js/champ.js" async defer></script>
-		<script src="js/parcelle.js" async defer></script>
-		<script src="js/line.js" async defer></script>
-		<script src="js/arbre.js" async defer></script>
-		<script src="js/fruit.js" async defer></script>
-		<script src="js/feuille.js" async defer></script>
-		<script src="js/users.js" async defer></script>
-		<script src="js/mmmr.js" async defer></script>
-		<script src="js/index.js" async defer></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/var.js"></script>
+		<script src="js/actionBtn.js"></script>
+		<script src="js/site.js"></script>
+		<script src="js/champ.js"></script>
+		<script src="js/parcelle.js"></script>
+		<script src="js/line.js"></script>
+		<script src="js/arbre.js"></script>
+		<script src="js/fruit.js"></script>
+		<script src="js/feuille.js"></script>
+		<script src="js/users.js"></script>
+		<script src="js/mmmr.js"></script>
+		<script src="js/index.js" ></script>
+
 		<script>
 			document.addEventListener("DOMContentLoaded", function() {
 				$(".d-table").DataTable({
@@ -1570,6 +1571,6 @@
 
 		<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-aWrwgr64q4b3TEZwQ0lkHI4lZK-moM4&amp;callback=initMaps" async defer></script> -->
 
-	    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta"></script>
+	    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6YuJtd3dH1nM4qNH82oB6Kb4oF0QY33E&callback=initMaps&libraries=maps,marker&v=beta" async></script>
 	</body>
 </html>
