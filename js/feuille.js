@@ -16,7 +16,10 @@ function getDataLeave(){
                                             ${item.shape.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>
-                                        <i class="fas fa-sort-numeric-down action_icon map_icon" id="action_icon map_icon_${index}"></i>	  
+                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>
+                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>
+                                        	  
+                                        <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
