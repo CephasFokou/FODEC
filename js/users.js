@@ -47,10 +47,12 @@ function getDataUsers(){
                                             ${item.lastname.toUpperCase()} ${item.firstname.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.roles[0].name}</span>
                                         </a>
-                                        <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister Info Users" onclick="viewList('User ${item.lastname}', 'users', ${item.id})"></i>
-                                        <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" style="right: 35px !important" title="Cliquez pour editer" onclick="openModalUser(${item.id})"></i>	  
-                                        <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('users', ${item.id})"></i>
-                                        <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
+                                        <div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">
+                                            <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister Info Users" onclick="viewList('User ${item.lastname}', 'users', ${item.id})"></i>
+                                            <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" style="right: 35px !important" title="Cliquez pour editer" onclick="openModalUser(${item.id})"></i>	  
+                                            <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('users', ${item.id})"></i>
+                                        </div>
+                                            <ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
                                                     <div class="d-flex gap-1 gm-ui-hover-effect small w-auto">

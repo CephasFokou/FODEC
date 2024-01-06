@@ -26,6 +26,8 @@ function getDataFarms(){
                                                 ${item.name.toUpperCase()}<br/>
                                                 <span class="text-body-tertiary small">${item.farmType}</span>
                                             </a>`;
+                            
+                            content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                             content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister de tous les parcerelles du champ" onclick="viewList('${item.name}', 'parcels', ${item.id})"></i>`;
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
                                 content +=  `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer" onclick="openModalFarm('${item.id}')"></i>`;
@@ -36,6 +38,7 @@ function getDataFarms(){
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
                                 content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
                             }
+                            content += `</div>`;
                             content +=     `<ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="farms_${item.id}" data-bs-parent="#farms_${item.id}">
                                             <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
