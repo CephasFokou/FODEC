@@ -1,4 +1,16 @@
 
+function validerAction(item) {
+    alert("Implementer Api de validation. Puis changer fa-toggle-off en fa-toggle-on");
+    const $validBtn = $("#validSite"+item);
+    const validBtnStatus = $("#validSite"+item).attr("status");
+    if (validBtnStatus=='on') {
+        $validBtn.removeClass("fa-toggle-on");
+        $validBtn.addClass("fa-toggle-off");
+    } else {
+        $validBtn.removeClass("fa-toggle-off");
+        $validBtn.addClass("fa-toggle-on");
+    }
+}
 
 function viewList(parent, child, parentId){
     console.log(parentId);

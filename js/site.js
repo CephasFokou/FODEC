@@ -30,8 +30,10 @@ function getDataSite(){
                                             ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.geneticRessource}</span>
                                         </a>`;
+                        content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                         content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('${item.name}', 'champs', ${item.id})"></i>`;
-                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                        if(roleUser == "ADMINISTRATEUR" || "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                            content +=      `<i class="fas fa-toggle-off action_icon valid_icon" data-status="off" title="Cliquez pour activer" id="validSite${item.id}" onclick="validerAction('${item.id}')"></i>`;
                             content +=      `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer" onclick="openModalSite('${item.id}')"></i>`;
                         }
                         content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
@@ -40,6 +42,8 @@ function getDataSite(){
                         if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
                             content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
                         }
+
+                        content += `</div>`;
                         content +=     `<ul class="collapse cursor-default mb-3 sidebar-dropdown width-p" id="site_${item.id}" data-bs-parent="#site_${item.id}">
                                             <div class="card-body p-3 bg-body-tertiary">
                                                 <div class="row">
