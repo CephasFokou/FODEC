@@ -29,7 +29,7 @@ function getDataTree(){
                                     </a>`;
                         content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                         content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister fruits d'un arbre'" onclick="viewList('${item.name}', 'fruits', ${item.id})"></i>`;
-                        if(roleUser == "ADMINISTRATEUR" || "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                             content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validTree${item.id}" onclick="updateStatusTree('${item.id}')"></i>`;
                             content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>`;
                         }
