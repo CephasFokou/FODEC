@@ -123,7 +123,7 @@ a.sidebar-link {
 .main.login {
     background: unset!important;
     background-image: url(../img/pngocean1.png)!important;
-    background-size: contain!important;
+    background-size: cover!important;
     background-repeat: no-repeat!important;
     background-position: right!important;
 }
@@ -172,7 +172,7 @@ ul.sidebar-nav > li.sidebar-item {
     z-index : 333;
 }
 .content-details-fruit.active {
-    right: 0; /* Affichage du contenu à droite */
+    right: 0; /* Affichage du contenu Ã  droite */
 }
 .img-tree{
     width: 100px;
@@ -286,6 +286,10 @@ div#alertModal {
     right: 0;
 }
 
+.login-banner-contain {
+    position: absolute;
+}
+
 @media (max-width: 767.98px) {
 
     body .main.login{
@@ -294,10 +298,11 @@ div#alertModal {
     }
    body .login-form-container{
     background:#f5f5f5c4!important;
-    right:0
+    right:0;
    }
 
    .login-drone-image {
     width: 70px;
-}
+    top: 0%!important;
+    }
 }
