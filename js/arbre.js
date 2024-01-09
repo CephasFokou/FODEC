@@ -20,21 +20,27 @@ function getDataTree(){
                         var rb_longitude = item.geographicalPos.rightBottom.longitude;
                         var rt_latitude = item.geographicalPos.rightTop.latitude;
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
-                        var content =`
-                                    <li class="sidebar-item">
-                                        <a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
-                                            <span class="text-body-tertiary small">${item.name}</span>
-                                        </a>
-                                        <div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">
-                                            <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister fruits d'un arbre'" onclick="viewList('${item.name}', 'fruits', ${item.id})"></i>
-                                            <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>
-                                            <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
-                                                onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
-                                            </i>	  
-                                            <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>	  
-                                        </div>
-                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="tree_${item.id}">
+                        var status = item.status;
+
+                        var content =`<li class="sidebar-item" data-id="${item.id}">`;
+                        content += `<a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed"">
+                                        ${item.name.toUpperCase()}<br/>
+                                        <span class="text-body-tertiary small">${item.name}</span>
+                                    </a>`;
+                        content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
+                        content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister fruits d'un arbre'" onclick="viewList('${item.name}', 'fruits', ${item.id})"></i>`;
+                        if(roleUser == "ADMINISTRATEUR" || "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                            content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validTree${item.id}" onclick="updateStatusTree('${item.id}')"></i>`;
+                            content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>`;
+                        }
+                        content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>`;	  
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                            content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
+                        }
+                        content += `</div>`;
+                        content +=     `<div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="tree_${item.id}">
                                             <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
                                                     <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-tree image-fuild">
@@ -54,6 +60,8 @@ function getDataTree(){
                                             </div>
                                         </div>
                                     </li>`;
+                                    
+                                   
                         $('#all_trees').append(content);
                         // $("#site_name").text(item.name.toUpperCase());
                         //console.log(item.name);
@@ -349,6 +357,37 @@ function getTreeById(treeId){
         },
         error: function(xhr, status, error) {
             console.error(status + ' : ' + error);
+        }
+    });
+}
+
+function updateStatusTree(itemId) {
+    const status = $("#validTree" + itemId).attr("data-status");
+    const validBtn = $("#validTree" + itemId);
+    const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    alert(status+" : " + state)
+    $.ajax({
+        url: URI + '/api/sites/' + itemId,
+        method: 'get',
+        dataType: 'json',
+        success: function (data, textStatus, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data site by`, data);
+
+                if (status === 'on') {
+                    validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                    $("#validTree" + itemId).attr("data-status", "off");
+                    $("#validTree" + itemId).attr("title", "Cliquez pour activer");
+                } else {
+                    validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                    $("#validTree" + itemId).attr("data-status", "on");
+                    $("#validTree" + itemId).attr("title", "Cliquez pour désactiver");
+                }
+            }
+
+        },
+        error: function (xhr, textStatus, error) {
+            console.error(textStatus + ' URL NOT FOUND : ' + error);
         }
     });
 }

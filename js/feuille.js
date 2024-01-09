@@ -11,18 +11,23 @@ function getDataLeave(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.shape.toUpperCase()}<br/>
+                        var content =`<li class="sidebar-item" data-id="${item.id}">`;
+                            content += `<a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
-                                        </a>
-                                        <div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">
-                                            <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>
-                                            <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i>       
-                                            <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>
-                                        </div>
-                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
-                                            <div class="col-6 d-grid justify-content-center p-0">
+                                        </a>`;
+                            content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
+                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>`;
+                            if(roleUser == "ADMINISTRATEUR" || "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                                content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validLeave${item.id}" onclick="updateStatusLeave('${item.id}')"></i>`;
+                                content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i> `;
+                            }	  
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                                content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
+                            }
+                            content += `</div>`;
+                            content +=     `<div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
+                                                <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
                                                     <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-tree image-fuild">
                                                 </div>
@@ -282,6 +287,36 @@ function allLeaves(){
             displayTabHeader([]);
             displayTabBody(["URL API  NOT FOUND"],[]);
             console.error(status + ' : ' + error);
+        }
+    });
+}
+function updateStatusLeave(itemId) {
+    const status = $("#validLeave" + itemId).attr("data-status");
+    const validBtn = $("#validLeave" + itemId);
+    const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    alert(status+" : " + state)
+    $.ajax({
+        url: URI + '/api/sites/' + itemId,
+        method: 'get',
+        dataType: 'json',
+        success: function (data, textStatus, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data site by`, data);
+
+                if (status === 'on') {
+                    validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                    $("#validLeave" + itemId).attr("data-status", "off");
+                    $("#validLeave" + itemId).attr("title", "Cliquez pour activer");
+                } else {
+                    validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                    $("#validLeave" + itemId).attr("data-status", "on");
+                    $("#validLeave" + itemId).attr("title", "Cliquez pour désactiver");
+                }
+            }
+
+        },
+        error: function (xhr, textStatus, error) {
+            console.error(textStatus + ' URL NOT FOUND : ' + error);
         }
     });
 }

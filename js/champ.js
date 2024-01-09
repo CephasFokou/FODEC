@@ -20,6 +20,7 @@ function getDataFarms(){
                         var rb_longitude = item.geographicalPos.rightBottom.longitude;
                         var rt_latitude = item.geographicalPos.rightTop.latitude;
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
+                        var status = item.status;
 
                         var content =`<li class="sidebar-item">`;
                             content +=      `<a data-bs-target="#farms_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
@@ -30,6 +31,7 @@ function getDataFarms(){
                             content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                             content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister de tous les parcerelles du champ" onclick="viewList('${item.name}', 'parcels', ${item.id})"></i>`;
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                                content +=  `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validFarm${item.id}" onclick="updateStatusFarm('${item.id}')"></i>`;
                                 content +=  `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer" onclick="openModalFarm('${item.id}')"></i>`;
                             }
                             content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
@@ -324,6 +326,8 @@ function getDataParcelByFarm(farmId){
           
         },
         error: function(xhr, status, error) {
+            displayTabHeader([]);
+            displayTabBody(["URL API  NOT FOUND"],[]);
             console.error(status + ' : ' + error);
         }
     });
@@ -366,6 +370,37 @@ function allFarms(){
             displayTabHeader([]);
             displayTabBody(["URL API  NOT FOUND"],[]);
             console.error(status + ' : ' + error);
+        }
+    });
+}
+
+function updateStatusFarm(itemId) {
+    const status = $("#validFarm" + itemId).attr("data-status");
+    const validBtn = $("#validFarm" + itemId);
+    const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    alert(status+" : " + state)
+    $.ajax({
+        url: URI + '/api/sites/' + itemId,
+        method: 'get',
+        dataType: 'json',
+        success: function (data, textStatus, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data site by`, data);
+
+                if (status === 'on') {
+                    validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                    $("#validFarm" + itemId).attr("data-status", "off");
+                    $("#validFarm" + itemId).attr("title", "Cliquez pour activer");
+                } else {
+                    validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                    $("#validFarm" + itemId).attr("data-status", "on");
+                    $("#validFarm" + itemId).attr("title", "Cliquez pour désactiver");
+                }
+            }
+
+        },
+        error: function (xhr, textStatus, error) {
+            console.error(textStatus + ' URL NOT FOUND : ' + error);
         }
     });
 }
