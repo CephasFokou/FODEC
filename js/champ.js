@@ -29,13 +29,13 @@ function getDataFarms(){
                             
                             content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                             content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister de tous les parcerelles du champ" onclick="viewList('${item.name}', 'parcels', ${item.id})"></i>`;
-                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                                 content +=  `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer" onclick="openModalFarm('${item.id}')"></i>`;
                             }
                             content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                                 onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                             </i>`;	  
-                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                                 content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
                             }
                             content += `</div>`;

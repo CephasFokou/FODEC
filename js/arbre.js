@@ -28,11 +28,19 @@ function getDataTree(){
                                         </a>
                                         <div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">
                                             <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister fruits d'un arbre'" onclick="viewList('${item.name}', 'fruits', ${item.id})"></i>
-                                            <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>
+                                            `
+                                            if(roleUser == "ADMINISTRATEUR"|| roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                                                 
+                                                `
+                                                    <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>
+                                                    <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>	  
+                                                 
+                                                 `	  
+                                            }
+                                            `
                                             <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                                 onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                             </i>	  
-                                            <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>	  
                                         </div>
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="tree_${item.id}">
                                             <div class="col-6 d-grid justify-content-center p-0">

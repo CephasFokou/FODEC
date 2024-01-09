@@ -18,8 +18,15 @@ function getDataFruit(){
                                         </a>	 	  
                                         <div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">
                                             <i class="fas fa-eye action_icon map_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.TreeId})"></i>
-                                            <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalFruit(${item.id})"></i>	  
-                                            <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('fruits', ${item.id})"></i>	 	  
+                                            `
+                                            if(roleUser == "ADMINISTRATEUR"|| roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                                                 
+                                                 `
+                                                 <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalFruit(${item.id})"></i>
+                                                 <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('fruits', ${item.id})"></i>	 	  
+                                                 `	  
+                                            }
+                                            `
                                         </div>
                                         <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="fruit_${index}" data-bs-parent="#fruit_${index}">
                                             <div class="col-6 d-grid justify-content-center p-0">

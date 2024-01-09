@@ -32,7 +32,7 @@ function getDataSite(){
                                         </a>`;
                         content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                         content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister champs du site" onclick="viewList('${item.name}', 'champs', ${item.id})"></i>`;
-                        if(roleUser == "ADMINISTRATEUR" || "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                        if(roleUser == "ADMINISTRATEUR" || roleUser =="ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                             content +=      `<i class="fas fa-toggle-off action_icon valid_icon" data-status="off" title="Cliquez pour activer" id="validSite${item.id}" onclick="validerAction('${item.id}')"></i>`;
                             content +=      `<i class="fas fa-pencil action_icon edit_icon" title="Cliquez pour editer" onclick="openModalSite('${item.id}')"></i>`;
                         }
