@@ -1,6 +1,10 @@
 
 $(document).ready(function () {
     //alert(roleUser)
+    if(roleUser == "ROLE_USER"){
+        $(".sidebar-item .cursor-pointer").hide();            
+    }
+    
     if(roleUser == "ADMINISTRATEUR" || roleUser =="ROLE_ADMIN"){
         $("#li_users").show();            
     }
