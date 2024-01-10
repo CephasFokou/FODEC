@@ -7,9 +7,9 @@ function getDataParcels(){
         success: function(data,status, xhr) {
             console.log('all parcels' ,data);
             if (xhr.status == 200) {
-                tab = data;
-                if ($.isArray(tab) && tab.length > 0) {
-                    $.each(tab, function(index, item) {
+                //tab = data;
+                if ($.isArray(data) && data.length > 0) {
+                    $.each(data, function(index, item) {
                         var lb_latitude = item.geographicalPos.leftBottom.latitude;
                         var lb_longitude = item.geographicalPos.leftBottom.longitude;
                         var lt_latitude = item.geographicalPos.leftTop.latitude;
@@ -21,7 +21,8 @@ function getDataParcels(){
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
                         var status = item.status;
 
-                        console.log("parcels", lb_latitude)
+                        console.log("parcels", item.geographicalPos);
+
                         var content =`<li class="sidebar-item"> `;
                             content +=      `<a data-bs-target="#parcel_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                                 ${item.name.toUpperCase()}<br/>
@@ -68,8 +69,8 @@ function getDataParcels(){
                         //console.log(item.name);
                     })
                     var options = "";
-                    for (var i = 0; i < tab.length; i++) {
-                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        options += '<option value="' + data[i].id + '">' + data[i].name.toUpperCase() + '</option>';
                     }
                     $('#parcelId').html(options);
                 }else{
@@ -390,29 +391,43 @@ function updateStatusParcel(itemId) {
     const status = $("#validParcel" + itemId).attr("data-status");
     const validBtn = $("#validParcel" + itemId);
     const state = status == "on" ? "INACTIVE" : "ACTIVE";
-    alert(status+" : " + state)
-    $.ajax({
-        url: URI + '/api/sites/' + itemId,
-        method: 'get',
-        dataType: 'json',
-        success: function (data, textStatus, xhr) {
-            if (xhr.status == 200) {
-                console.log(`data site by`, data);
+    var data = {
+        'status' : state
+    };
+    data = JSON.stringify(data);
 
+    //alert(status+" : " + state+ ' '+data)
+    $.ajax({
+        url: URI + '/api/parcels/' + itemId,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: data,
+        dataType: 'json',
+        success: function (data, status, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data parcels by`, data);
                 if (status === 'on') {
                     validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
                     $("#validParcel" + itemId).attr("data-status", "off");
                     $("#validParcel" + itemId).attr("title", "Cliquez pour activer");
+                    alert('Desactivation éffectué avec succès !!!')
                 } else {
                     validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
                     $("#validParcel" + itemId).attr("data-status", "on");
                     $("#validParcel" + itemId).attr("title", "Cliquez pour désactiver");
+                    alert('Activation éffectué avec succès !!!')
                 }
             }
 
         },
-        error: function (xhr, textStatus, error) {
-            console.error(textStatus + ' URL NOT FOUND : ' + error);
-        }
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', xhr.responseText);
+            } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
+                console.log('Erreur  : ', errorMessage);
+            }
+        },
     });
 }

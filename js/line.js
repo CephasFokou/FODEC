@@ -368,29 +368,43 @@ function updateStatusLine(itemId) {
     const status = $("#validLine" + itemId).attr("data-status");
     const validBtn = $("#validLine" + itemId);
     const state = status == "on" ? "INACTIVE" : "ACTIVE";
-    alert(status+" : " + state)
+    var data = {
+        'status' : state
+    };
+    data = JSON.stringify(data);
+
+    //alert(status+" : " + state+ ' '+data)
     $.ajax({
-        url: URI + '/api/sites/' + itemId,
-        method: 'get',
+        url: URI+'/api/lines/'+itemId,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: data,
         dataType: 'json',
-        success: function (data, textStatus, xhr) {
+        success: function (data, status, xhr) {
             if (xhr.status == 200) {
                 console.log(`data site by`, data);
-
                 if (status === 'on') {
                     validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
                     $("#validLine" + itemId).attr("data-status", "off");
                     $("#validLine" + itemId).attr("title", "Cliquez pour activer");
+                    alert('Desactivation éffectué avec succès !!!')
                 } else {
                     validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
                     $("#validLine" + itemId).attr("data-status", "on");
                     $("#validLine" + itemId).attr("title", "Cliquez pour désactiver");
+                    alert('Activation éffectué avec succès !!!')
                 }
             }
 
         },
-        error: function (xhr, textStatus, error) {
-            console.error(textStatus + ' URL NOT FOUND : ' + error);
-        }
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', xhr.responseText);
+            } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
+                console.log('Erreur  : ', errorMessage);
+            }
+        },
     });
 }

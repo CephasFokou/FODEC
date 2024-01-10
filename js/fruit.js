@@ -19,7 +19,7 @@ function getDataFruit(){
                             content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
                             content +=      `<i class="fas fa-eye action_icon map_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.TreeId})"></i>`;
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
-                                content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validLeave${item.id}" onclick="updateStatusLeave('${item.id}')"></i>`;
+                                content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validFruit${item.id}" onclick="updateStatusFruit('${item.id}')"></i>`;
                                 content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalFruit(${item.id})"></i>	`;
                             }  
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
@@ -251,33 +251,47 @@ function sendDataFruitWithFormData(e,form){
     }
 }
 function updateStatusFruit(itemId) {
-    const status = $("#validLeave" + itemId).attr("data-status");
-    const validBtn = $("#validLeave" + itemId);
+    const status = $("#validFruit" + itemId).attr("data-status");
+    const validBtn = $("#validFruit" + itemId);
     const state = status == "on" ? "INACTIVE" : "ACTIVE";
-    alert(status+" : " + state)
+    var data = {
+        'status' : state
+    };
+    data = JSON.stringify(data);
+
+    //alert(status+" : " + state+ ' '+data)
     $.ajax({
-        url: URI + '/api/sites/' + itemId,
-        method: 'get',
+        url: URI + '/api/fruits/' + itemId,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: data,
         dataType: 'json',
-        success: function (data, textStatus, xhr) {
+        success: function (data, status, xhr) {
             if (xhr.status == 200) {
                 console.log(`data site by`, data);
-
                 if (status === 'on') {
                     validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
-                    $("#validLeave" + itemId).attr("data-status", "off");
-                    $("#validLeave" + itemId).attr("title", "Cliquez pour activer");
+                    $("#validFruit" + itemId).attr("data-status", "off");
+                    $("#validFruit" + itemId).attr("title", "Cliquez pour activer");
+                    alert('Desactivation éffectué avec succès !!!')
                 } else {
                     validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
-                    $("#validLeave" + itemId).attr("data-status", "on");
-                    $("#validLeave" + itemId).attr("title", "Cliquez pour désactiver");
+                    $("#validFruit" + itemId).attr("data-status", "on");
+                    $("#validFruit" + itemId).attr("title", "Cliquez pour désactiver");
+                    alert('Activation éffectué avec succès !!!')
                 }
             }
 
         },
-        error: function (xhr, textStatus, error) {
-            console.error(textStatus + ' URL NOT FOUND : ' + error);
-        }
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', xhr.responseText);
+            } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
+                console.log('Erreur  : ', errorMessage);
+            }
+        },
     });
 }
 
