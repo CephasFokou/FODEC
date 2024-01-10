@@ -270,14 +270,14 @@ function updateStatusFruit(itemId) {
         contentType: 'application/json',
         data: data,
         dataType: 'json',
-        success: function (data, status, xhr) {
+        success: function (data, textStatus, xhr) {
             if (xhr.status == 200) {
-                console.log(`data site by`, data);
+                console.log(`data fruits by`, data);
                 if (status === 'on') {
                     validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
                     $("#validFruit" + itemId).attr("data-status", "off");
                     $("#validFruit" + itemId).attr("title", "Cliquez pour activer");
-                    alert('Desactivation éffectué avec succès !!!')
+                    alert('Désactivation éffectué avec succès !!!')
                 } else {
                     validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
                     $("#validFruit" + itemId).attr("data-status", "on");

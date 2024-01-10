@@ -380,7 +380,7 @@ function updateStatusLine(itemId) {
         contentType: 'application/json',
         data: data,
         dataType: 'json',
-        success: function (data, status, xhr) {
+        success: function (data, textStatus, xhr) {
             if (xhr.status == 200) {
                 console.log(`data site by`, data);
                 if (status === 'on') {

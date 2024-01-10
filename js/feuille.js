@@ -13,11 +13,11 @@ function getDataLeave(){
                     $.each(tab, function(index, item) {
                         var content =`<li class="sidebar-item" data-id="${item.id}">`;
                             content += `<a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.name.toUpperCase()}<br/>
+                                            ${item.shape.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>`;
                             content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
-                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>`;
+                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick=""></i>`;
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                                 content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validLeave${item.id}" onclick="updateStatusLeave('${item.id}')"></i>`;
                                 content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i> `;
@@ -164,7 +164,7 @@ function sendDataLeaveWithFormData(e,form){
                             backdrop: 'static',
                             keyboard: false
                         });
-                        $('#nameItem').text(data.name.toUpperCase());
+                        $('#nameItem').text(data.shape.toUpperCase());
                     }, 3000)
                 }else{
                     $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -216,7 +216,7 @@ function sendDataLeaveWithFormData(e,form){
                             backdrop: 'static',
                             keyboard: false
                         });
-                        $('#nameItem').text(data.name.toUpperCase());
+                        $('#nameItem').text(data.shape.toUpperCase());
                     }, 3000)
                 }else{
                     $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -306,10 +306,10 @@ function updateStatusLeave(itemId) {
         contentType: 'application/json',
         data: data,
         dataType: 'json',
-        success: function (data, status, xhr) {
+        success: function (data, textStatus, xhr) {
             if (xhr.status == 200) {
-                console.log(`data site by`, data);
-                if (status === 'on') {
+                console.log(`data leaves by`, data);
+                if (status == 'on') {
                     validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
                     $("#validLeave" + itemId).attr("data-status", "off");
                     $("#validLeave" + itemId).attr("title", "Cliquez pour activer");

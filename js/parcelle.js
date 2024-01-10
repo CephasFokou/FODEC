@@ -403,7 +403,7 @@ function updateStatusParcel(itemId) {
         contentType: 'application/json',
         data: data,
         dataType: 'json',
-        success: function (data, status, xhr) {
+        success: function (data, textStatus, xhr) {
             if (xhr.status == 200) {
                 console.log(`data parcels by`, data);
                 if (status === 'on') {

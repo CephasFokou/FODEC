@@ -19,6 +19,8 @@ getDataFloorType();
 getDataRole();
 getDataSanitaryState();
 getDataFruitType();
+getDataLeaveShape();
+getDataLeaveType();
 //http://5.250.176.223:8080/api/dictionaries/7/values
 
 
@@ -297,3 +299,62 @@ function getDataFruitType(){
         }
     });
 }
+function getDataLeaveShape(){
+    $.ajax({
+        url: URI+'/api/dictionaries/10/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('LEAVE SHAPE',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.leaveShape').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.leaveShape').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataLeaveType(){
+    $.ajax({
+        url: URI+'/api/dictionaries/11/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('LEAF TYPE',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.typeLeave').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.typeLeave').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+
