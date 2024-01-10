@@ -362,7 +362,7 @@ function allSites(){
                     ]);
                     });
                         
-                    tabHeaders = ["#ID", "name", "speculation", "geneticRessource","User","creationDate"];
+                    tabHeaders = ["#ID", "name", "speculation", "geneticRessource","User"];
                     displayTabHeader(tabHeaders);
                     displayTabBody(tabBody, tabHeaders);
                     console.log(tabBody);
