@@ -17,7 +17,7 @@ function getDataFruit(){
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>`;
                             content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
-                            content +=      `<i class="fas fa-eye action_icon map_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.TreeId})"></i>`;
+                            content +=      `<i class="fas fa-eye action_icon map_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.treeId})"></i>`;
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                                 content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validFruit${item.id}" onclick="updateStatusFruit('${item.id}')"></i>`;
                                 content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalFruit(${item.id})"></i>	`;
@@ -110,7 +110,7 @@ function getDataFruitById(fruitId){
                 $('#add_fruit').attr('data-mode', 'edit');
                 $('#add_fruit').attr('data-id', data.id);
                 $('#name_fruit').val(name);
-                //$('#treeId_fruit').val(tree);
+                $('#treeId_fruit').val(tree);
                 $('#width_fruit').val(width);
                 $('#length_fruit').val(length);
                 $('#weight_fruit').val(weight);
@@ -137,7 +137,11 @@ function sendDataFruitWithFormData(e,form){
 
     var formDataObj = {};
     formData.forEach(function(value, key){
-        formDataObj[key] = value;
+        if (key=='treeId') {
+            formDataObj['treeId'] = JSON.parse(value);
+        } else {
+            formDataObj[key] = value;
+        }
     });
 
     var all_JSON = JSON.stringify(formDataObj);
