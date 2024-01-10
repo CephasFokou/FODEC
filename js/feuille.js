@@ -11,25 +11,23 @@ function getDataLeave(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
-                        var content =`<li class="sidebar-item">
-                                        <a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
-                                            ${item.shape.toUpperCase()}<br/>
+                        var content =`<li class="sidebar-item" data-id="${item.id}">`;
+                            content += `<a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                                            ${item.name.toUpperCase()}<br/>
                                             <span class="text-body-tertiary small">${item.type}</span>
-                                        </a>
-                                        <div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">
-                                            <i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>
-                                            `
-                                            if(roleUser == "ADMINISTRATEUR"|| roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
-                                                 
-                                                 ` 	  
-                                                 <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i>       
-                                                 <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${item.id})"></i>
-                                                 `	  
-                                            }
-                                            `
-                                        </div>
-                                        <div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
-                                            <div class="col-6 d-grid justify-content-center p-0">
+                                        </a>`;
+                            content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
+                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick="getTreeById(${item.id})"></i>`;
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                                content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validLeave${item.id}" onclick="updateStatusLeave('${item.id}')"></i>`;
+                                content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i> `;
+                            }	  
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                                content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
+                            }
+                            content += `</div>`;
+                            content +=     `<div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="leave_${index}" data-bs-parent="#leave_${index}">
+                                                <div class="col-6 d-grid justify-content-center p-0">
                                                 <div class="card card-image">
                                                     <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-tree image-fuild">
                                                 </div>
@@ -290,5 +288,49 @@ function allLeaves(){
             displayTabBody(["URL API  NOT FOUND"],[]);
             console.error(status + ' : ' + error);
         }
+    });
+}
+function updateStatusLeave(itemId) {
+    const status = $("#validLeave" + itemId).attr("data-status");
+    const validBtn = $("#validLeave" + itemId);
+    const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    var data = {
+        'status' : state
+    };
+    data = JSON.stringify(data);
+
+    //alert(status+" : " + state+ ' '+data)
+    $.ajax({
+        url: URI + '/api/leaves/' + itemId,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: data,
+        dataType: 'json',
+        success: function (data, status, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data site by`, data);
+                if (status === 'on') {
+                    validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                    $("#validLeave" + itemId).attr("data-status", "off");
+                    $("#validLeave" + itemId).attr("title", "Cliquez pour activer");
+                    alert('Desactivation éffectué avec succès !!!')
+                } else {
+                    validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                    $("#validLeave" + itemId).attr("data-status", "on");
+                    $("#validLeave" + itemId).attr("title", "Cliquez pour désactiver");
+                    alert('Activation éffectué avec succès !!!')
+                }
+            }
+
+        },
+        error: function(xhr, status, error) {
+            if (xhr.status == 500) {
+                console.log('Erreur 500 : ', xhr.responseText);
+            } else {
+                console.log('Erreur : ', xhr.responseText, error);
+                var errorMessage = JSON.parse(xhr.responseText).message;
+                console.log('Erreur  : ', errorMessage);
+            }
+        },
     });
 }

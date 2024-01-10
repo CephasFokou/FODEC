@@ -17,7 +17,8 @@ getDataFarmaType();
 getDataTypeActivity();
 getDataFloorType();
 getDataRole();
-
+getDataSanitaryState();
+getDataFruitType();
 //http://5.250.176.223:8080/api/dictionaries/7/values
 
 
@@ -230,6 +231,64 @@ function getDataRole(){
                         //console.log(item.name);
                 }else{
                     $('.roleUser').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataSanitaryState(){
+    $.ajax({
+        url: URI+'/api/dictionaries/13/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('sanitaryState',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.sanitaryState').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.sanitaryState').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getDataFruitType(){
+    $.ajax({
+        url: URI+'/api/dictionaries/9/values',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('TYPE FRUIT',data);
+            // console.log('code',xhr.status);
+            tab = data;
+            if (xhr.status == 200) {
+                if ($.isArray(tab) && tab.length > 0) {
+                    var options = '';
+                    var j = tab;
+                    for (var i = 0; i < j.length; i++) {
+                        options += '<option value="' + j[i].label + '">' + j[i].label.toUpperCase() + '</option>';
+                        //console.log(options);
+                    }
+                    $('.typeFruit').html(options);
+                        //console.log(item.name);
+                }else{
+                    $('.typeFruit').html($("<option></option>").attr("value", "").text('AUCUNE DONNEE DISPONIBLE'));
                 }
             }
         },
