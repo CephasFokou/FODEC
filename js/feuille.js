@@ -164,7 +164,7 @@ function sendDataLeaveWithFormData(e,form){
                             backdrop: 'static',
                             keyboard: false
                         });
-                        $('#nameItem').text(data.name.toUpperCase());
+                        $('#nameItem').text(data.shape.toUpperCase());
                     }, 3000)
                 }else{
                     $(".alert").removeClass('alert-success').addClass('alert-danger').show()
@@ -216,7 +216,7 @@ function sendDataLeaveWithFormData(e,form){
                             backdrop: 'static',
                             keyboard: false
                         });
-                        $('#nameItem').text(data.name.toUpperCase());
+                        $('#nameItem').text(data.shape.toUpperCase());
                     }, 3000)
                 }else{
                     $(".alert").removeClass('alert-success').addClass('alert-danger').show()
