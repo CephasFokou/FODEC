@@ -7,9 +7,11 @@ function getDataParcels(){
         success: function(data,status, xhr) {
             console.log('all parcels' ,data);
             if (xhr.status == 200) {
-                //tab = data;
-                if ($.isArray(data) && data.length > 0) {
-                    $.each(data, function(index, item) {
+                tab = data.data;
+                console.log('all parcels Array' ,tab);
+
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
                         var lb_latitude = item.geographicalPos.leftBottom.latitude;
                         var lb_longitude = item.geographicalPos.leftBottom.longitude;
                         var lt_latitude = item.geographicalPos.leftTop.latitude;
@@ -69,8 +71,8 @@ function getDataParcels(){
                         //console.log(item.name);
                     })
                     var options = "";
-                    for (var i = 0; i < data.length; i++) {
-                        options += '<option value="' + data[i].id + '">' + data[i].name.toUpperCase() + '</option>';
+                    for (var i = 0; i < tab.length; i++) {
+                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
                     }
                     $('#parcelId').html(options);
                 }else{
