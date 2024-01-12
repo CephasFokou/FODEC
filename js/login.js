@@ -8,7 +8,7 @@ function tooglePassword(input, elt) {
         div.attr("type", "password");
     }
 }
-if(getAuth){
+if(getAuth && getAuth!=null){
     window.location.href='index.html';
 }
 function authLogin(e,form){

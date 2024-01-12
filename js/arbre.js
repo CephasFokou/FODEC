@@ -36,7 +36,7 @@ function getDataTree(){
                         content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
                                             onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
                                         </i>`;	  
-                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR" || roleUser == "ROLE_ADMIN"){
                             content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
                         }
                         content += `</div>`;
