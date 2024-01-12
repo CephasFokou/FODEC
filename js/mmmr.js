@@ -345,6 +345,10 @@ $(document).ready(function () {
     //     // Fermer tous les éléments Collapse qui ne sont pas celui en train de s'ouvrir
     //     $('.collapse').not($(this)).collapse('hide');
     // });
+
+$(".close-side-bar").on("click", function(){
+    $('.hamburger').click();
+})
     $(window).on("load", function() {
         $('.preloader-wrap').addClass('loaded');
         //$('.preloader-wrap').fadeOut('slow');

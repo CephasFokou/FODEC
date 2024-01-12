@@ -290,6 +290,10 @@ div#alertModal {
     position: absolute;
 }
 
+.close-side-bar{
+    display: none;
+}
+
 @media (max-width: 767.98px) {
 
     body .main.login{
@@ -304,5 +308,14 @@ div#alertModal {
    .login-drone-image {
     width: 70px;
     top: 0%!important;
+    }
+
+    .close-side-bar {
+        display: flex!important;
+        position: absolute;
+        right: 0;
+        top: 10px;
+        font-size: 25px;
+        color: #f45954;
     }
 }
