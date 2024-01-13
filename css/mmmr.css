@@ -163,6 +163,9 @@ ul.sidebar-nav > li.sidebar-item {
 #map{
     z-index : 222;
 }
+#list{
+    padding: unset!important
+}
 .content-details-fruit {
     position: absolute;
     top: 0;
@@ -337,9 +340,11 @@ div#alertModal {
         padding: 10px!important;
     }
 
-    .card-body .content {   
-        height: 100vh!important;
-        width: auto!important;
-        overflow-x: auto!important;
-    }
+    
+}
+
+.card-body .content {   
+    height: 100vh!important;
+    width: auto!important;
+    overflow-x: auto!important;
 }
