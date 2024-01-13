@@ -189,3 +189,12 @@ function showAlertFailed() {
     const iconClass = 'fa-3x fa-5x my-1 fas fa-exclamation-circle text-danger';
     showAlertModal(title, content, iconClass);
 }
+function confirmAction() {
+    var confirmed = confirm("Êtes-vous sûr de vouloir effectuer cette action ?");
+
+    if (confirmed) {
+        return true;
+    } else {
+        return false;
+    }
+}

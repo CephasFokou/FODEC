@@ -393,43 +393,49 @@ function updateStatusParcel(itemId) {
     const status = $("#validParcel" + itemId).attr("data-status");
     const validBtn = $("#validParcel" + itemId);
     const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    let confirm = confirmAction();
+
     var data = {
         'status' : state
     };
     data = JSON.stringify(data);
-
-    //alert(status+" : " + state+ ' '+data)
-    $.ajax({
-        url: URI + '/api/parcels/' + itemId,
-        method: 'PUT',
-        contentType: 'application/json',
-        data: data,
-        dataType: 'json',
-        success: function (data, textStatus, xhr) {
-            if (xhr.status == 200) {
-                console.log(`data parcels by`, data);
-                if (status === 'on') {
-                    validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
-                    $("#validParcel" + itemId).attr("data-status", "off");
-                    $("#validParcel" + itemId).attr("title", "Cliquez pour activer");
-                    alert('Desactivation éffectué avec succès !!!')
-                } else {
-                    validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
-                    $("#validParcel" + itemId).attr("data-status", "on");
-                    $("#validParcel" + itemId).attr("title", "Cliquez pour désactiver");
-                    alert('Activation éffectué avec succès !!!')
+    if(confirm === true){
+        //alert(status+" : " + state+ ' '+data)
+        $.ajax({
+            url: URI + '/api/parcels/' + itemId,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: data,
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    console.log(`data parcels by`, data);
+                    if (status === 'on') {
+                        validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                        $("#validParcel" + itemId).attr("data-status", "off");
+                        $("#validParcel" + itemId).attr("title", "Cliquez pour activer");
+                        alert('Desactivation éffectué avec succès !!!')
+                    } else {
+                        validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                        $("#validParcel" + itemId).attr("data-status", "on");
+                        $("#validParcel" + itemId).attr("title", "Cliquez pour désactiver");
+                        alert('Activation éffectué avec succès !!!')
+                    }
                 }
-            }
 
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', xhr.responseText);
-            } else {
-                console.log('Erreur : ', xhr.responseText, error);
-                var errorMessage = JSON.parse(xhr.responseText).message;
-                console.log('Erreur  : ', errorMessage);
-            }
-        },
-    });
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    console.log('Erreur  : ', errorMessage);
+                }
+            },
+        });
+    }else{
+        alert("Action annulée !!!")
+    }
+
 }

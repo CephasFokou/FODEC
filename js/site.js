@@ -386,45 +386,49 @@ function updateStatusSite(itemId) {
     const status = $("#validSite" + itemId).attr("data-status");
     const validBtn = $("#validSite" + itemId);
     const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    let confirm = confirmAction();
     var data = {
         'status' : state
     };
     data = JSON.stringify(data);
-
+    if(confirm === true){
     //alert(status+" : " + state+ ' '+data)
-    $.ajax({
-        url: URI + '/api/sites/' + itemId,
-        method: 'PUT',
-        contentType: 'application/json',
-        data: data,
-        dataType: 'json',
-        success: function (data, textStatus, xhr) {
-            if (xhr.status == 200) {
-                console.log(`data site by`, data);
-                if (status === 'on') {
-                    validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
-                    $("#validSite" + itemId).attr("data-status", "off");
-                    $("#validSite" + itemId).attr("title", "Cliquez pour activer");
-                    alert('Desactivation éffectué avec succès !!!')
-                } else {
-                    validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
-                    $("#validSite" + itemId).attr("data-status", "on");
-                    $("#validSite" + itemId).attr("title", "Cliquez pour désactiver");
-                    alert('Activation éffectué avec succès !!!')
+        $.ajax({
+            url: URI + '/api/sites/' + itemId,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: data,
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    console.log(`data site by`, data);
+                    if (status === 'on') {
+                        validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                        $("#validSite" + itemId).attr("data-status", "off");
+                        $("#validSite" + itemId).attr("title", "Cliquez pour activer");
+                        alert('Desactivation éffectué avec succès !!!')
+                    } else {
+                        validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                        $("#validSite" + itemId).attr("data-status", "on");
+                        $("#validSite" + itemId).attr("title", "Cliquez pour désactiver");
+                        alert('Activation éffectué avec succès !!!')
+                    }
                 }
-            }
 
-        },
-        error: function(xhr, status, error) {
-            if (xhr.status == 500) {
-                console.log('Erreur 500 : ', xhr.responseText);
-            } else {
-                console.log('Erreur : ', xhr.responseText, error);
-                var errorMessage = JSON.parse(xhr.responseText).message;
-                console.log('Erreur  : ', errorMessage);
-            }
-        },
-    });
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    console.log('Erreur  : ', errorMessage);
+                }
+            },
+        });
+    }else{
+        alert("Action annulée !!!")
+    }
 }
 
 $(document).ready(function() {
