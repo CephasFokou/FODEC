@@ -51,9 +51,9 @@ function getDataLeave(){
                                             </div>
                                         </div>
                                     </li>`;
-                        $('#all_leaves').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
+                                    if (item.status=="ACTIVE" || roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR" ) {
+                                        $('#all_leaves').append(content);
+                                    }
                     })
                 }else{
                     console.log('Le tableau est vide.');

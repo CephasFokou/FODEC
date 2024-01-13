@@ -54,7 +54,9 @@ function getDataFruit(){
                                             </div>
                                         </div>
                                 </li>`;   
-                        $('#all_fruits').append(content);
+                                if (item.status=="ACTIVE" || roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR" ) {
+                                    $('#all_fruits').append(content);
+                                }
                         // $("#site_name").text(item.name.toUpperCase());
                         //console.log(item.name);
                     })

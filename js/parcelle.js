@@ -66,9 +66,9 @@ function getDataParcels(){
                                             </div>
                                         </ul>
                                     </li>`;
-                        $('#all_parcels').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
+                                    if (item.status=="ACTIVE" || roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR" ) {
+                                        $('#all_parcels').append(content);
+                                    }
                     })
                     var options = "";
                     for (var i = 0; i < tab.length; i++) {
