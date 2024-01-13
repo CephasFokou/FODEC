@@ -336,4 +336,10 @@ div#alertModal {
         min-width: 100%!important;
         padding: 10px!important;
     }
+
+    .card-body .content {   
+        height: 100vh!important;
+        width: auto!important;
+        overflow-x: auto!important;
+    }
 }
