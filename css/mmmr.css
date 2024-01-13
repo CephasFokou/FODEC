@@ -330,4 +330,8 @@ div#alertModal {
         font-size: 25px;
         color: #f45954;
     }
+
+    .modal.left.fade .modal-dialog{
+        left: 0!important;
+    }
 }
