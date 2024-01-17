@@ -20,6 +20,7 @@ function getDataLine(){
                         var rb_longitude = item.geographicalPos.rightBottom.longitude;
                         var rt_latitude = item.geographicalPos.rightTop.latitude;
                         var rt_longitude = item.geographicalPos.rightTop.longitude;
+                        var status = item.status;
 
                         var content =`<li class="sidebar-item">`;
                             content +=      `<a data-bs-target="#site_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed">

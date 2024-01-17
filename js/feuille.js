@@ -11,6 +11,7 @@ function getDataLeave(){
                 tab = data;
                 if ($.isArray(tab) && tab.length > 0) {
                     $.each(tab, function(index, item) {
+                        var status = item.status;
                         var content =`<li class="sidebar-item" data-id="${item.id}">`;
                             content += `<a data-bs-target="#leave_${index}" data-bs-toggle="collapse" class="sidebar-link collapsed">
                                             ${item.shape.toUpperCase()}<br/>

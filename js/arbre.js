@@ -72,6 +72,8 @@ function getDataTree(){
                     }
                     $('#treeId_fruit').html(options);
                     $('#treeId_leave').html(options);
+                    console.log("options", options)
+
                 }else{
                     console.log('Le tableau est vide.');
                 }
