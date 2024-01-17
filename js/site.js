@@ -67,8 +67,10 @@ function getDataSite(){
                                             </div>
                                         </ul>
                                     </li>`;
-                        $('#all_sites').append(content);
-                        $("#site_name").text(item.name.toUpperCase());
+                                    if (item.status=="ACTIVE" || roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR" ) {
+                                        $('#all_sites').append(content);
+                                        $("#site_name").text(item.name.toUpperCase());
+                                    }
                     })
                     //APPEL SITE SELECT BOX
                     var options = "";

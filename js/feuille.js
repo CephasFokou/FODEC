@@ -18,12 +18,12 @@ function getDataLeave(){
                                             <span class="text-body-tertiary small">${item.type}</span>
                                         </a>`;
                             content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
-                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre" onclick=""></i>`;
+                            content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Voir arbre"  onclick="getTreeById(${item.id})"></i>`;
                             if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
                                 content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validLeave${item.id}" onclick="updateStatusLeave('${item.id}')"></i>`;
                                 content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalLeave(${item.id})"></i> `;
                             }	  
-                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR"){
+                            if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR" || roleUser == "ROLE_ADMIN"){
                                 content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
                             }
                             content += `</div>`;
@@ -52,9 +52,9 @@ function getDataLeave(){
                                             </div>
                                         </div>
                                     </li>`;
-                        $('#all_leaves').append(content);
-                        // $("#site_name").text(item.name.toUpperCase());
-                        //console.log(item.name);
+                                    if (item.status=="ACTIVE" || roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR" ) {
+                                        $('#all_leaves').append(content);
+                                    }
                     })
                 }else{
                     console.log('Le tableau est vide.');
