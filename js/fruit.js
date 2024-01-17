@@ -37,6 +37,10 @@ function getDataFruit(){
                                             <div class="col-6 lh-base p-0 small text-capitalize text-muted">
                                                 <div class="d-grid">
                                                     <div class="d-flex">
+                                                        <span class=""><strong>Fruit Type : </strong> </span>
+                                                        <span class="">${item.typeFruit.replace(/_/g, ' ')}</span>
+                                                    </div>
+                                                    <div class="d-flex">
                                                         <span class=""><strong>Largeur : </strong> </span>
                                                         <span class="">${item.width}</span>
                                                     </div>

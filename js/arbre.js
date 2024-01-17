@@ -324,18 +324,12 @@ function getTreeById(treeId){
                         var rb_longitude = data.geographicalPos.rightBottom.longitude;
                         var rt_latitude = data.geographicalPos.rightTop.latitude;
                         var rt_longitude = data.geographicalPos.rightTop.longitude;
+
+                        var referenceFruit = data.referenceFruit;
                         var content =`
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: auto;">
                             <img src="${URI}/api/images/${data.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
                                 <div class="card-body">
-                                    <div class="d-flex icone-content">
-                                    <i class="fas fa-eye action_icon view_icon" id="view_icon_${data.id}" title="Lister fruits d'un arbre'" onclick="viewList('${data.name}', 'fruits', ${data.id})"></i>
-                                    <i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${data.id}" title="Cliquez pour editer" onclick="editArbre(${data.id})"></i>
-                                    <i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${data.id}" title="Afficher localisation" 
-                                        onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${data.name.toUpperCase()}')">
-                                    </i>	  
-                                    <i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${data.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('trees', ${data.id})"></i>	  
-                                    </div>
                                     <div class="col-6 lh-base p-0  text-capitalize text-muted">
                                         <div class="d-grid">
                                             <div class="d-flex">
@@ -350,7 +344,34 @@ function getTreeById(treeId){
                                     </div>
                                 </div>
                         </div>`;
-
+                        if(referenceFruit != null) {
+                                content +=`
+                                        <div class="card" style="width: auto;">
+                                            <img src="${URI}/api/images/${referenceFruit.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                                <div class="card-body">
+                                                    <div class="col-md-12 lh-base p-0  text-capitalize text-muted">
+                                                        <div class="d-grid">
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Largeur : </strong> </span>
+                                                                <span class="">${referenceFruit.width}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Longueur : </strong> </span>
+                                                                <span class="">${referenceFruit.length}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Poids : </strong> </span>
+                                                                <span class="">${referenceFruit.weight}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Couleur : </strong> </span>
+                                                                <span class=" mx-1"> <i class="fas fa-circle" style="color:${referenceFruit.color}"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>`;
+                        }
                         $("#alertModal .modal-title").text(data.name)
                         setContentInModal("alertModal", content, "left");
                         
