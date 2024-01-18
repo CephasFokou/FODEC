@@ -1,0 +1,508 @@
+/** GET DATA TREE */
+function getDataTree(){
+    //alert(237)
+    $.ajax({
+        url: URI+'/api/trees',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('all arbre' ,data);
+            if (xhr.status == 200) {
+                tab = data;
+                if ($.isArray(tab) && tab.length > 0) {
+                    $.each(tab, function(index, item) {
+                        var lb_latitude = item.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = item.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = item.geographicalPos.leftTop.latitude;
+                        var lt_longitude = item.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = item.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = item.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = item.geographicalPos.rightTop.latitude;
+                        var rt_longitude = item.geographicalPos.rightTop.longitude;
+                        var status = item.status;
+
+                        var content =`<li class="sidebar-item" data-id="${item.id}">`;
+                        content += `<a data-bs-target="#tree_${item.id}" data-bs-toggle="collapse" class="sidebar-link collapsed"">
+                                        ${item.name.toUpperCase()}<br/>
+                                        <span class="text-body-tertiary small">${item.name}</span>
+                                    </a>`;
+                        content +=`<div class="d-flex end-0 float-end mt-2 position-absolute position-relative top-0">`;
+                        content +=      `<i class="fas fa-eye action_icon view_icon" id="view_icon_${item.id}" title="Lister fruits d'un arbre'" onclick="viewList('${item.name}', 'fruits', ${item.id})"></i>`;
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR"){
+                            content +=      `<i class="fas fa-toggle-${ status == "ACTIVE" ? "on" : "off"} action_icon valid_icon" data-status="${ status == "ACTIVE" ? "on" : "off"}" title="Cliquez pour ${ status == "ACTIVE" ? "desactiver" : "activer"} " id="validTree${item.id}" onclick="updateStatusTree('${item.id}')"></i>`;
+                            content +=      `<i class="fas fa-pencil action_icon edit_icon" id="edit_icon_${item.id}" title="Cliquez pour editer" onclick="openModalTree(${item.id})"></i>`;
+                        }
+                        content +=      `<i class="fas fa-map-marked-alt action_icon map_icon" id="action_icon map_icon_${item.id}" title="Afficher localisation" 
+                                            onclick="updateMap('${lt_latitude}','${lt_longitude}','${lb_latitude}','${lb_longitude}','${rt_latitude}','${rt_longitude}','${rb_latitude}','${rb_longitude}','${item.name.toUpperCase()}')">
+                                        </i>`;	  
+                        if(roleUser == "ADMINISTRATEUR" || roleUser == "AGENT VALIDATEUR" || roleUser == "ROLE_ADMIN"){
+                            content +=     `<i class="fas fa-trash-alt action_icon delete_icon" id="delete_icon_${item.id}" title="Cliquez pour supprimer" onclick="confirmDeleteItem('sites', ${item.id})"></i>`;
+                        }
+                        content += `</div>`;
+                        content +=     `<div class="collapse sidebar-dropdown border-1 border-bottom mx-4 row" id="tree_${item.id}">
+                                            <div class="col-6 d-grid justify-content-center p-0">
+                                                <div class="card card-image">
+                                                    <img src="${URI}/api/images/${item.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="img-tree image-fuild">
+                                                </div>
+                                            </div>
+                                            <div class="col-6 lh-base p-0  text-capitalize text-muted">
+                                                <div class="d-grid">
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Nbr Parent M :</strong> </span>
+                                                        <span class="">${item.parentMale}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class=""><strong>Nbr Parent F :</strong> </span>
+                                                        <span class="">${item.parentMale}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>`;
+                                    
+                                   
+                                    if (item.status=="ACTIVE" || roleUser == "ADMINISTRATEUR" || roleUser == "ROLE_ADMIN" || roleUser == "AGENT VALIDATEUR" ) {
+                                        $('#all_trees').append(content);
+                                    }
+                    })
+                    var options = "";
+                    for (var i = 0; i < tab.length; i++) {
+                        options += '<option value="' + tab[i].id + '">' + tab[i].name.toUpperCase() + '</option>';
+                    }
+                    $('#treeId_fruit').html(options);
+                    $('#treeId_leave').html(options);
+                    console.log("options", options)
+
+                }else{
+                    console.log('Le tableau est vide.');
+                }
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+
+function openModalTree(TreeId) {
+    //alert(parcelId);
+    getDataTreeById(TreeId);
+    //$('#addFarms').appendTo('body');
+    $('#addTree').modal('show');
+
+}
+function openAddTreeModal(){
+    //alert(237)
+    $("#add_tree").get(0).reset();
+    //$('#add_site').trigger('reset');
+    $('#addTree').modal('show');
+    $('#titleTree').text("Enregistrement d'un arbre");
+    $('#add_tree').attr('data-mode', 'add');
+    //alert(userId)
+    //$('#userId').val(userId);
+    
+}
+function getDataTreeById(TreeId){
+    $.ajax({
+        url: URI+'/api/trees/'+TreeId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            if (xhr.status == 200) {
+                console.log(`data Tree by`, data);
+                var lb_latitude = data.geographicalPos.leftBottom.latitude;
+                var lb_longitude = data.geographicalPos.leftBottom.longitude;
+                var lt_latitude = data.geographicalPos.leftTop.latitude;
+                var lt_longitude = data.geographicalPos.leftTop.longitude;
+
+                var rb_latitude = data.geographicalPos.rightBottom.latitude;
+                var rb_longitude = data.geographicalPos.rightBottom.longitude;
+                var rt_latitude = data.geographicalPos.rightTop.latitude;
+                var rt_longitude = data.geographicalPos.rightTop.longitude;
+                var name = data.name;
+                var line = data.line;
+                var parentMale = data.parentMale;
+                var parentFemale = data.parentFemale;
+                var altitude = data.altitude;
+               
+                //alert(farm)
+                $('#titleTree').text("Edition de l'arbre "+name)
+                $('#add_tree').attr('data-mode', 'edit');
+                $('#add_tree').attr('data-id', data.id);
+                $('#nameTree').val(name);
+                //$('#lineId_tree').val(line);
+                $('#parentMale').val(parentMale);
+                $('#parentFemale').val(parentFemale);
+                $('#altitude_tree').val(altitude);
+
+                $('#lb_latitude_tree').val(lb_latitude);
+                $('#lb_longitude_tree').val(lb_longitude);
+                $('#lt_latitude_tree').val(lt_latitude);
+                $('#lt_longitude_tree').val(lt_longitude);
+                $('#rb_latitude_tree').val(rb_latitude);
+                $('#rb_longitude_tree').val(rb_longitude);
+                $('#rt_latitude_tree').val(rt_latitude);
+                $('#rt_longitude_tree').val(rt_longitude);
+                //$('#name').val(name);
+                
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' URL NOT FOUND : ' + error);
+        }
+    });
+}
+
+/** POST DATA TREE */
+function sendDataTreeWithFormData(e,form){
+    e.preventDefault();
+    var form_ = $('#'+form)[0];
+    var formData = new FormData(form_);
+
+    // Ajout de données supplémentaires à l'objet FormData existant
+    var secondJSON = {
+        geographicalPos: {
+            leftBottom: { 
+                latitude: $('#lb_latitude_tree').val() == null ? 0 : $('#lb_latitude_tree').val(),
+                longitude: $('#lb_longitude_tree').val() == null ? 0 : $('#lb_longitude_tree').val()
+            },
+            leftTop: { 
+                latitude: $('#lt_latitude_tree').val() == null ? 0 : $('#lt_latitude_tree').val(), 
+                longitude: $('#lt_longitude_tree').val() == null ? 0 : $('#lt_longitude_tree').val() 
+            },
+            rightBottom: { 
+                latitude: $('#rb_latitude_tree').val() == null ? 0 : $('#rb_latitude_tree').val(), 
+                longitude: $('#rb_longitude_tree').val() == null ? 0 : $('#rb_longitude_tree').val() 
+            },
+            rightTop: { 
+                latitude: $('#rt_latitude_tree').val() == null ? 0 : $('#rt_latitude_tree').val(), 
+                longitude: $('#rt_longitude_tree').val() == null ? 0 : $('#rt_longitude_tree').val()
+            }
+        }
+    };
+    var formDataObj = {};
+    formData.forEach(function(value, key){
+        formDataObj[key] = value;
+    });
+
+    // Affichage des données JSON dans la console
+    console.log("objet 1",formDataObj);
+    console.log("objet 2",secondJSON);    
+    
+    // Ajout des propriétés du deuxième objet au premier objet
+    Object.assign(formDataObj, secondJSON);
+    var all_JSON = JSON.stringify(formDataObj);
+
+    // Affichage du premier objet JSON mis à jour dans la console
+    console.log('ALL JSON',all_JSON);
+    var mode = $('#'+form).attr('data-mode');
+    if (mode == "add") {
+        $.ajax({
+            url: URI+'/api/trees',
+            type: "POST",
+            contentType: 'application/json',
+            data: all_JSON,
+            dataType: "json",
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data,status, xhr) {
+                console.log(data,status,xhr);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text(data.name.toUpperCase()+ " ENREGISTRE AVEC SUCCES !!!");             
+                    $("#"+form).get(0).reset();
+                    itemId = data.id;
+                    typeForm = "tree";
+                    setTimeout(function(){
+                        $('#addTree').modal('hide');
+                        $('#addItem').modal('show');
+                        $('#addItem').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#nameItem').text(data.name.toUpperCase());
+                    }, 3000)
+                }else{
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                    $('.btn_submit').prop('disabled', false);
+                }
+
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            }
+        });
+    }else if(mode == "edit"){
+        var treeId = $('#'+form).attr('data-id');
+        $.ajax({
+            url: URI+'/api/trees/'+treeId,
+            type: "PUT",
+            contentType: 'application/json',
+            data: all_JSON,
+            dataType: "json",
+            beforeSend: function() {
+                $('.btn_submit').prop('disabled', true);
+            },
+            success: function(data,status, xhr) {
+                console.log(data,status,xhr);
+                if (xhr.status == 200 || xhr.status == 201) {
+                    $(".alert").removeClass('alert-danger').addClass('alert-success').show()
+                    $(".alert-message").text(data.name.toUpperCase()+ " MODIFIE AVEC SUCCES !!!");             
+                    $("#"+form).get(0).reset();
+                    itemId = data.id;
+                    typeForm = "tree";
+                    setTimeout(function(){
+                        $('#addTree').modal('hide');
+                        $('#addItem').modal('show');
+                        $('#addItem').modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+                        $('#nameItem').text(data.name.toUpperCase());
+                    }, 3000)
+                }else{
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(data.message+ ' '+data.httpStatus);  
+                    $('.btn_submit').prop('disabled', false);
+                }
+
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text('Une erreur est survenue durant le traitement de votre requête');
+                    $('.btn_submit').prop('disabled', false);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    $(".alert").removeClass('alert-success').addClass('alert-danger').show()
+                    $(".alert-message").text(errorMessage);
+                    $('.btn_submit').prop('disabled', false);
+                }
+            }
+        });
+    }    
+}
+
+
+
+
+
+
+
+function getTreeById(treeId){
+    $.ajax({
+        url: URI+'/api/trees/'+treeId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('treeData' ,data);
+            if (xhr.status == 200) {
+                        var lb_latitude = data.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = data.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = data.geographicalPos.leftTop.latitude;
+                        var lt_longitude = data.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = data.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = data.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = data.geographicalPos.rightTop.latitude;
+                        var rt_longitude = data.geographicalPos.rightTop.longitude;
+
+                        var referenceFruit = data.referenceFruit;
+                        var content =`
+                        <div class="card" style="width: auto;">
+                            <img src="${URI}/api/images/${data.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <div class="col-6 lh-base p-0  text-capitalize text-muted">
+                                        <div class="d-grid">
+                                            <div class="d-flex">
+                                                <span class=""><strong>Nbr Parent M :</strong> </span>
+                                                <span class="">${data.parentMale}</span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class=""><strong>Nbr Parent F :</strong> </span>
+                                                <span class="">${data.parentMale}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>`;
+                        if(referenceFruit != null) {
+                                content +=`
+                                        <div class="card" style="width: auto;">
+                                            <img src="${URI}/api/images/${referenceFruit.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                                <div class="card-body">
+                                                    <div class="col-md-12 lh-base p-0  text-capitalize text-muted">
+                                                        <div class="d-grid">
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Largeur : </strong> </span>
+                                                                <span class="">${referenceFruit.width}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Longueur : </strong> </span>
+                                                                <span class="">${referenceFruit.length}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Poids : </strong> </span>
+                                                                <span class="">${referenceFruit.weight}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Couleur : </strong> </span>
+                                                                <span class=" mx-1"> <i class="fas fa-circle" style="color:${referenceFruit.color}"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>`;
+                        }
+                        $("#alertModal .modal-title").text(data.name)
+                        setContentInModal("alertModal", content, "left");
+                        
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+function getTreeByIdForLeave(treeId){
+    $.ajax({
+        url: URI+'/api/trees/'+treeId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('treeData' ,data);
+            if (xhr.status == 200) {
+                        var lb_latitude = data.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = data.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = data.geographicalPos.leftTop.latitude;
+                        var lt_longitude = data.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = data.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = data.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = data.geographicalPos.rightTop.latitude;
+                        var rt_longitude = data.geographicalPos.rightTop.longitude;
+
+                        var referenceLeaf = data.referenceLeaf;
+                        var content =`
+                        <div class="card" style="width: auto;">
+                            <img src="${URI}/api/images/${data.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <div class="col-6 lh-base p-0  text-capitalize text-muted">
+                                        <div class="d-grid">
+                                            <div class="d-flex">
+                                                <span class=""><strong>Nbr Parent M :</strong> </span>
+                                                <span class="">${data.parentMale}</span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class=""><strong>Nbr Parent F :</strong> </span>
+                                                <span class="">${data.parentMale}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>`;
+                        if(referenceLeaf != null) {
+                                content +=`
+                                        <div class="card" style="width: auto;">
+                                            <img src="${URI}/api/images/${referenceLeaf.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                                <div class="card-body">
+                                                    <div class="col-md-12 lh-base p-0  text-capitalize text-muted">
+                                                        <div class="d-grid">
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Size : </strong> </span>
+                                                                <span class="">${referenceLeaf.size}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Poids : </strong> </span>
+                                                                <span class="">${referenceLeaf.weight}</span>
+                                                            </div>
+                                                            
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Couleur : </strong> </span>
+                                                                <span class=" mx-1"> <i class="fas fa-circle" style="color:${referenceLeaf.color}"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>`;
+                        }
+                        $("#alertModal .modal-title").text(data.name)
+                        setContentInModal("alertModal", content, "left");
+                        
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
+
+function updateStatusTree(itemId) {
+    const status = $("#validTree" + itemId).attr("data-status");
+    const validBtn = $("#validTree" + itemId);
+    const state = status == "on" ? "INACTIVE" : "ACTIVE";
+    let confirm = confirmAction();
+    var data = {
+        'status' : state
+    };
+    data = JSON.stringify(data);
+    if(confirm === true) {
+        //alert(status+" : " + state+ ' '+data)
+        $.ajax({
+            url: URI + '/api/trees/'+itemId,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: data,
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                if (xhr.status == 200) {
+                    console.log(`data Tree by`, data);
+                    if (status === 'on') {
+                        validBtn.removeClass("fa-toggle-on").addClass("fa-toggle-off");
+                        $("#validTree" + itemId).attr("data-status", "off");
+                        $("#validTree" + itemId).attr("title", "Cliquez pour activer");
+                        alert('Desactivation éffectué avec succès !!!')
+                    } else {
+                        validBtn.removeClass("fa-toggle-off").addClass("fa-toggle-on");
+                        $("#validTree" + itemId).attr("data-status", "on");
+                        $("#validTree" + itemId).attr("title", "Cliquez pour désactiver");
+                        alert('Activation éffectué avec succès !!!')
+                    }
+                }
+
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status == 500) {
+                    console.log('Erreur 500 : ', xhr.responseText);
+                } else {
+                    console.log('Erreur : ', xhr.responseText, error);
+                    var errorMessage = JSON.parse(xhr.responseText).message;
+                    console.log('Erreur  : ', errorMessage);
+                }
+            },
+        });
+    }else{
+        alert("Action annulée !!!")
+    }
+
+}
