@@ -383,6 +383,79 @@ function getTreeById(treeId){
         }
     });
 }
+function getTreeByIdForLeave(treeId){
+    $.ajax({
+        url: URI+'/api/trees/'+treeId,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data,status, xhr) {
+            console.log('treeData' ,data);
+            if (xhr.status == 200) {
+                        var lb_latitude = data.geographicalPos.leftBottom.latitude;
+                        var lb_longitude = data.geographicalPos.leftBottom.longitude;
+                        var lt_latitude = data.geographicalPos.leftTop.latitude;
+                        var lt_longitude = data.geographicalPos.leftTop.longitude;
+
+                        var rb_latitude = data.geographicalPos.rightBottom.latitude;
+                        var rb_longitude = data.geographicalPos.rightBottom.longitude;
+                        var rt_latitude = data.geographicalPos.rightTop.latitude;
+                        var rt_longitude = data.geographicalPos.rightTop.longitude;
+
+                        var referenceLeaf = data.referenceLeaf;
+                        var content =`
+                        <div class="card" style="width: auto;">
+                            <img src="${URI}/api/images/${data.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                <div class="card-body">
+                                    <div class="col-6 lh-base p-0  text-capitalize text-muted">
+                                        <div class="d-grid">
+                                            <div class="d-flex">
+                                                <span class=""><strong>Nbr Parent M :</strong> </span>
+                                                <span class="">${data.parentMale}</span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class=""><strong>Nbr Parent F :</strong> </span>
+                                                <span class="">${data.parentMale}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>`;
+                        if(referenceLeaf != null) {
+                                content +=`
+                                        <div class="card" style="width: auto;">
+                                            <img src="${URI}/api/images/${referenceLeaf.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
+                                                <div class="card-body">
+                                                    <div class="col-md-12 lh-base p-0  text-capitalize text-muted">
+                                                        <div class="d-grid">
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Size : </strong> </span>
+                                                                <span class="">${referenceLeaf.size}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Poids : </strong> </span>
+                                                                <span class="">${referenceLeaf.weight}</span>
+                                                            </div>
+                                                            
+                                                            <div class="d-flex">
+                                                                <span class=""><strong>Couleur : </strong> </span>
+                                                                <span class=" mx-1"> <i class="fas fa-circle" style="color:${referenceLeaf.color}"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>`;
+                        }
+                        $("#alertModal .modal-title").text(data.name)
+                        setContentInModal("alertModal", content, "left");
+                        
+            }
+          
+        },
+        error: function(xhr, status, error) {
+            console.error(status + ' : ' + error);
+        }
+    });
+}
 
 function updateStatusTree(itemId) {
     const status = $("#validTree" + itemId).attr("data-status");
