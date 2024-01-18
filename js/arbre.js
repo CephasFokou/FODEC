@@ -330,7 +330,10 @@ function getTreeById(treeId){
                         <div class="card" style="width: auto;">
                             <img src="${URI}/api/images/${data.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
                                 <div class="card-body">
-                                    <div class="col-6 lh-base p-0  text-capitalize text-muted">
+                                <div class="position-absolute top-0 bg-light-subtle start-0 px-2 rounded-end-4">
+                                    <h6 class="d-flex text-muted">Arbre parent du fruit</h6>
+                                </div>    
+                                <div class="col-6 lh-base p-0  text-capitalize text-muted">
                                         <div class="d-grid">
                                             <div class="d-flex">
                                                 <span class=""><strong>Nbr Parent M :</strong> </span>
@@ -346,6 +349,11 @@ function getTreeById(treeId){
                         </div>`;
                         if(referenceFruit != null) {
                                 content +=`
+                                        <hr class="mt-2">
+                                        <div class="">
+                                            <h4 class="d-flex h3 mb-0 text-capitalize">`+referenceFruit.name+`</h4>
+                                            <h6 class="d-flex text-muted">Fruit Type de l'abre <strong class="mx-1">`+data.name+`</strong></h6>
+                                        </div>
                                         <div class="card" style="width: auto;">
                                             <img src="${URI}/api/images/${referenceFruit.image}" onerror="this.onerror=null; this.src='./img/standard-img.png';" alt="" class="card-img-top">
                                                 <div class="card-body">
